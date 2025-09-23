@@ -85,16 +85,16 @@
   <!--添加一个访问量-->
   <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
   </br>
+  </center>
     <span id="runtime_span"></span>
     <script type="text/javascript">
       document.addEventListener('DOMContentLoaded', function() {
         var runtime_span = document.getElementById('runtime_span');
+        function show_runtime() {
+          // 1 秒更新一次
+          setTimeout(show_runtime, 1000);
 
-<pre><code>    function show_runtime() {
-      // 1 秒更新一次
-      setTimeout(show_runtime, 1000);
-
-      // 定义开始时间（本地时间，月份仍然从 0 开始：9=10月）
+<pre><code>      // 定义开始时间（本地时间，月份仍然从 0 开始：9=10月）
       var startTime = new Date(2018, 9, 12, 0, 0, 0).getTime();
       var nowTime = new Date().getTime();
       var diff = nowTime - startTime;
@@ -122,7 +122,6 @@
   });
 &lt;/script&gt;
 </code></pre>
-</center>
 </br>
 本站由 [VirusL](/about/) 使用 [Stellar 1.33.1](https://github.com/xaoxuu/hexo-theme-stellar/tree/1.33.1) 主题创建。
 本博客所有文章除特别声明外，均采用 [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/) 许可协议，转载请注明出处。

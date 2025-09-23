@@ -135,14 +135,53 @@
 
 
 
-<footer class="page-footer footnote"><hr><div class="text"><center>
-  <br>
+<footer class="page-footer footnote"><hr><span class="totalcount">共发表 1 篇Blog · </span><span class="post-count">总计 75 字</span><div class="text"><center>
   <!--不蒜子计数器-->
   <script async="" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
   <!--添加一个访问量-->
   <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
-  
-<p>本站由 <a href="/">VirusL</a> 使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.33.1">Stellar 1.33.1</a> 主题创建。<br>本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。</p>
+  </br>
+    <span id="runtime_span"></span>
+
+<pre><code>&lt;script type=&quot;text/javascript&quot;&gt;
+  document.addEventListener(&#39;DOMContentLoaded&#39;, function() {
+    var runtime_span = document.getElementById(&#39;runtime_span&#39;);
+
+    function show_runtime() {
+      // 1 秒更新一次
+      setTimeout(show_runtime, 1000);
+
+      // 定义开始时间（本地时间，月份仍然从 0 开始：9=10月）
+      var startTime = new Date(2018, 9, 12, 0, 0, 0).getTime();
+      var nowTime = new Date().getTime();
+      var diff = nowTime - startTime;
+
+      // 时间单位
+      var seconds = 1000;
+      var minutes = seconds * 60;
+      var hours   = minutes * 60;
+      var days    = hours * 24;
+      var years   = days * 365;
+
+      // 计算差值
+      var diffYears   = Math.floor(diff / years);
+      var diffDays    = Math.floor((diff % years) / days);
+      var diffHours   = Math.floor((diff % days) / hours);
+      var diffMinutes = Math.floor((diff % hours) / minutes);
+      var diffSeconds = Math.floor((diff % minutes) / seconds);
+
+      // 更新显示
+      runtime_span.textContent =
+        `🦉营业：${diffYears} 年 ${diffDays} 天 ${diffHours} 小时 ${diffMinutes} 分钟 ${diffSeconds} 秒🦉`;
+    }
+
+    show_runtime(); // 启动定时器
+  });
+&lt;/script&gt;
+</code></pre>
+  </center>
+本站由 [VirusL](/) 使用 [Stellar 1.33.1](https://github.com/xaoxuu/hexo-theme-stellar/tree/1.33.1) 主题创建。
+本博客所有文章除特别声明外，均采用 [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/) 许可协议，转载请注明出处。
 </div></footer>
 <div class="main-mask" onclick="sidebar.dismiss()"></div></div><aside class="l_right">
 <div class="widgets">

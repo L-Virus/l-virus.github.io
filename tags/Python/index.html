@@ -17,13 +17,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#000">
   <meta name="theme-color" content="#f9fafb">
-  <title>标签 - 美好的明天</title>
+  <title>标签：Python - 美好的明天</title>
 
   
     <meta name="description" content="This is VirusL&#39;s homepage">
 <meta property="og:type" content="website">
-<meta property="og:title" content="标签">
-<meta property="og:url" content="http://example.com/tags/">
+<meta property="og:title" content="美好的明天">
+<meta property="og:url" content="http://example.com/tags/Python/">
 <meta property="og:site_name" content="美好的明天">
 <meta property="og:description" content="This is VirusL&#39;s homepage">
 <meta property="og:locale" content="zh_CN">
@@ -53,7 +53,7 @@
 </head>
 <body>
 
-<div class="l_body index" id="start" layout="tags" type="undefined" ><aside class="l_left"><div class="sidebg"></div><div class="leftbar-container">
+<div class="l_body index" id="start" layout="undefined" type="undefined" ><aside class="l_left"><div class="sidebg"></div><div class="leftbar-container">
 
 
 <header class="header"><div class="logo-wrap"><a class="avatar" href="/about/"><div class="bg" style="opacity:0;background-image:url(https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/avatar/round/rainbow64@3x.webp);"></div><img no-lazy class="avatar" src="/images/avatar.jpg" onerror="javascript:this.classList.add('error');this.src='https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/image/2659360.svg';"></a><a class="title" href="/"><div class="main">美好的明天</div><div class="sub normal cap">关于碎碎念和技术分享</div><div class="sub hover cap" style="opacity:0">太卷了</div></a></div></header>
@@ -72,41 +72,22 @@
 
 <header class="header mobile-only"><div class="logo-wrap"><a class="avatar" href="/about/"><div class="bg" style="opacity:0;background-image:url(https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/avatar/round/rainbow64@3x.webp);"></div><img no-lazy class="avatar" src="/images/avatar.jpg" onerror="javascript:this.classList.add('error');this.src='https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/image/2659360.svg';"></a><a class="title" href="/"><div class="main">美好的明天</div><div class="sub normal cap">关于碎碎念和技术分享</div><div class="sub hover cap" style="opacity:0">太卷了</div></a></div></header>
 
+ 
 
-  
-  
-  
 
-<div class="navbar top"><div class="navbar-blur"><div class="navbar-container"><nav class="post"><a href="/">近期发布</a><a class="active" href="/tags/">标签</a><a href="/topic/">专栏</a><a href="/archives/">归档</a></nav></div></div></div>
-  <div class='post-list'>
-    <article class='' id='tags'>
-      
-        <a class='tag' href="/tags/Git/">
-          <span class='name'>Git</span>
-        </a>
-      
-        <a class='tag' href="/tags/stellar/">
-          <span class='name'>stellar</span>
-        </a>
-      
-        <a class='tag' href="/tags/Hexo/">
-          <span class='name'>Hexo</span>
-        </a>
-      
-        <a class='tag' href="/tags/%E7%9E%8E%E6%8A%98%E8%85%BE/">
-          <span class='name'>瞎折腾</span>
-        </a>
-      
-        <a class='tag' href="/tags/Deep-Learning/">
-          <span class='name'>Deep Learning</span>
-        </a>
-      
-        <a class='tag' href="/tags/Python/">
-          <span class='name'>Python</span>
-        </a>
-      
-    </article>
-  </div>
+
+
+<div class="navbar top"><div class="navbar-blur"><div class="navbar-container"><nav class="post"><a href="/">近期发布</a><a class="active" href="/tags/">标签：Python</a><a href="/topic/">专栏</a><a href="/archives/">归档</a></nav></div></div></div>
+<div class="post-list post"><div class="post-card-wrap"><a class="post-card post" href="/2025/09/24/%E5%AE%89%E8%A3%85PyTorch%E5%8F%8ATorchvision/">
+<article class="md-text"><h2 class="post-title">安装PyTorch及Torchvision</h2><div class="excerpt"><p>[TOC]
+1.创建虚拟环境
+
+具体查看我之前写的《在Windows中利用Python的venv和virtualenv创建虚拟环境》
+2. 检查显卡版本和CUDA
+
+
+这种情况是需要电脑上有单独的英伟达的显卡、或者英伟达的显卡和集显这两种情况都是可以...</p></div><div class="meta cap"><span class="cap" id="post-meta"><svg style="margin-bottom:2px" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="M6.94 2c.416 0 .753.324.753.724v1.46c.668-.012 1.417-.012 2.26-.012h4.015c.842 0 1.591 0 2.259.013v-1.46c0-.4.337-.725.753-.725s.753.324.753.724V4.25c1.445.111 2.394.384 3.09 1.055c.698.67.982 1.582 1.097 2.972L22 9H2v-.724c.116-1.39.4-2.302 1.097-2.972c.697-.67 1.645-.944 3.09-1.055V2.724c0-.4.337-.724.753-.724"/><path fill="currentColor" d="M22 14v-2c0-.839-.004-2.335-.017-3H2.01c-.013.665-.01 2.161-.01 3v2c0 3.771 0 5.657 1.172 6.828C4.343 22 6.228 22 10 22h4c3.77 0 5.656 0 6.828-1.172C22 19.658 22 17.772 22 14" opacity=".5"/><path fill="currentColor" d="M18 17a1 1 0 1 1-2 0a1 1 0 0 1 2 0m0-4a1 1 0 1 1-2 0a1 1 0 0 1 2 0m-5 4a1 1 0 1 1-2 0a1 1 0 0 1 2 0m0-4a1 1 0 1 1-2 0a1 1 0 0 1 2 0m-5 4a1 1 0 1 1-2 0a1 1 0 0 1 2 0m0-4a1 1 0 1 1-2 0a1 1 0 0 1 2 0"/></svg><time datetime="2025-09-24T15:20:50.748Z">2025-09-24</time></span></div></article>
+</a></div></div>
 
 
 <footer class="page-footer footnote"><hr><div class="sitemap" style="column-count:1;"><div class="sitemap-group"><span class="fs15">博客</span><a href="/">近期发布</a><a href="/blog/categories/">分类</a><a href="/blog/tags/">标签</a><a href="/blog/archives/">归档</a></div></div><div class="text"><center>

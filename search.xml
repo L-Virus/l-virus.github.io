@@ -1,11 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title></title>
-    <url>/2025/09/24/%E5%8D%9A%E5%AE%A2%E4%B9%A6%E5%86%99%E6%96%87%E6%A1%A3/</url>
-    <content><![CDATA[]]></content>
-  </entry>
-  <entry>
     <title>Hello World</title>
     <url>/2025/09/23/hello-world/</url>
     <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
@@ -22,5 +17,39 @@
 
 <p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
 ]]></content>
+  </entry>
+  <entry>
+    <title>Git配置proxy</title>
+    <url>/2025/09/24/Git%E9%85%8D%E7%BD%AEproxy/</url>
+    <content><![CDATA[<h1 id="查看git配置"><a href="#查看git配置" class="headerlink" title="查看git配置"></a>查看git配置</h1><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git config  --list</span><br><span class="line">git config --global --list</span><br></pre></td></tr></table></figure>
+<h1 id="配置proxy"><a href="#配置proxy" class="headerlink" title="配置proxy"></a>配置proxy</h1><h2 id="两种proxy方式"><a href="#两种proxy方式" class="headerlink" title="两种proxy方式"></a>两种proxy方式</h2><blockquote>
+<p>走http&#x2F;https形式：git clone <a href="https://github.com/xxxxx">https://github.com/xxxxx</a><br>走ssh 形式：git clone <a href="mailto:&#103;&#105;&#x74;&#64;&#103;&#105;&#x74;&#104;&#117;&#98;&#46;&#x63;&#x6f;&#x6d;">git@github.com</a>:xxxxx</p>
+</blockquote>
+<h3 id="走http-https"><a href="#走http-https" class="headerlink" title="走http&#x2F;https"></a>走http&#x2F;https</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git config --global http.proxy <span class="string">&quot;http://127.0.0.1:7890&quot;</span></span><br><span class="line">git config --global https.proxy <span class="string">&quot;https://127.0.0.1:7890&quot;</span></span><br></pre></td></tr></table></figure>
+<h3 id="取消proxy"><a href="#取消proxy" class="headerlink" title="取消proxy"></a>取消proxy</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git config --global --<span class="built_in">unset</span> http.proxy</span><br><span class="line">git config --global --<span class="built_in">unset</span> https.proxy</span><br></pre></td></tr></table></figure>
+<h3 id="走ssh"><a href="#走ssh" class="headerlink" title="走ssh"></a>走ssh</h3><blockquote>
+<p>修改 .ssh&#x2F;config 文件（不存在则新建，Windows 一般在 C:\Users\YourName.ssh)文件夹下面新建一个文件 config，注意没有任何后缀名，就叫 config）：</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 必须是 github.com</span></span><br><span class="line">Host github.com</span><br><span class="line">   HostName github.com</span><br><span class="line">   User git</span><br><span class="line">   <span class="comment"># 走 HTTP 代理</span></span><br><span class="line">   ProxyCommand connect -H 127.0.0.1:7890 %h %p</span><br></pre></td></tr></table></figure>]]></content>
+      <tags>
+        <tag>Git</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Stellar设置专栏（topic）</title>
+    <url>/2025/09/24/Stellar%E8%AE%BE%E7%BD%AE%E4%B8%93%E6%A0%8F/</url>
+    <content><![CDATA[<h1 id="专栏文件夹的配置"><a href="#专栏文件夹的配置" class="headerlink" title="专栏文件夹的配置"></a>专栏文件夹的配置</h1><p>在 <code>blog/source/_data/</code> 文件夹中创建一个 <code>topic</code> 文件夹，在其中放入各个专栏的描述文件，文件名就是项目的 <code>id</code>：</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">name:</span> <span class="string">Stellar</span> <span class="comment"># 在面包屑导航上会显示较短的名字</span></span><br><span class="line"><span class="attr">title:</span> <span class="string">Stellar</span> <span class="bullet">-</span> <span class="string">每个人的独立博客</span> <span class="comment"># 在列表页会显示完整的专栏标题</span></span><br><span class="line"><span class="attr">description:</span> <span class="string">关于搭建独立博客相关的知识和经验分享，以及</span> <span class="string">Stellar</span> <span class="string">的高级用法、版本更新相关的注意事项。</span></span><br><span class="line"><span class="attr">order_by:</span> <span class="string">-date</span> <span class="comment"># 默认是按发布日期倒序排序</span></span><br><span class="line"><span class="attr">icon:</span> <span class="string">https://xxx</span></span><br></pre></td></tr></table></figure>
+
+<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="(https://raw.githubusercontent.com/L-Virus/Pic/main/Blog/20250924193619450.png)" data-src="(https://raw.githubusercontent.com/L-Virus/Pic/main/Blog/20250924193619450.png)"onerror="this.src=&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='2rem' height='2rem' viewBox='0 0 24 24'%3E%3C!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --%3E%3Cpath fill='%23F44336' d='M22 12.698c-.002 1.47-.013 2.718-.096 3.743c-.097 1.19-.296 2.184-.74 3.009a4.2 4.2 0 0 1-.73.983c-.833.833-1.893 1.21-3.237 1.39C15.884 22 14.2 22 12.053 22h-.106c-2.148 0-3.83 0-5.144-.177c-1.343-.18-2.404-.557-3.236-1.39c-.738-.738-1.12-1.656-1.322-2.795c-.2-1.12-.236-2.512-.243-4.241Q1.999 12.737 2 12v-.054c0-2.148 0-3.83.177-5.144c.18-1.343.557-2.404 1.39-3.236s1.893-1.21 3.236-1.39c1.168-.157 2.67-.175 4.499-.177a.697.697 0 1 1 0 1.396c-1.855.002-3.234.018-4.313.163c-1.189.16-1.906.464-2.436.994S3.72 5.8 3.56 6.99C3.397 8.2 3.395 9.788 3.395 12v.784l.932-.814a2.14 2.14 0 0 1 2.922.097l3.99 3.99a1.86 1.86 0 0 0 2.385.207l.278-.195a2.79 2.79 0 0 1 3.471.209l2.633 2.37c.265-.557.423-1.288.507-2.32c.079-.972.09-2.152.091-3.63a.698.698 0 0 1 1.396 0' opacity='.5'/%3E%3Cpath fill='%23F44336' fill-rule='evenodd' d='M17.5 11c-2.121 0-3.182 0-3.841-.659S13 8.621 13 6.5s0-3.182.659-3.841S15.379 2 17.5 2s3.182 0 3.841.659S22 4.379 22 6.5s0 3.182-.659 3.841S19.621 11 17.5 11m-1.47-7.03a.75.75 0 1 0-1.06 1.06l1.47 1.47l-1.47 1.47a.75.75 0 0 0 1.06 1.06l1.47-1.47l1.47 1.47a.75.75 0 1 0 1.06-1.06L18.56 6.5l1.47-1.47a.75.75 0 0 0-1.06-1.06L17.5 5.44z' clip-rule='evenodd'/%3E%3C/svg%3E&quot;"/><div class="lazy-icon" style="background-image:url(https://api.iconify.design/eos-icons:three-dots-loading.svg?color=%231cd0fd);"></div></div></div>
+
+<h1 id="文章中的引用"><a href="#文章中的引用" class="headerlink" title="文章中的引用"></a>文章中的引用</h1><p>在此专栏文章的 <code>md</code> 文件的 <code>front-matter</code> 部分指定所属的专栏 <code>id</code> （即上一步创建的文件名 <code>Stelalr设置专栏.yml</code>）</p>
+<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="(https://raw.githubusercontent.com/L-Virus/Pic/main/Blog/20250924193647230.png)" data-src="(https://raw.githubusercontent.com/L-Virus/Pic/main/Blog/20250924193647230.png)"onerror="this.src=&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='2rem' height='2rem' viewBox='0 0 24 24'%3E%3C!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --%3E%3Cpath fill='%23F44336' d='M22 12.698c-.002 1.47-.013 2.718-.096 3.743c-.097 1.19-.296 2.184-.74 3.009a4.2 4.2 0 0 1-.73.983c-.833.833-1.893 1.21-3.237 1.39C15.884 22 14.2 22 12.053 22h-.106c-2.148 0-3.83 0-5.144-.177c-1.343-.18-2.404-.557-3.236-1.39c-.738-.738-1.12-1.656-1.322-2.795c-.2-1.12-.236-2.512-.243-4.241Q1.999 12.737 2 12v-.054c0-2.148 0-3.83.177-5.144c.18-1.343.557-2.404 1.39-3.236s1.893-1.21 3.236-1.39c1.168-.157 2.67-.175 4.499-.177a.697.697 0 1 1 0 1.396c-1.855.002-3.234.018-4.313.163c-1.189.16-1.906.464-2.436.994S3.72 5.8 3.56 6.99C3.397 8.2 3.395 9.788 3.395 12v.784l.932-.814a2.14 2.14 0 0 1 2.922.097l3.99 3.99a1.86 1.86 0 0 0 2.385.207l.278-.195a2.79 2.79 0 0 1 3.471.209l2.633 2.37c.265-.557.423-1.288.507-2.32c.079-.972.09-2.152.091-3.63a.698.698 0 0 1 1.396 0' opacity='.5'/%3E%3Cpath fill='%23F44336' fill-rule='evenodd' d='M17.5 11c-2.121 0-3.182 0-3.841-.659S13 8.621 13 6.5s0-3.182.659-3.841S15.379 2 17.5 2s3.182 0 3.841.659S22 4.379 22 6.5s0 3.182-.659 3.841S19.621 11 17.5 11m-1.47-7.03a.75.75 0 1 0-1.06 1.06l1.47 1.47l-1.47 1.47a.75.75 0 0 0 1.06 1.06l1.47-1.47l1.47 1.47a.75.75 0 1 0 1.06-1.06L18.56 6.5l1.47-1.47a.75.75 0 0 0-1.06-1.06L17.5 5.44z' clip-rule='evenodd'/%3E%3C/svg%3E&quot;"/><div class="lazy-icon" style="background-image:url(https://api.iconify.design/eos-icons:three-dots-loading.svg?color=%231cd0fd);"></div></div></div>
+]]></content>
+      <tags>
+        <tag>stellar</tag>
+        <tag>Hexo</tag>
+        <tag>瞎折腾</tag>
+      </tags>
   </entry>
 </search>

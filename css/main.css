@@ -33,18 +33,6 @@
 :root {
   --gap-max: calc(var(--gap-margin) + var(--gap-padding));
 }
-.post-count {
-  scrollbar-width: none;
-  color: var(--text-p2);
-}
-.totalcount {
-  color: var(--text-p2);
-}
-.page-footer {
-  text-align: center;
-  margin: 0 auto;
-  width: 100%;
-}
 :root {
   --hue: 192deg;
   --sat: 98%;
@@ -1891,7 +1879,7 @@ html {
   height: 100%;
   width: 100%;
   overflow-y: scroll;
-  font-family: "LXGW WenKai Screen", system-ui, "Microsoft Yahei", "Segoe UI", Arial, sans-serif;
+  font-family: system-ui, "Microsoft Yahei", "Segoe UI", Arial, sans-serif;
   font-size: 16px;
   -webkit-text-size-adjust: 100%;
   -ms-text-size-adjust: 100%;
@@ -7110,7 +7098,7 @@ details.toc[open] >div.body section .header+.doc_tree {
 .search-wrapper .search-input {
   width: 100%;
   box-sizing: border-box;
-  font-family: "LXGW WenKai Screen", system-ui, "Microsoft Yahei", "Segoe UI", Arial, sans-serif;
+  font-family: system-ui, "Microsoft Yahei", "Segoe UI", Arial, sans-serif;
   font-size: 0.875rem;
   padding: 12px 0;
   color: var(--text);

@@ -1,11 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Attention Is All You Need</title>
+    <url>/2025/10/15/Attention%20Is%20All%20You%20Need/</url>
+    <content><![CDATA[<h1 id="模型"><a href="#模型" class="headerlink" title="模型"></a>模型</h1><p><img src="https://raw.githubusercontent.com/L-Virus/Pic/main/Blog/20251014145549088.png" alt="image.png"></p>
+<p><img src="https://raw.githubusercontent.com/L-Virus/Pic/main/Blog/20251014154134637.png" alt="image.png"></p>
+<h2 id="Input与Output"><a href="#Input与Output" class="headerlink" title="Input与Output"></a>Input与Output</h2><p>个人认为Input与Output之间画一条指向Output的线，毕竟，Output Embedding的输入只是Input Embedding输入的下一个输入，图中提到的shifted right 类似与滑动窗口往右边移动</p>
+<h2 id="Positional-Encoding"><a href="#Positional-Encoding" class="headerlink" title="Positional Encoding"></a>Positional Encoding</h2><p>使用不同频率的 $sin$ 和 $cos$ 函数来作为位置编码，使用两个函数来代表奇数项和偶数项的位置，唯一的超参数为 $d_{model}$ 特征的大小</p>
+<p>$$\displaylines{PE_{(pos,2i)}&#x3D;sin(pos&#x2F;10000^{2i&#x2F;d_{model}}) \ PE_{pos,2i+1}&#x3D;cos(pos&#x2F;10000^{2i&#x2F;d_{model}})}$$<br>这样得到一个与输入embedding大小一样的位置编码矩阵，直接加在embedding中</p>
+<div class="tag-plugin colorful note" color="cyan"><div class="body"><p>我们对输入进行分解</p></div></div>
+<blockquote>
+<p>$QK^T&#x3D;(E+P)(E+P)^T&#x3D;EE^T+EP^T+PE^T+PP^T$<br>$EE^T$：表示语义间关系<br>$EP^T,PE^T,PP^T$：表示引入位置信息的影响</p>
+</blockquote>
+<h2 id="Scaled-Dot-Product-Attention"><a href="#Scaled-Dot-Product-Attention" class="headerlink" title="Scaled Dot-Product Attention"></a>Scaled Dot-Product Attention</h2><h3 id="Step1"><a href="#Step1" class="headerlink" title="Step1"></a>Step1</h3><p>首先关于如何计算出 $Q、K、V$ 矩阵</p>
+<ol>
+<li>将输入的token进行embedding变换成计算机输入的向量格式</li>
+<li>生成三个可学习的参数矩阵 $W_q、W_k、W_v$</li>
+<li>假设有4个输入为 $a_i,i \in [1,2,3,4]$ ，也就是 $X$</li>
+<li>$Q$矩阵为，$W_q \times a_i,i \in [1,2,3,4]$，也就是 $Q&#x3D;XW_q$</li>
+<li>$K$矩阵为，$W_k \times a_i,i \in [1,2,3,4]$，也就是 $K&#x3D;XW_k$</li>
+<li>$V$矩阵为，$W_v \times a_i,i \in [1,2,3,4]$，也就是 $V&#x3D;XW_v$</li>
+</ol>
+<h3 id="Step-2"><a href="#Step-2" class="headerlink" title="Step 2"></a>Step 2</h3><p>计算注意力<br>$$Attention(Q,K,V)&#x3D;Softmax(\frac{QK^{T}}{\sqrt(d_k)})V$$<br>其中 $Q$ 为 $R^q$ 上大小为 $n \times d_k$ ，$K$ 为 $R^k$ 上大小为 $m \times d_k$ , $d_k$ 为自定义超参，$V$ 为 $R^v$ 上大小为 $m \times d_v$ ，最终的大小为 $n \times m$<br>Softmax是对最后一个维度进行操作，也就是词汇表维度</p>
+<h2 id="Cross-Attention"><a href="#Cross-Attention" class="headerlink" title="Cross-Attention"></a>Cross-Attention</h2><p>使用编码器的输出与对应 $W_k、W_v$ 矩阵进行相乘后计算出 $K和V$，而解码器中的输入作为 $Q$，进行计算。实际上，$Q$ 为上一个输入之后的隐状态，K和V则表示为新的输入<br>$$Q&#x3D;XW_Q，K&#x3D;YW_K,V&#x3D;YW_V$$</p>
+<h2 id="Muti-Head-Attention"><a href="#Muti-Head-Attention" class="headerlink" title="Muti-Head Attention"></a>Muti-Head Attention</h2><p>$$\displaylines{MutiHead(Q,K,V)&#x3D;Concat(head_1,…head_h)W^o \ Where \ head_i&#x3D;Attention(QW_i^q,KW_i^k,VW_i^v)}$$</p>
+<blockquote>
+<p>“In this work we employ h &#x3D; 8 parallel attention layers, or heads. For each of these we use dk &#x3D; dv &#x3D; dmodel&#x2F;h &#x3D; 64. Due to the reduced dimension of each head, the total computational cost is similar to that of single-head attention with full dimensionality.” (<a href="zotero://select/library/items/G6X2KQIM">Vaswani 等, 2023, p. 5</a>) (<a href="zotero://open-pdf/library/items/FUHEISF4?page=5&annotation=G7AVD64S">pdf</a>)</p>
+</blockquote>
+<p>针对head数来缩小d的维度（具体是使用W的大小来设置的），这样能在最后concat的时候保持维度一致<br>$W$ 的作用：1. 缩小d的维度。2.学习更多不同的参数</p>
+<p>并且使用多个头是为了学习不同的模式，所以使用不同的权重信息</p>
+<h2 id="FFN"><a href="#FFN" class="headerlink" title="FFN"></a>FFN</h2><p>$$FFN&#x3D;max(0,xW_1+b_1)W_2+b_2$$<br>其中，$max(0,xW_1+b_1)$ 为第一次线性变化后使用ReLU进行非线性变化</p>
+<blockquote>
+<p>“The dimensionality of input and output is dmodel &#x3D; 512, and the inner-layer has dimensionality dff &#x3D; 2048.” (<a href="zotero://select/library/items/G6X2KQIM">Vaswani 等, 2023, p. 5</a>) (<a href="zotero://open-pdf/library/items/FUHEISF4?page=5&annotation=EHGMVRWZ">pdf</a>)</p>
+</blockquote>
+<p>$W_1$ 将 $x$ 的512维度扩大到2048，$W_2$ 则又转会512</p>
+<h1 id="Tricks"><a href="#Tricks" class="headerlink" title="Tricks"></a>Tricks</h1><h2 id="1-Masked-Attention"><a href="#1-Masked-Attention" class="headerlink" title="1.Masked Attention"></a>1.Masked Attention</h2><blockquote>
+<p>“We also modify the self-attention sub-layer in the decoder stack to prevent positions from attending to subsequent positions.” (<a href="zotero://select/library/items/G6X2KQIM">Vaswani 等, 2023, p. 3</a>) (<a href="zotero://open-pdf/library/items/FUHEISF4?page=3&annotation=QHVW3RXQ">pdf</a>) mask attention</p>
+</blockquote>
+<p>因为在编码器中是使用自回归模型，模型会看到整个的输入，然而在预测也就是在解码器中，我们不需要看到全部输入，故使用掩码注意力来遮盖后面的部分</p>
+<h1 id="改进"><a href="#改进" class="headerlink" title="改进"></a>改进</h1><h2 id="1-针对RNN"><a href="#1-针对RNN" class="headerlink" title="1.针对RNN"></a>1.针对RNN</h2><blockquote>
+<p>“This inherently sequential nature precludes parallelization within training examples,” (<a href="zotero://select/library/items/G6X2KQIM">Vaswani 等, 2023, p. 2</a>) (<a href="zotero://open-pdf/library/items/FUHEISF4?page=2&annotation=TT3D2AXL">pdf</a>) </p>
+</blockquote>
+<p>这种固有的顺序性质排除了训练示例中的并行化</p>
+<h2 id="2-Norm"><a href="#2-Norm" class="headerlink" title="2.Norm"></a>2.Norm</h2><p>（在三维中，对谁norm，就是把谁完整的切下来）<br>使用LayerNorm，相比BathNorm，能够</p>
+<blockquote>
+<p>[!Norm]<br>在Transformer中输入的sequence序列长度不一，如果进行batchnorm的话会导致统计量不稳定</p>
+</blockquote>
+<h1 id="优势"><a href="#优势" class="headerlink" title="优势"></a>优势</h1><h2 id="1-利用依赖关系进行建模"><a href="#1-利用依赖关系进行建模" class="headerlink" title="1.利用依赖关系进行建模"></a>1.利用依赖关系进行建模</h2><blockquote>
+<p>“allowing modeling of dependencies without regard to their distance in the input or output sequences” (<a href="zotero://select/library/items/G6X2KQIM">Vaswani 等, 2023, p. 2</a>) (<a href="zotero://open-pdf/library/items/FUHEISF4?page=2&annotation=LCTN8AVG">pdf</a>)<br>“In this work we propose the Transformer, a model architecture eschewing recurrence and instead relying entirely on an attention mechanism to draw global dependencies between input and output.” (<a href="zotero://select/library/items/G6X2KQIM">Vaswani 等, 2023, p. 2</a>) (<a href="zotero://open-pdf/library/items/FUHEISF4?page=2&annotation=7DS8R5LT">pdf</a>) </p>
+</blockquote>
+<p><strong>依赖注意力机制来绘制输入和输出之间的全局依赖关系，对依赖关系进行建模，而不考虑它们在输入或输出序列中的距离。</strong></p>
+<h2 id="2-进行并行计算"><a href="#2-进行并行计算" class="headerlink" title="2.进行并行计算"></a>2.进行并行计算</h2><h1 id="训练"><a href="#训练" class="headerlink" title="训练"></a>训练</h1><ul>
+<li><p>优化器：Adam，$\beta_1&#x3D;0.9，\beta_2&#x3D;0.98，\beta_3&#x3D;0.98，\epsilon&#x3D;10^{-9}$</p>
+</li>
+<li><p>学习率：$l_{rate}&#x3D;d_{model}^{-0.5}min(step_num^{-0.5},step_num \times warmup_steps^{-1.5})，其中warmup_steps&#x3D;4000$<br> 大概意思是训练步骤的学习率线性增加，随后与步骤数的平方反比根成比例地减少学习率。</p>
+</li>
+<li><p>正则化：</p>
+</li>
+</ul>
+<ol>
+<li>dropout（$P_{dropout}&#x3D;0.1$）：<ol>
+<li>在每个子层中，残差连接之前使用dropout</li>
+<li>在embedding和positional encoding相加后进行dropout</li>
+</ol>
+</li>
+<li>label smoothing：设置 $\epsilon_{ls}&#x3D;0.1$ ,虽然对perplexity不利但是有利于提升准确性和BLEU</li>
+</ol>
+<blockquote>
+<p>[!Label Smoothing]<br>设类别数为：$K$<br>平滑系数为：$\epsilon \in [0,1]$<br>平滑后的目标分布为<br>$$y_i^{LS}&#x3D;<br>\begin{cases}<br>1-\epsilon,\ 如果i&#x3D;真实类别 \<br>\frac{\epsilon}{K-1}， elses<br>\end{cases}<br>$$</p>
+</blockquote>
+]]></content>
+      <tags>
+        <tag>Transformer</tag>
+        <tag>NLP</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Git配置proxy</title>
     <url>/2025/09/24/Git%E9%85%8D%E7%BD%AEproxy/</url>
     <content><![CDATA[<h1 id="查看git配置"><a href="#查看git配置" class="headerlink" title="查看git配置"></a>查看git配置</h1><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git config  --list</span><br><span class="line">git config --global --list</span><br></pre></td></tr></table></figure>
 <h1 id="配置proxy"><a href="#配置proxy" class="headerlink" title="配置proxy"></a>配置proxy</h1><h2 id="两种proxy方式"><a href="#两种proxy方式" class="headerlink" title="两种proxy方式"></a>两种proxy方式</h2><blockquote>
-<p>走http&#x2F;https形式：git clone <a href="https://github.com/xxxxx">https://github.com/xxxxx</a><br>走ssh 形式：git clone <a href="mailto:&#x67;&#x69;&#x74;&#64;&#x67;&#x69;&#116;&#104;&#117;&#x62;&#x2e;&#99;&#x6f;&#x6d;">git@github.com</a>:xxxxx</p>
+<p>走http&#x2F;https形式：git clone <a href="https://github.com/xxxxx">https://github.com/xxxxx</a><br>走ssh 形式：git clone <a href="mailto:&#x67;&#x69;&#116;&#64;&#x67;&#x69;&#116;&#104;&#x75;&#x62;&#46;&#x63;&#x6f;&#x6d;">git@github.com</a>:xxxxx</p>
 </blockquote>
 <h3 id="走http-https"><a href="#走http-https" class="headerlink" title="走http&#x2F;https"></a>走http&#x2F;https</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git config --global http.proxy <span class="string">&quot;http://127.0.0.1:7890&quot;</span></span><br><span class="line">git config --global https.proxy <span class="string">&quot;https://127.0.0.1:7890&quot;</span></span><br></pre></td></tr></table></figure>
 <h3 id="取消proxy"><a href="#取消proxy" class="headerlink" title="取消proxy"></a>取消proxy</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git config --global --<span class="built_in">unset</span> http.proxy</span><br><span class="line">git config --global --<span class="built_in">unset</span> https.proxy</span><br></pre></td></tr></table></figure>
@@ -16,24 +91,6 @@
       <tags>
         <tag>Git</tag>
       </tags>
-  </entry>
-  <entry>
-    <title>Hello World</title>
-    <url>/2025/09/23/hello-world/</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-]]></content>
   </entry>
   <entry>
     <title>Stellar设置专栏（topic）</title>
@@ -55,6 +112,24 @@
         <tag>Hexo</tag>
         <tag>瞎折腾</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>Hello World</title>
+    <url>/2025/09/23/hello-world/</url>
+    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+]]></content>
   </entry>
   <entry>
     <title>使用Pycharm进行远程ssh（以Featurize为例）</title>
@@ -136,7 +211,7 @@
 <blockquote>
 <p>这种情况是需要电脑上有单独的英伟达的显卡、或者英伟达的显卡和集显这两种情况都是可以的。</p>
 </blockquote>
-<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="https://raw.githubusercontent.com/L-Virus/Pic/main/Blog/20250924203532564.png" data-src="https://raw.githubusercontent.com/L-Virus/Pic/main/Blog/20250924203532564.png" data-fancybox="true"onerror="this.src=&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='2rem' height='2rem' viewBox='0 0 24 24'%3E%3C!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --%3E%3Cpath fill='%23F44336' d='M22 12.698c-.002 1.47-.013 2.718-.096 3.743c-.097 1.19-.296 2.184-.74 3.009a4.2 4.2 0 0 1-.73.983c-.833.833-1.893 1.21-3.237 1.39C15.884 22 14.2 22 12.053 22h-.106c-2.148 0-3.83 0-5.144-.177c-1.343-.18-2.404-.557-3.236-1.39c-.738-.738-1.12-1.656-1.322-2.795c-.2-1.12-.236-2.512-.243-4.241Q1.999 12.737 2 12v-.054c0-2.148 0-3.83.177-5.144c.18-1.343.557-2.404 1.39-3.236s1.893-1.21 3.236-1.39c1.168-.157 2.67-.175 4.499-.177a.697.697 0 1 1 0 1.396c-1.855.002-3.234.018-4.313.163c-1.189.16-1.906.464-2.436.994S3.72 5.8 3.56 6.99C3.397 8.2 3.395 9.788 3.395 12v.784l.932-.814a2.14 2.14 0 0 1 2.922.097l3.99 3.99a1.86 1.86 0 0 0 2.385.207l.278-.195a2.79 2.79 0 0 1 3.471.209l2.633 2.37c.265-.557.423-1.288.507-2.32c.079-.972.09-2.152.091-3.63a.698.698 0 0 1 1.396 0' opacity='.5'/%3E%3Cpath fill='%23F44336' fill-rule='evenodd' d='M17.5 11c-2.121 0-3.182 0-3.841-.659S13 8.621 13 6.5s0-3.182.659-3.841S15.379 2 17.5 2s3.182 0 3.841.659S22 4.379 22 6.5s0 3.182-.659 3.841S19.621 11 17.5 11m-1.47-7.03a.75.75 0 1 0-1.06 1.06l1.47 1.47l-1.47 1.47a.75.75 0 0 0 1.06 1.06l1.47-1.47l1.47 1.47a.75.75 0 1 0 1.06-1.06L18.56 6.5l1.47-1.47a.75.75 0 0 0-1.06-1.06L17.5 5.44z' clip-rule='evenodd'/%3E%3C/svg%3E&quot;"/><div class="lazy-icon" style="background-image:url(https://api.iconify.design/eos-icons:three-dots-loading.svg?color=%231cd0fd);"></div></div></div>
+<div class="tag-plugin image"><div class="image-bg" style="aspect-ratio:1216/500;"><img class="lazy" src="https://raw.githubusercontent.com/L-Virus/Pic/main/Blog/20250924203532564.png" data-src="https://raw.githubusercontent.com/L-Virus/Pic/main/Blog/20250924203532564.png" data-fancybox="true"onerror="this.src=&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='2rem' height='2rem' viewBox='0 0 24 24'%3E%3C!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --%3E%3Cpath fill='%23F44336' d='M22 12.698c-.002 1.47-.013 2.718-.096 3.743c-.097 1.19-.296 2.184-.74 3.009a4.2 4.2 0 0 1-.73.983c-.833.833-1.893 1.21-3.237 1.39C15.884 22 14.2 22 12.053 22h-.106c-2.148 0-3.83 0-5.144-.177c-1.343-.18-2.404-.557-3.236-1.39c-.738-.738-1.12-1.656-1.322-2.795c-.2-1.12-.236-2.512-.243-4.241Q1.999 12.737 2 12v-.054c0-2.148 0-3.83.177-5.144c.18-1.343.557-2.404 1.39-3.236s1.893-1.21 3.236-1.39c1.168-.157 2.67-.175 4.499-.177a.697.697 0 1 1 0 1.396c-1.855.002-3.234.018-4.313.163c-1.189.16-1.906.464-2.436.994S3.72 5.8 3.56 6.99C3.397 8.2 3.395 9.788 3.395 12v.784l.932-.814a2.14 2.14 0 0 1 2.922.097l3.99 3.99a1.86 1.86 0 0 0 2.385.207l.278-.195a2.79 2.79 0 0 1 3.471.209l2.633 2.37c.265-.557.423-1.288.507-2.32c.079-.972.09-2.152.091-3.63a.698.698 0 0 1 1.396 0' opacity='.5'/%3E%3Cpath fill='%23F44336' fill-rule='evenodd' d='M17.5 11c-2.121 0-3.182 0-3.841-.659S13 8.621 13 6.5s0-3.182.659-3.841S15.379 2 17.5 2s3.182 0 3.841.659S22 4.379 22 6.5s0 3.182-.659 3.841S19.621 11 17.5 11m-1.47-7.03a.75.75 0 1 0-1.06 1.06l1.47 1.47l-1.47 1.47a.75.75 0 0 0 1.06 1.06l1.47-1.47l1.47 1.47a.75.75 0 1 0 1.06-1.06L18.56 6.5l1.47-1.47a.75.75 0 0 0-1.06-1.06L17.5 5.44z' clip-rule='evenodd'/%3E%3C/svg%3E&quot;"/><div class="lazy-icon" style="background-image:url(https://api.iconify.design/eos-icons:three-dots-loading.svg?color=%231cd0fd);"></div></div></div>
 
 <div class="tag-plugin quot p"><p class="content"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from BoxIcons Solid by Atisa - https://creativecommons.org/licenses/by/4.0/ --><path fill="currentColor" d="M3.691 6.292C5.094 4.771 7.217 4 10 4h1v2.819l-.804.161c-1.37.274-2.323.813-2.833 1.604A2.9 2.9 0 0 0 6.925 10H10a1 1 0 0 1 1 1v7c0 1.103-.897 2-2 2H3a1 1 0 0 1-1-1v-5l.003-2.919c-.009-.111-.199-2.741 1.688-4.789M20 20h-6a1 1 0 0 1-1-1v-5l.003-2.919c-.009-.111-.199-2.741 1.688-4.789C16.094 4.771 18.217 4 21 4h1v2.819l-.804.161c-1.37.274-2.323.813-2.833 1.604A2.9 2.9 0 0 0 17.925 10H21a1 1 0 0 1 1 1v7c0 1.103-.897 2-2 2"/></svg><span class="text">3. 下载链接</span><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from BoxIcons Solid by Atisa - https://creativecommons.org/licenses/by/4.0/ --><path fill="currentColor" d="M20.309 17.708C22.196 15.66 22.006 13.03 22 13V5a1 1 0 0 0-1-1h-6c-1.103 0-2 .897-2 2v7a1 1 0 0 0 1 1h3.078a2.9 2.9 0 0 1-.429 1.396c-.508.801-1.465 1.348-2.846 1.624l-.803.16V20h1c2.783 0 4.906-.771 6.309-2.292m-11.007 0C11.19 15.66 10.999 13.03 10.993 13V5a1 1 0 0 0-1-1h-6c-1.103 0-2 .897-2 2v7a1 1 0 0 0 1 1h3.078a2.9 2.9 0 0 1-.429 1.396c-.508.801-1.465 1.348-2.846 1.624l-.803.16V20h1c2.783 0 4.906-.771 6.309-2.292"/></svg></p></div>
 

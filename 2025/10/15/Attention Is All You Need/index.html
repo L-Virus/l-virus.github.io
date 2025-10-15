@@ -20,16 +20,16 @@
   <title>Attention Is All You Need - 美好的明天</title>
 
   
-    <meta name="description" content="模型  Input与Output个人认为Input与Output之间画一条指向Output的线，毕竟，Output Embedding的输入只是Input Embedding输入的下一个输入，图中提到的shifted right 类似与滑动窗口往右边移动 Positional Encoding使用不同频率的 $sin$ 和 $cos$ 函数来作为位置编码，使用两个函数来代表奇数项和偶数项的位置，唯">
+    <meta name="description" content="模型   Input与Output 个人认为Input与Output之间画一条指向Output的线，毕竟，Output Embedding的输入只是Input Embedding输入的下一个输入，图中提到的shifted right 类似与滑动窗口往右边移动 Positional Encoding 使用不同频率的 \(sin\) 和 \(cos\) 函数来作为位置编码，使用两个函数来代">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Attention Is All You Need">
 <meta property="og:url" content="http://example.com/2025/10/15/Attention%20Is%20All%20You%20Need/">
 <meta property="og:site_name" content="美好的明天">
-<meta property="og:description" content="模型  Input与Output个人认为Input与Output之间画一条指向Output的线，毕竟，Output Embedding的输入只是Input Embedding输入的下一个输入，图中提到的shifted right 类似与滑动窗口往右边移动 Positional Encoding使用不同频率的 $sin$ 和 $cos$ 函数来作为位置编码，使用两个函数来代表奇数项和偶数项的位置，唯">
+<meta property="og:description" content="模型   Input与Output 个人认为Input与Output之间画一条指向Output的线，毕竟，Output Embedding的输入只是Input Embedding输入的下一个输入，图中提到的shifted right 类似与滑动窗口往右边移动 Positional Encoding 使用不同频率的 \(sin\) 和 \(cos\) 函数来作为位置编码，使用两个函数来代">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://example.com/images/avatar.jpg">
 <meta property="article:published_time" content="2025-10-15T10:07:59.273Z">
-<meta property="article:modified_time" content="2025-10-15T10:41:24.627Z">
+<meta property="article:modified_time" content="2025-10-15T12:32:25.715Z">
 <meta property="article:author" content="VirusL">
 <meta property="article:tag" content="Transformer">
 <meta property="article:tag" content="NLP">
@@ -52,7 +52,7 @@
 
   
 
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"VirusL","sameAs":[],"image":"/images/avatar.jpg"},"dateCreated":"2025-10-15T18:07:59+08:00","dateModified":"2025-10-15T18:41:24+08:00","datePublished":"2025-10-15T18:07:59+08:00","description":"","headline":"Attention Is All You Need","mainEntityOfPage":{"@type":"WebPage","@id":"http://example.com/2025/10/15/Attention%20Is%20All%20You%20Need/"},"publisher":{"@type":"Organization","name":"VirusL","sameAs":[],"image":"/images/avatar.jpg","logo":{"@type":"ImageObject","url":"/images/avatar.jpg"}},"url":"http://example.com/2025/10/15/Attention%20Is%20All%20You%20Need/","keywords":"Transformer, NLP","image":[]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"VirusL","sameAs":[],"image":"/images/avatar.jpg"},"dateCreated":"2025-10-15T18:07:59+08:00","dateModified":"2025-10-15T20:32:25+08:00","datePublished":"2025-10-15T18:07:59+08:00","description":"","headline":"Attention Is All You Need","mainEntityOfPage":{"@type":"WebPage","@id":"http://example.com/2025/10/15/Attention%20Is%20All%20You%20Need/"},"publisher":{"@type":"Organization","name":"VirusL","sameAs":[],"image":"/images/avatar.jpg","logo":{"@type":"ImageObject","url":"/images/avatar.jpg"}},"url":"http://example.com/2025/10/15/Attention%20Is%20All%20You%20Need/","keywords":"Transformer, NLP","image":[]}</script>
   
 </head>
 <body>
@@ -69,9 +69,9 @@
 <div class="widgets">
 <div class="search-wrapper" id="search-wrapper"><form class="search-form"><a class="search-button" onclick="document.getElementById(&quot;search-input&quot;).focus();"><svg t="1705074644177" viewBox="0 0 1025 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1560" width="200" height="200"><path d="M1008.839137 935.96571L792.364903 719.491476a56.783488 56.783488 0 0 0-80.152866 0 358.53545 358.53545 0 1 1 100.857314-335.166073 362.840335 362.840335 0 0 1-3.689902 170.145468 51.248635 51.248635 0 1 0 99.217358 26.444296 462.057693 462.057693 0 1 0-158.255785 242.303546l185.930047 185.725053a51.248635 51.248635 0 0 0 72.568068 0 51.248635 51.248635 0 0 0 0-72.978056z" p-id="1561"></path><path d="M616.479587 615.969233a50.428657 50.428657 0 0 0-61.498362-5.534852 174.655348 174.655348 0 0 1-177.525271 3.484907 49.403684 49.403684 0 0 0-58.833433 6.76482l-3.074918 2.869923a49.403684 49.403684 0 0 0 8.609771 78.10292 277.767601 277.767601 0 0 0 286.992355-5.739847 49.403684 49.403684 0 0 0 8.404776-76.667958z" p-id="1562"></path></svg></a><input type="text" class="search-input" id="search-input" placeholder="站内搜索"></form><div id="search-result"></div><div class="search-no-result">没有找到内容！</div></div>
 
-<widget class="widget-wrapper related post-list"><div class="widget-header dis-select"><span class="name">专栏：Deep Learning</span></div><div class="widget-body"><a class="item active" href="/2025/10/15/Attention%20Is%20All%20You%20Need/"><span class="title">Attention Is All You Need</span><svg class="active-icon" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="M21 11.098v4.993c0 3.096 0 4.645-.734 5.321c-.35.323-.792.526-1.263.58c-.987.113-2.14-.907-4.445-2.946c-1.02-.901-1.529-1.352-2.118-1.47a2.225 2.225 0 0 0-.88 0c-.59.118-1.099.569-2.118 1.47c-2.305 2.039-3.458 3.059-4.445 2.945a2.238 2.238 0 0 1-1.263-.579C3 20.736 3 19.188 3 16.091v-4.994C3 6.81 3 4.666 4.318 3.333C5.636 2 7.758 2 12 2c4.243 0 6.364 0 7.682 1.332C21 4.665 21 6.81 21 11.098" opacity=".5"/><path fill="currentColor" d="M9 5.25a.75.75 0 0 0 0 1.5h6a.75.75 0 0 0 0-1.5z"/></svg></a></div></widget>
+<widget class="widget-wrapper related post-list"><div class="widget-header dis-select"><span class="name">专栏：Deep Learning</span></div><div class="widget-body"><a class="item active" href="/2025/10/15/Attention%20Is%20All%20You%20Need/"><span class="title">Attention Is All You Need</span><svg class="active-icon" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="M21 11.098v4.993c0 3.096 0 4.645-.734 5.321c-.35.323-.792.526-1.263.58c-.987.113-2.14-.907-4.445-2.946c-1.02-.901-1.529-1.352-2.118-1.47a2.225 2.225 0 0 0-.88 0c-.59.118-1.099.569-2.118 1.47c-2.305 2.039-3.458 3.059-4.445 2.945a2.238 2.238 0 0 1-1.263-.579C3 20.736 3 19.188 3 16.091v-4.994C3 6.81 3 4.666 4.318 3.333C5.636 2 7.758 2 12 2c4.243 0 6.364 0 7.682 1.332C21 4.665 21 6.81 21 11.098" opacity=".5"/><path fill="currentColor" d="M9 5.25a.75.75 0 0 0 0 1.5h6a.75.75 0 0 0 0-1.5z"/></svg></a><a class="item" href="/2025/09/24/%E5%AE%89%E8%A3%85PyTorch%E5%8F%8ATorchvision/"><span class="title">安装PyTorch及Torchvision</span></a></div></widget>
 
-<widget class="widget-wrapper recent post-list"><div class="widget-header dis-select"><span class="name">最近更新</span></div><div class="widget-body fs14"><a class="item title" href="/2025/10/15/Attention%20Is%20All%20You%20Need/"><span class="title">Attention Is All You Need</span></a><a class="item title" href="/2025/09/24/%E5%AE%89%E8%A3%85PyTorch%E5%8F%8ATorchvision/"><span class="title">安装PyTorch及Torchvision</span></a><a class="item title" href="/2025/09/24/Stellar%E8%AE%BE%E7%BD%AE%E4%B8%93%E6%A0%8F/"><span class="title">Stellar设置专栏（topic）</span></a><a class="item title" href="/2025/09/24/%E4%BD%BF%E7%94%A8Pycharm%E8%BF%9B%E8%A1%8C%E8%BF%9B%E7%A8%8Bssh%EF%BC%88%E4%BB%A5Featurize%E4%B8%BA%E4%BE%8B%EF%BC%89/"><span class="title">使用Pycharm进行远程ssh（以Featurize为例）</span></a><a class="item title" href="/2025/09/24/Git%E9%85%8D%E7%BD%AEproxy/"><span class="title">Git配置proxy</span></a><a class="item title" href="/2025/09/23/hello-world/"><span class="title">Hello World</span></a></div></widget>
+<widget class="widget-wrapper recent post-list"><div class="widget-header dis-select"><span class="name">最近更新</span></div><div class="widget-body fs14"><a class="item title" href="/2025/10/15/%E5%9C%A8Stellar%E4%B8%AD%E8%AE%BE%E7%BD%AEPandoc/"><span class="title">在Stellar中设置Pandoc</span></a><a class="item title" href="/2025/10/15/Attention%20Is%20All%20You%20Need/"><span class="title">Attention Is All You Need</span></a><a class="item title" href="/2025/09/24/%E5%AE%89%E8%A3%85PyTorch%E5%8F%8ATorchvision/"><span class="title">安装PyTorch及Torchvision</span></a><a class="item title" href="/2025/09/24/Stellar%E8%AE%BE%E7%BD%AE%E4%B8%93%E6%A0%8F/"><span class="title">Stellar设置专栏（topic）</span></a><a class="item title" href="/2025/09/24/%E4%BD%BF%E7%94%A8Pycharm%E8%BF%9B%E8%A1%8C%E8%BF%9B%E7%A8%8Bssh%EF%BC%88%E4%BB%A5Featurize%E4%B8%BA%E4%BE%8B%EF%BC%89/"><span class="title">使用Pycharm进行远程ssh（以Featurize为例）</span></a><a class="item title" href="/2025/09/24/Git%E9%85%8D%E7%BD%AEproxy/"><span class="title">Git配置proxy</span></a><a class="item title" href="/2025/09/23/hello-world/"><span class="title">Hello World</span></a></div></widget>
 </div>
 <footer class="footer dis-select"><div class="social-wrap"><a class="social" href="https://github.com/L-Virus" target="_blank" rel="external nofollow noopener noreferrer"><img no-lazy src="https://api.iconify.design/mdi:github.svg" / onerror="javascript:this.classList.add('error');this.src='https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/image/2659360.svg';"></a><a class="social" href="tomail:VirusL11@outlook.com" rel="noopener noreferrer"><img no-lazy src="https://api.iconify.design/material-symbols:mail.svg" / onerror="javascript:this.classList.add('error');this.src='https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/image/2659360.svg';"></a></div></footer>
 </div></aside><div class="l_main" id="main">
@@ -84,7 +84,7 @@
   <div class="content">
     <div class="top bread-nav footnote"><div class="left"><div class="flex-row" id="breadcrumb"><a class="cap breadcrumb" href="/">主页</a>
 <span class="sep"></span><a class="cap breadcrumb" id="menu" href="/topic/">专栏</a><span class="sep"></span><a class="cap breadcrumb" id="proj" href="/2025/10/15/Attention%20Is%20All%20You%20Need/">Deep Learning</a></div>
-<div class="flex-row" id="post-meta"><span class="text created">发布于：<time datetime="2025-10-15T10:07:59.273Z">2025-10-15</time></span><span class="sep updated"></span><span class="text updated">更新于：<time datetime="2025-10-15T10:41:24.627Z">2025-10-15</time></span></div><div class="flex-row" id="page-words"><span style="padding: 4px;">本文：1.3k字</span><span class="sep updated" style="padding: 4px;"></span><span class="text updated" style="padding: 4px;">阅读时长：5分</span></div><div class="flex-row" id="tag"> <span>&nbsp标签：</span><a class="cap breadcrumb-link" href="/tags/NLP/">NLP</a>&nbsp; <a class="cap breadcrumb-link" href="/tags/Transformer/">Transformer</a>&nbsp</div></div></div>
+<div class="flex-row" id="post-meta"><span class="text created">发布于：<time datetime="2025-10-15T10:07:59.273Z">2025-10-15</time></span><span class="sep updated"></span><span class="text updated">更新于：<time datetime="2025-10-15T12:32:25.715Z">2025-10-15</time></span></div><div class="flex-row" id="page-words"><span style="padding: 4px;">本文：1.2k字</span><span class="sep updated" style="padding: 4px;"></span><span class="text updated" style="padding: 4px;">阅读时长：5分</span></div><div class="flex-row" id="tag"> <span>&nbsp标签：</span><a class="cap breadcrumb-link" href="/tags/NLP/">NLP</a>&nbsp; <a class="cap breadcrumb-link" href="/tags/Transformer/">Transformer</a>&nbsp</div></div></div>
     
     <div class="bottom only-title">
       
@@ -95,69 +95,90 @@
     </div>
     
   </div>
-  </div><article class="md-text content"><h1 id="模型"><a href="#模型" class="headerlink" title="模型"></a>模型</h1><p><img src="https://raw.githubusercontent.com/L-Virus/Pic/main/Blog/20251014145549088.png" alt="image.png"></p>
-<p><img src="https://raw.githubusercontent.com/L-Virus/Pic/main/Blog/20251014154134637.png" alt="image.png"></p>
-<h2 id="Input与Output"><a href="#Input与Output" class="headerlink" title="Input与Output"></a>Input与Output</h2><p>个人认为Input与Output之间画一条指向Output的线，毕竟，Output Embedding的输入只是Input Embedding输入的下一个输入，图中提到的shifted right 类似与滑动窗口往右边移动</p>
-<h2 id="Positional-Encoding"><a href="#Positional-Encoding" class="headerlink" title="Positional Encoding"></a>Positional Encoding</h2><p>使用不同频率的 $sin$ 和 $cos$ 函数来作为位置编码，使用两个函数来代表奇数项和偶数项的位置，唯一的超参数为 $d_{model}$ 特征的大小</p>
-<p>$$\displaylines{PE_{(pos,2i)}&#x3D;sin(pos&#x2F;10000^{2i&#x2F;d_{model}}) \ PE_{pos,2i+1}&#x3D;cos(pos&#x2F;10000^{2i&#x2F;d_{model}})}$$<br>这样得到一个与输入embedding大小一样的位置编码矩阵，直接加在embedding中</p>
-<div class="tag-plugin colorful note" color="cyan"><div class="title">我们对输入进行分解</div><div class="body"><p>$QK^T&#x3D;(E+P)(E+P)^T&#x3D;EE^T+EP^T+PE^T+PP^T$ $EE^T$：表示语义间关系 $EP^T,PE^T,PP^T$：表示引入位置信息的影响</p></div></div>
-
-<h2 id="Scaled-Dot-Product-Attention"><a href="#Scaled-Dot-Product-Attention" class="headerlink" title="Scaled Dot-Product Attention"></a>Scaled Dot-Product Attention</h2><h3 id="Step1"><a href="#Step1" class="headerlink" title="Step1"></a>Step1</h3><p>首先关于如何计算出 $Q、K、V$ 矩阵</p>
-<ol>
+  </div><article class="md-text content"><h1 id="模型">模型</h1>
+<p><img src="https://raw.githubusercontent.com/L-Virus/Pic/main/Blog/20251014145549088.png" /></p>
+<p><img src="https://raw.githubusercontent.com/L-Virus/Pic/main/Blog/20251014154134637.png" /></p>
+<h2 id="input与output">Input与Output</h2>
+<p>个人认为Input与Output之间画一条指向Output的线，毕竟，Output Embedding的输入只是Input Embedding输入的下一个输入，图中提到的shifted right 类似与滑动窗口往右边移动</p>
+<h2 id="positional-encoding">Positional Encoding</h2>
+<p>使用不同频率的 <span class="math inline">\(sin\)</span> 和 <span class="math inline">\(cos\)</span> 函数来作为位置编码，使用两个函数来代表奇数项和偶数项的位置，唯一的超参数为 <span class="math inline">\(d_{model}\)</span> 特征的大小</p>
+<p><span class="math display">\[\displaylines{PE_{(pos,2i)}=sin(pos/10000^{2i/d_{model}}) \\ PE_{pos,2i+1}=cos(pos/10000^{2i/d_{model}})}\]</span></p>
+<p>这样得到一个与输入embedding大小一样的位置编码矩阵，直接加在embedding中</p>
+<div class="tag-plugin colorful note" color="cyan"><div class="title">我们对输入进行分解</div><div class="body"><p><span class="math inline">\(QK^T=(E+P)(E+P)^T=EE^T+EP^T+PE^T+PP^T\)</span> <br> <span class="math inline">\(EE^T\)</span>：表示语义间关系<br> <span class="math inline">\(EP^T,PE^T,PP^T\)</span>：表示引入位置信息的影响</p></div></div>
+<h2 id="scaled-dot-product-attention">Scaled Dot-Product Attention</h2>
+<h3 id="step1">Step1</h3>
+<p>首先关于如何计算出 <span class="math inline">\(Q、K、V\)</span> 矩阵</p>
+<ol type="1">
 <li>将输入的token进行embedding变换成计算机输入的向量格式</li>
-<li>生成三个可学习的参数矩阵 $W_q、W_k、W_v$</li>
-<li>假设有4个输入为 $a_i,i \in [1,2,3,4]$ ，也就是 $X$</li>
-<li>$Q$矩阵为，$W_q \times a_i,i \in [1,2,3,4]$，也就是 $Q&#x3D;XW_q$</li>
-<li>$K$矩阵为，$W_k \times a_i,i \in [1,2,3,4]$，也就是 $K&#x3D;XW_k$</li>
-<li>$V$矩阵为，$W_v \times a_i,i \in [1,2,3,4]$，也就是 $V&#x3D;XW_v$</li>
+<li>生成三个可学习的参数矩阵 <span class="math inline">\(W_q、W_k、W_v\)</span></li>
+<li>假设有4个输入为 <span class="math inline">\(a_i,i \in [1,2,3,4]\)</span> ，也就是 <span class="math inline">\(X\)</span></li>
+<li><span class="math inline">\(Q\)</span>矩阵为，<span class="math inline">\(W_q \times a_i,i \in [1,2,3,4]\)</span>，也就是 <span class="math inline">\(Q=XW_q\)</span></li>
+<li><span class="math inline">\(K\)</span>矩阵为，<span class="math inline">\(W_k \times a_i,i \in [1,2,3,4]\)</span>，也就是 <span class="math inline">\(K=XW_k\)</span></li>
+<li><span class="math inline">\(V\)</span>矩阵为，<span class="math inline">\(W_v \times a_i,i \in [1,2,3,4]\)</span>，也就是 <span class="math inline">\(V=XW_v\)</span></li>
 </ol>
-<h3 id="Step-2"><a href="#Step-2" class="headerlink" title="Step 2"></a>Step 2</h3><p>计算注意力<br>$$Attention(Q,K,V)&#x3D;Softmax(\frac{QK^{T}}{\sqrt(d_k)})V$$<br>其中 $Q$ 为 $R^q$ 上大小为 $n \times d_k$ ，$K$ 为 $R^k$ 上大小为 $m \times d_k$ , $d_k$ 为自定义超参，$V$ 为 $R^v$ 上大小为 $m \times d_v$ ，最终的大小为 $n \times m$<br>Softmax是对最后一个维度进行操作，也就是词汇表维度</p>
-<h2 id="Cross-Attention"><a href="#Cross-Attention" class="headerlink" title="Cross-Attention"></a>Cross-Attention</h2><p>使用编码器的输出与对应 $W_k、W_v$ 矩阵进行相乘后计算出 $K和V$，而解码器中的输入作为 $Q$，进行计算。实际上，$Q$ 为上一个输入之后的隐状态，K和V则表示为新的输入<br>$$Q&#x3D;XW_Q，K&#x3D;YW_K,V&#x3D;YW_V$$</p>
-<h2 id="Muti-Head-Attention"><a href="#Muti-Head-Attention" class="headerlink" title="Muti-Head Attention"></a>Muti-Head Attention</h2><p>$$\displaylines{MutiHead(Q,K,V)&#x3D;Concat(head_1,…head_h)W^o \ Where \ head_i&#x3D;Attention(QW_i^q,KW_i^k,VW_i^v)}$$</p>
+<h3 id="step-2">Step 2</h3>
+<p>计算注意力
+<span class="math display">\[Attention(Q,K,V)=Softmax(\frac{QK^{T}}{\sqrt(d_k)})V\]</span>
+其中 <span class="math inline">\(Q\)</span> 为 <span class="math inline">\(R^q\)</span> 上大小为 <span class="math inline">\(n \times d_k\)</span> ，<span class="math inline">\(K\)</span> 为 <span class="math inline">\(R^k\)</span> 上大小为 <span class="math inline">\(m \times d_k\)</span> , <span class="math inline">\(d_k\)</span> 为自定义超参，<span class="math inline">\(V\)</span> 为 <span class="math inline">\(R^v\)</span> 上大小为 <span class="math inline">\(m \times d_v\)</span> ，最终的大小为 <span class="math inline">\(n \times m\)</span>
+Softmax是对最后一个维度进行操作，也就是词汇表维度</p>
+<h2 id="cross-attention">Cross-Attention</h2>
+<p>使用编码器的输出与对应 <span class="math inline">\(W_k、W_v\)</span> 矩阵进行相乘后计算出 <span class="math inline">\(K和V\)</span>，而解码器中的输入作为 <span class="math inline">\(Q\)</span>，进行计算。实际上，<span class="math inline">\(Q\)</span> 为上一个输入之后的隐状态，K和V则表示为新的输入
+<span class="math display">\[Q=XW_Q，K=YW_K,V=YW_V\]</span></p>
+<h2 id="muti-head-attention">Muti-Head Attention</h2>
+<p><span class="math display">\[\displaylines{MutiHead(Q,K,V)=Concat(head_1,...head_h)W^o \\ Where \ head_i=Attention(QW_i^q,KW_i^k,VW_i^v)}\]</span></p>
 <blockquote>
-<p>“In this work we employ h &#x3D; 8 parallel attention layers, or heads. For each of these we use dk &#x3D; dv &#x3D; dmodel&#x2F;h &#x3D; 64. Due to the reduced dimension of each head, the total computational cost is similar to that of single-head attention with full dimensionality.” (<a href="zotero://select/library/items/G6X2KQIM">Vaswani 等, 2023, p. 5</a>) (<a href="zotero://open-pdf/library/items/FUHEISF4?page=5&annotation=G7AVD64S">pdf</a>)</p>
+<p>“In this work we employ h = 8 parallel attention layers, or heads. For each of these we use dk = dv = dmodel/h = 64. Due to the reduced dimension of each head, the total computational cost is similar to that of single-head attention with full dimensionality.” (<a href="zotero://select/library/items/G6X2KQIM">Vaswani 等, 2023, p. 5</a>) (<a href="zotero://open-pdf/library/items/FUHEISF4?page=5&amp;annotation=G7AVD64S">pdf</a>)</p>
 </blockquote>
-<p>针对head数来缩小d的维度（具体是使用W的大小来设置的），这样能在最后concat的时候保持维度一致<br>$W$ 的作用：1. 缩小d的维度。2.学习更多不同的参数</p>
+<p>针对head数来缩小d的维度（具体是使用W的大小来设置的），这样能在最后concat的时候保持维度一致
+<span class="math inline">\(W\)</span> 的作用：1. 缩小d的维度。2.学习更多不同的参数</p>
 <p>并且使用多个头是为了学习不同的模式，所以使用不同的权重信息</p>
-<h2 id="FFN"><a href="#FFN" class="headerlink" title="FFN"></a>FFN</h2><p>$$FFN&#x3D;max(0,xW_1+b_1)W_2+b_2$$<br>其中，$max(0,xW_1+b_1)$ 为第一次线性变化后使用ReLU进行非线性变化</p>
+<h2 id="ffn">FFN</h2>
+<p><span class="math display">\[FFN=max(0,xW_1+b_1)W_2+b_2\]</span>
+其中，<span class="math inline">\(max(0,xW_1+b_1)\)</span> 为第一次线性变化后使用ReLU进行非线性变化</p>
 <blockquote>
-<p>“The dimensionality of input and output is dmodel &#x3D; 512, and the inner-layer has dimensionality dff &#x3D; 2048.” (<a href="zotero://select/library/items/G6X2KQIM">Vaswani 等, 2023, p. 5</a>) (<a href="zotero://open-pdf/library/items/FUHEISF4?page=5&annotation=EHGMVRWZ">pdf</a>)</p>
+<p>“The dimensionality of input and output is dmodel = 512, and the inner-layer has dimensionality dff = 2048.” (<a href="zotero://select/library/items/G6X2KQIM">Vaswani 等, 2023, p. 5</a>) (<a href="zotero://open-pdf/library/items/FUHEISF4?page=5&amp;annotation=EHGMVRWZ">pdf</a>)</p>
 </blockquote>
-<p>$W_1$ 将 $x$ 的512维度扩大到2048，$W_2$ 则又转会512</p>
-<h1 id="Tricks"><a href="#Tricks" class="headerlink" title="Tricks"></a>Tricks</h1><h2 id="1-Masked-Attention"><a href="#1-Masked-Attention" class="headerlink" title="1.Masked Attention"></a>1.Masked Attention</h2><blockquote>
-<p>“We also modify the self-attention sub-layer in the decoder stack to prevent positions from attending to subsequent positions.” (<a href="zotero://select/library/items/G6X2KQIM">Vaswani 等, 2023, p. 3</a>) (<a href="zotero://open-pdf/library/items/FUHEISF4?page=3&annotation=QHVW3RXQ">pdf</a>) mask attention</p>
+<p><span class="math inline">\(W_1\)</span> 将 <span class="math inline">\(x\)</span> 的512维度扩大到2048，<span class="math inline">\(W_2\)</span> 则又转会512</p>
+<h1 id="tricks">Tricks</h1>
+<h2 id="masked-attention">1.Masked Attention</h2>
+<blockquote>
+<p>“We also modify the self-attention sub-layer in the decoder stack to prevent positions from attending to subsequent positions.” (<a href="zotero://select/library/items/G6X2KQIM">Vaswani 等, 2023, p. 3</a>) (<a href="zotero://open-pdf/library/items/FUHEISF4?page=3&amp;annotation=QHVW3RXQ">pdf</a>) mask attention</p>
 </blockquote>
 <p>因为在编码器中是使用自回归模型，模型会看到整个的输入，然而在预测也就是在解码器中，我们不需要看到全部输入，故使用掩码注意力来遮盖后面的部分</p>
-<h1 id="改进"><a href="#改进" class="headerlink" title="改进"></a>改进</h1><h2 id="1-针对RNN"><a href="#1-针对RNN" class="headerlink" title="1.针对RNN"></a>1.针对RNN</h2><blockquote>
-<p>“This inherently sequential nature precludes parallelization within training examples,” (<a href="zotero://select/library/items/G6X2KQIM">Vaswani 等, 2023, p. 2</a>) (<a href="zotero://open-pdf/library/items/FUHEISF4?page=2&annotation=TT3D2AXL">pdf</a>) </p>
+<h1 id="改进">改进</h1>
+<h2 id="针对rnn">1.针对RNN</h2>
+<blockquote>
+<p>“This inherently sequential nature precludes parallelization within training examples,” (<a href="zotero://select/library/items/G6X2KQIM">Vaswani 等, 2023, p. 2</a>) (<a href="zotero://open-pdf/library/items/FUHEISF4?page=2&amp;annotation=TT3D2AXL">pdf</a>)</p>
 </blockquote>
 <p>这种固有的顺序性质排除了训练示例中的并行化</p>
-<h2 id="2-Norm"><a href="#2-Norm" class="headerlink" title="2.Norm"></a>2.Norm</h2><p>（在三维中，对谁norm，就是把谁完整的切下来）<br>使用LayerNorm，相比BathNorm，能够</p>
-<div class="tag-plugin colorful note" color="cyan"><div class="title">Norm</div><div class="body"><p>在Transformer中输入的sequence序列长度不一，如果进行batchnorm的话会导致统计量不稳定</p></div></div>
-
-
-<h1 id="优势"><a href="#优势" class="headerlink" title="优势"></a>优势</h1><h2 id="1-利用依赖关系进行建模"><a href="#1-利用依赖关系进行建模" class="headerlink" title="1.利用依赖关系进行建模"></a>1.利用依赖关系进行建模</h2><blockquote>
-<p>“allowing modeling of dependencies without regard to their distance in the input or output sequences” (<a href="zotero://select/library/items/G6X2KQIM">Vaswani 等, 2023, p. 2</a>) (<a href="zotero://open-pdf/library/items/FUHEISF4?page=2&annotation=LCTN8AVG">pdf</a>)<br>“In this work we propose the Transformer, a model architecture eschewing recurrence and instead relying entirely on an attention mechanism to draw global dependencies between input and output.” (<a href="zotero://select/library/items/G6X2KQIM">Vaswani 等, 2023, p. 2</a>) (<a href="zotero://open-pdf/library/items/FUHEISF4?page=2&annotation=7DS8R5LT">pdf</a>) </p>
+<h2 id="norm">2.Norm</h2>
+<p>（在三维中，对谁norm，就是把谁完整的切下来）
+使用LayerNorm，而不是BathNorm</p>
+<div class="tag-plugin colorful note" color="cyan"><div class="title">Norm</div><div class="body"><p>在Transformer中输入的sequence序列长度不一，如果进行batchnorm的话会导致统计量不稳定</p></div></div>
+<h1 id="优势">优势</h1>
+<h2 id="利用依赖关系进行建模">1.利用依赖关系进行建模</h2>
+<blockquote>
+<p>“allowing modeling of dependencies without regard to their distance in the input or output sequences” (<a href="zotero://select/library/items/G6X2KQIM">Vaswani 等, 2023, p. 2</a>) (<a href="zotero://open-pdf/library/items/FUHEISF4?page=2&amp;annotation=LCTN8AVG">pdf</a>)
+“In this work we propose the Transformer, a model architecture eschewing recurrence and instead relying entirely on an attention mechanism to draw global dependencies between input and output.” (<a href="zotero://select/library/items/G6X2KQIM">Vaswani 等, 2023, p. 2</a>) (<a href="zotero://open-pdf/library/items/FUHEISF4?page=2&amp;annotation=7DS8R5LT">pdf</a>)</p>
 </blockquote>
 <p><strong>依赖注意力机制来绘制输入和输出之间的全局依赖关系，对依赖关系进行建模，而不考虑它们在输入或输出序列中的距离。</strong></p>
-<h2 id="2-进行并行计算"><a href="#2-进行并行计算" class="headerlink" title="2.进行并行计算"></a>2.进行并行计算</h2><h1 id="训练"><a href="#训练" class="headerlink" title="训练"></a>训练</h1><ul>
-<li><p>优化器：Adam，$\beta_1&#x3D;0.9，\beta_2&#x3D;0.98，\beta_3&#x3D;0.98，\epsilon&#x3D;10^{-9}$</p>
-</li>
-<li><p>学习率：$l_{rate}&#x3D;d_{model}^{-0.5}min(step_num^{-0.5},step_num \times warmup_steps^{-1.5})，其中warmup_steps&#x3D;4000$<br> 大概意思是训练步骤的学习率线性增加，随后与步骤数的平方反比根成比例地减少学习率。</p>
-</li>
-<li><p>正则化：</p>
-</li>
+<h2 id="进行并行计算">2.进行并行计算</h2>
+<h1 id="训练">训练</h1>
+<ul>
+<li><p>优化器：Adam，<span class="math inline">\(\beta_1=0.9，\beta_2=0.98，\beta_3=0.98，\epsilon=10^{-9}\)</span></p></li>
+<li><p>学习率：<span class="math display">\[l_{rate}=d_{model}^{-0.5}min(step_num^{-0.5},step_num \times warmup_steps^{-1.5})，\\其中warmup_steps=4000\]</span>
+大概意思是训练步骤的学习率线性增加，随后与步骤数的平方反比根成比例地减少学习率。</p></li>
+<li><p>正则化：</p></li>
 </ul>
-<ol>
-<li>dropout（$P_{dropout}&#x3D;0.1$）：<ol>
+<ol type="1">
+<li>dropout（<span class="math inline">\(P_{dropout}=0.1\)</span>）：
+<ol type="1">
 <li>在每个子层中，残差连接之前使用dropout</li>
 <li>在embedding和positional encoding相加后进行dropout</li>
+</ol></li>
+<li>label smoothing：设置 <span class="math inline">\(\epsilon_{ls}=0.1\)</span> ,虽然对perplexity不利但是有利于提升准确性和BLEU</li>
 </ol>
-</li>
-<li>label smoothing：设置 $\epsilon_{ls}&#x3D;0.1$ ,虽然对perplexity不利但是有利于提升准确性和BLEU</li>
-</ol>
-<div class="tag-plugin colorful note" color="cyan"><div class="title">Label</div><div class="body"><p>Smoothing 设类别数为：$K$ 平滑系数为：$\epsilon \in [0,1]$ 平滑后的目标分布为 $$y_i^{LS}&#x3D; \begin{cases} 1-\epsilon,\ 如果i&#x3D;真实类别 \ \frac{\epsilon}{K-1}， elses \end{cases} $$</p></div></div>
-
+<div class="tag-plugin colorful note" color="cyan"><div class="title">Label&nbsp;Smoothing</div><div class="body"><p>设类别数为：<span class="math inline">\(K\)</span><br> 平滑系数为：<span class="math inline">\(\epsilon \in [0,1]\)</span><br> 平滑后的目标分布为<br> <span class="math display">\[ y_i^{LS}= \begin{cases} 1-\epsilon,\ 如果i=真实类别, \\ \frac{\epsilon}{K-1}， elses \end{cases} \]</span></p></div></div>
 </article>
 <div class="article-footer">
     <section id="license">
@@ -174,7 +195,9 @@
         <div class="link"><input class="copy-area" readonly="true" id="copy-link" value="http://example.com/2025/10/15/Attention%20Is%20All%20You%20Need/" /></div>
         <div class="social-wrap dis-select"><a class="social share-item wechat" onclick="util.toggle(&quot;qrcode-wechat&quot;)"><img  src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/b32ef3da1162a.svg" /></a><a class="social share-item weibo" target="_blank" rel="external nofollow noopener noreferrer" href="https://service.weibo.com/share/share.php?url=http://example.com/2025/10/15/Attention%20Is%20All%20You%20Need/&title=Attention Is All You Need - 美好的明天&summary=模型
 
-Input与Output个人认为Input与Output之间画一条指向Output的线，毕竟，Output Embedding的输入只是Input Embedding输入的下一个输入，图中提到的shifted right 类似..."><img  src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/80c07e4dbb303.svg" /></a><a class="social share-item email" href="mailto:?subject=Attention Is All You Need - 美好的明天&amp;body=http://example.com/2025/10/15/Attention%20Is%20All%20You%20Need/"><img  src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/a1b00e20f425d.svg" /></a><a class="social share-item link" onclick="util.copy(&quot;copy-link&quot;, &quot;复制成功&quot;)"><img  src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/8411ed322ced6.svg" /></a></div>
+
+Input与Output
+个人认为Input与Output之间画一条指向Output的线，毕竟，Output Embedding的输入只是Input Embedding输入的下一个输入，图中提到的shifted ri..."><img  src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/80c07e4dbb303.svg" /></a><a class="social share-item email" href="mailto:?subject=Attention Is All You Need - 美好的明天&amp;body=http://example.com/2025/10/15/Attention%20Is%20All%20You%20Need/"><img  src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/a1b00e20f425d.svg" /></a><a class="social share-item link" onclick="util.copy(&quot;copy-link&quot;, &quot;复制成功&quot;)"><img  src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/8411ed322ced6.svg" /></a></div>
         
         <div class="qrcode" id="qrcode-wechat" style="opacity:0;height:0">
           <img src="https://api.qrserver.com/v1/create-qr-code/?size=256x256&data=http://example.com/2025/10/15/Attention%20Is%20All%20You%20Need/"/>
@@ -184,7 +207,7 @@ Input与Output个人认为Input与Output之间画一条指向Output的线，毕�
     </section>
     </div>
 
-<div class="related-wrap" id="read-next"><section class="body"><div class="item" id="prev"></div><div class="item" id="next"><div class="note">较早文章</div><a href="/2025/09/24/%E4%BD%BF%E7%94%A8Pycharm%E8%BF%9B%E8%A1%8C%E8%BF%9B%E7%A8%8Bssh%EF%BC%88%E4%BB%A5Featurize%E4%B8%BA%E4%BE%8B%EF%BC%89/">使用Pycharm进行远程ssh（以Featurize为例）</a></div></section></div>
+<div class="related-wrap" id="read-next"><section class="body"><div class="item" id="prev"><div class="note">较新文章</div><a href="/2025/10/15/%E5%9C%A8Stellar%E4%B8%AD%E8%AE%BE%E7%BD%AEPandoc/">在Stellar中设置Pandoc</a></div><div class="item" id="next"><div class="note">较早文章</div><a href="/2025/09/24/%E4%BD%BF%E7%94%A8Pycharm%E8%BF%9B%E8%A1%8C%E8%BF%9B%E7%A8%8Bssh%EF%BC%88%E4%BB%A5Featurize%E4%B8%BA%E4%BE%8B%EF%BC%89/">使用Pycharm进行远程ssh（以Featurize为例）</a></div></section></div>
 
 
 
@@ -205,59 +228,58 @@ Input与Output个人认为Input与Output之间画一条指向Output的线，毕�
 
 
 <footer class="page-footer footnote"><hr><div class="sitemap" style="column-count:1;"><div class="sitemap-group"><span class="fs15">博客</span><a href="/">近期发布</a><a href="/blog/categories/">分类</a><a href="/blog/tags/">标签</a><a href="/blog/archives/">归档</a></div></div><div class="text"><center>
-  <!--不蒜子计数器-->
-  <script async="" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-  <span id="runtime_span"></span>
-  <script type="text/javascript">
+<!--不蒜子计数器-->
+<script async="" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<span id="runtime_span"></span>
+<script type="text/javascript">
     document.addEventListener('DOMContentLoaded', function() {
       var runtime_span = document.getElementById('runtime_span');
 
-<pre><code>  function show_runtime() {
-    // 调用定时器
-    setTimeout(show_runtime, 1000);
+      function show_runtime() {
+        // 调用定时器
+        setTimeout(show_runtime, 1000);
 
-    var seconds = 1000;
-    var minutes = seconds * 60;
-    var hours = minutes * 60;
-    var days = hours * 24;
-    var years = days * 365;
+        var seconds = 1000;
+        var minutes = seconds * 60;
+        var hours = minutes * 60;
+        var days = hours * 24;
+        var years = days * 365;
 
-    var today = new Date();
-    var todayYear = today.getFullYear();
-    var todayMonth = today.getMonth();
-    var todayDate = today.getDate();
-    var todayHour = today.getHours();
-    var todayMinute = today.getMinutes();
-    var todaySecond = today.getSeconds();
+        var today = new Date();
+        var todayYear = today.getFullYear();
+        var todayMonth = today.getMonth();
+        var todayDate = today.getDate();
+        var todayHour = today.getHours();
+        var todayMinute = today.getMinutes();
+        var todaySecond = today.getSeconds();
 
-    var t1 = Date.UTC(2025, 8, 23, 20, 0, 0); // UTC时间，月份从0开始
-    var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
-    var diff = t2 - t1;
+        var t1 = Date.UTC(2025, 8, 23, 20, 0, 0); // UTC时间，月份从0开始
+        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+        var diff = t2 - t1;
 
-    var diffYears = Math.floor(diff / years);
-    var diffDays = Math.floor((diff / days) - diffYears * 365);
-    var diffHours = Math.floor((diff - (diffYears * 365 + diffDays) * days) / hours);
-    var diffMinutes = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours) / minutes);
-    var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours - diffMinutes * minutes) / seconds);
+        var diffYears = Math.floor(diff / years);
+        var diffDays = Math.floor((diff / days) - diffYears * 365);
+        var diffHours = Math.floor((diff - (diffYears * 365 + diffDays) * days) / hours);
+        var diffMinutes = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours) / minutes);
+        var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours - diffMinutes * minutes) / seconds);
 
-    // 更新显示时间的span元素内容
-    runtime_span.innerHTML = &quot;🦉营业：&quot; + diffYears + &quot; 年 &quot; + diffDays + &quot; 天 &quot; + diffHours + &quot; 小时 &quot; + diffMinutes + &quot; 分钟 &quot; + diffSeconds + &quot; 秒🦉&quot;;
-  }
+        // 更新显示时间的span元素内容
+        runtime_span.innerHTML = "🦉营业：" + diffYears + " 年 " + diffDays + " 天 " + diffHours + " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒🦉";
+      }
 
-  show_runtime(); // 初次调用函数以启动定时器
-});
-</code></pre>
-<p>  </script></p>
+      show_runtime(); // 初次调用函数以启动定时器
+    });
+  </script>
 </center>
-
-<p>本站由 <a href="/">VirusL</a> 使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.33.1">Stellar 1.33.1</a> 主题创建。<br>本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。</p>
-<span class="totalcount">共发表 6 篇Blog · </span><span class="post-count">总计 2.2k 字</span></div></footer>
+<p>本站由 <a href="/">VirusL</a> 使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.33.1">Stellar 1.33.1</a> 主题创建。
+本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。</p>
+<span class="totalcount">共发表 7 篇Blog · </span><span class="post-count">总计 2.4k 字</span></div></footer>
 <div class="main-mask" onclick="sidebar.dismiss()"></div></div><aside class="l_right">
 <div class="widgets">
 
 
 
-<widget class="widget-wrapper toc" id="data-toc" collapse="false"><div class="widget-header dis-select"><span class="name">本文目录</span><a class="cap-action" onclick="sidebar.toggleTOC()" ><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg></a></div><div class="widget-body"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%A8%A1%E5%9E%8B"><span class="toc-text">模型</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Input%E4%B8%8EOutput"><span class="toc-text">Input与Output</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Positional-Encoding"><span class="toc-text">Positional Encoding</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Scaled-Dot-Product-Attention"><span class="toc-text">Scaled Dot-Product Attention</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Step1"><span class="toc-text">Step1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Step-2"><span class="toc-text">Step 2</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Cross-Attention"><span class="toc-text">Cross-Attention</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Muti-Head-Attention"><span class="toc-text">Muti-Head Attention</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#FFN"><span class="toc-text">FFN</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Tricks"><span class="toc-text">Tricks</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-Masked-Attention"><span class="toc-text">1.Masked Attention</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%94%B9%E8%BF%9B"><span class="toc-text">改进</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E9%92%88%E5%AF%B9RNN"><span class="toc-text">1.针对RNN</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-Norm"><span class="toc-text">2.Norm</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BC%98%E5%8A%BF"><span class="toc-text">优势</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E5%88%A9%E7%94%A8%E4%BE%9D%E8%B5%96%E5%85%B3%E7%B3%BB%E8%BF%9B%E8%A1%8C%E5%BB%BA%E6%A8%A1"><span class="toc-text">1.利用依赖关系进行建模</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E8%BF%9B%E8%A1%8C%E5%B9%B6%E8%A1%8C%E8%AE%A1%E7%AE%97"><span class="toc-text">2.进行并行计算</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%AE%AD%E7%BB%83"><span class="toc-text">训练</span></a></li></ol></div><div class="widget-footer"><a class="top" onclick="util.scrollTop()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"><path stroke-linejoin="round" d="m9 15.5l3-3l3 3m-6-4l3-3l3 3"/><path d="M7 3.338A9.95 9.95 0 0 1 12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12c0-1.821.487-3.53 1.338-5"/></g></svg><span>回到顶部</span></a><a class="buttom" onclick="util.scrollComment()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5" d="M8 10.5h8M8 14h5.5M17 3.338A9.95 9.95 0 0 0 12 2C6.477 2 2 6.477 2 12c0 1.6.376 3.112 1.043 4.453c.178.356.237.763.134 1.148l-.595 2.226a1.3 1.3 0 0 0 1.591 1.592l2.226-.596a1.63 1.63 0 0 1 1.149.133A9.96 9.96 0 0 0 12 22c5.523 0 10-4.477 10-10c0-1.821-.487-3.53-1.338-5"/></svg><span>参与讨论</span></a></div></widget>
+<widget class="widget-wrapper toc" id="data-toc" collapse="false"><div class="widget-header dis-select"><span class="name">本文目录</span><a class="cap-action" onclick="sidebar.toggleTOC()" ><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg></a></div><div class="widget-body"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%A8%A1%E5%9E%8B"><span class="toc-text">模型</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#input%E4%B8%8Eoutput"><span class="toc-text">Input与Output</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#positional-encoding"><span class="toc-text">Positional Encoding</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#scaled-dot-product-attention"><span class="toc-text">Scaled Dot-Product Attention</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#step1"><span class="toc-text">Step1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#step-2"><span class="toc-text">Step 2</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#cross-attention"><span class="toc-text">Cross-Attention</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#muti-head-attention"><span class="toc-text">Muti-Head Attention</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ffn"><span class="toc-text">FFN</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#tricks"><span class="toc-text">Tricks</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#masked-attention"><span class="toc-text">1.Masked Attention</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%94%B9%E8%BF%9B"><span class="toc-text">改进</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%92%88%E5%AF%B9rnn"><span class="toc-text">1.针对RNN</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#norm"><span class="toc-text">2.Norm</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BC%98%E5%8A%BF"><span class="toc-text">优势</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%A9%E7%94%A8%E4%BE%9D%E8%B5%96%E5%85%B3%E7%B3%BB%E8%BF%9B%E8%A1%8C%E5%BB%BA%E6%A8%A1"><span class="toc-text">1.利用依赖关系进行建模</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%9B%E8%A1%8C%E5%B9%B6%E8%A1%8C%E8%AE%A1%E7%AE%97"><span class="toc-text">2.进行并行计算</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%AE%AD%E7%BB%83"><span class="toc-text">训练</span></a></li></ol></div><div class="widget-footer"><a class="top" onclick="util.scrollTop()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"><path stroke-linejoin="round" d="m9 15.5l3-3l3 3m-6-4l3-3l3 3"/><path d="M7 3.338A9.95 9.95 0 0 1 12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12c0-1.821.487-3.53 1.338-5"/></g></svg><span>回到顶部</span></a><a class="buttom" onclick="util.scrollComment()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5" d="M8 10.5h8M8 14h5.5M17 3.338A9.95 9.95 0 0 0 12 2C6.477 2 2 6.477 2 12c0 1.6.376 3.112 1.043 4.453c.178.356.237.763.134 1.148l-.595 2.226a1.3 1.3 0 0 0 1.591 1.592l2.226-.596a1.63 1.63 0 0 1 1.149.133A9.96 9.96 0 0 0 12 22c5.523 0 10-4.477 10-10c0-1.821-.487-3.53-1.338-5"/></svg><span>参与讨论</span></a></div></widget>
 </div></aside><div class='float-panel'>
   <button type='button' style='display:none' class='laptop-only rightbar-toggle mobile' onclick='sidebar.rightbar()'>
     <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg>

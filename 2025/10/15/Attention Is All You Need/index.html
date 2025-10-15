@@ -29,7 +29,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://example.com/images/avatar.jpg">
 <meta property="article:published_time" content="2025-10-15T10:07:59.273Z">
-<meta property="article:modified_time" content="2025-10-15T10:21:54.342Z">
+<meta property="article:modified_time" content="2025-10-15T10:41:24.627Z">
 <meta property="article:author" content="VirusL">
 <meta property="article:tag" content="Transformer">
 <meta property="article:tag" content="NLP">
@@ -52,7 +52,7 @@
 
   
 
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"VirusL","sameAs":[],"image":"/images/avatar.jpg"},"dateCreated":"2025-10-15T18:07:59+08:00","dateModified":"2025-10-15T18:21:54+08:00","datePublished":"2025-10-15T18:07:59+08:00","description":"","headline":"Attention Is All You Need","mainEntityOfPage":{"@type":"WebPage","@id":"http://example.com/2025/10/15/Attention%20Is%20All%20You%20Need/"},"publisher":{"@type":"Organization","name":"VirusL","sameAs":[],"image":"/images/avatar.jpg","logo":{"@type":"ImageObject","url":"/images/avatar.jpg"}},"url":"http://example.com/2025/10/15/Attention%20Is%20All%20You%20Need/","keywords":"Transformer, NLP","image":[]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"VirusL","sameAs":[],"image":"/images/avatar.jpg"},"dateCreated":"2025-10-15T18:07:59+08:00","dateModified":"2025-10-15T18:41:24+08:00","datePublished":"2025-10-15T18:07:59+08:00","description":"","headline":"Attention Is All You Need","mainEntityOfPage":{"@type":"WebPage","@id":"http://example.com/2025/10/15/Attention%20Is%20All%20You%20Need/"},"publisher":{"@type":"Organization","name":"VirusL","sameAs":[],"image":"/images/avatar.jpg","logo":{"@type":"ImageObject","url":"/images/avatar.jpg"}},"url":"http://example.com/2025/10/15/Attention%20Is%20All%20You%20Need/","keywords":"Transformer, NLP","image":[]}</script>
   
 </head>
 <body>
@@ -84,7 +84,7 @@
   <div class="content">
     <div class="top bread-nav footnote"><div class="left"><div class="flex-row" id="breadcrumb"><a class="cap breadcrumb" href="/">主页</a>
 <span class="sep"></span><a class="cap breadcrumb" id="menu" href="/topic/">专栏</a><span class="sep"></span><a class="cap breadcrumb" id="proj" href="/2025/10/15/Attention%20Is%20All%20You%20Need/">Deep Learning</a></div>
-<div class="flex-row" id="post-meta"><span class="text created">发布于：<time datetime="2025-10-15T10:07:59.273Z">2025-10-15</time></span><span class="sep updated"></span><span class="text updated">更新于：<time datetime="2025-10-15T10:21:54.342Z">2025-10-15</time></span></div><div class="flex-row" id="page-words"><span style="padding: 4px;">本文：1.3k字</span><span class="sep updated" style="padding: 4px;"></span><span class="text updated" style="padding: 4px;">阅读时长：5分</span></div><div class="flex-row" id="tag"> <span>&nbsp标签：</span><a class="cap breadcrumb-link" href="/tags/NLP/">NLP</a>&nbsp; <a class="cap breadcrumb-link" href="/tags/Transformer/">Transformer</a>&nbsp</div></div></div>
+<div class="flex-row" id="post-meta"><span class="text created">发布于：<time datetime="2025-10-15T10:07:59.273Z">2025-10-15</time></span><span class="sep updated"></span><span class="text updated">更新于：<time datetime="2025-10-15T10:41:24.627Z">2025-10-15</time></span></div><div class="flex-row" id="page-words"><span style="padding: 4px;">本文：1.3k字</span><span class="sep updated" style="padding: 4px;"></span><span class="text updated" style="padding: 4px;">阅读时长：5分</span></div><div class="flex-row" id="tag"> <span>&nbsp标签：</span><a class="cap breadcrumb-link" href="/tags/NLP/">NLP</a>&nbsp; <a class="cap breadcrumb-link" href="/tags/Transformer/">Transformer</a>&nbsp</div></div></div>
     
     <div class="bottom only-title">
       
@@ -100,10 +100,8 @@
 <h2 id="Input与Output"><a href="#Input与Output" class="headerlink" title="Input与Output"></a>Input与Output</h2><p>个人认为Input与Output之间画一条指向Output的线，毕竟，Output Embedding的输入只是Input Embedding输入的下一个输入，图中提到的shifted right 类似与滑动窗口往右边移动</p>
 <h2 id="Positional-Encoding"><a href="#Positional-Encoding" class="headerlink" title="Positional Encoding"></a>Positional Encoding</h2><p>使用不同频率的 $sin$ 和 $cos$ 函数来作为位置编码，使用两个函数来代表奇数项和偶数项的位置，唯一的超参数为 $d_{model}$ 特征的大小</p>
 <p>$$\displaylines{PE_{(pos,2i)}&#x3D;sin(pos&#x2F;10000^{2i&#x2F;d_{model}}) \ PE_{pos,2i+1}&#x3D;cos(pos&#x2F;10000^{2i&#x2F;d_{model}})}$$<br>这样得到一个与输入embedding大小一样的位置编码矩阵，直接加在embedding中</p>
-<div class="tag-plugin colorful note" color="cyan"><div class="body"><p>我们对输入进行分解</p></div></div>
-<blockquote>
-<p>$QK^T&#x3D;(E+P)(E+P)^T&#x3D;EE^T+EP^T+PE^T+PP^T$<br>$EE^T$：表示语义间关系<br>$EP^T,PE^T,PP^T$：表示引入位置信息的影响</p>
-</blockquote>
+<div class="tag-plugin colorful note" color="cyan"><div class="title">我们对输入进行分解</div><div class="body"><p>$QK^T&#x3D;(E+P)(E+P)^T&#x3D;EE^T+EP^T+PE^T+PP^T$ $EE^T$：表示语义间关系 $EP^T,PE^T,PP^T$：表示引入位置信息的影响</p></div></div>
+
 <h2 id="Scaled-Dot-Product-Attention"><a href="#Scaled-Dot-Product-Attention" class="headerlink" title="Scaled Dot-Product Attention"></a>Scaled Dot-Product Attention</h2><h3 id="Step1"><a href="#Step1" class="headerlink" title="Step1"></a>Step1</h3><p>首先关于如何计算出 $Q、K、V$ 矩阵</p>
 <ol>
 <li>将输入的token进行embedding变换成计算机输入的向量格式</li>
@@ -135,9 +133,9 @@
 </blockquote>
 <p>这种固有的顺序性质排除了训练示例中的并行化</p>
 <h2 id="2-Norm"><a href="#2-Norm" class="headerlink" title="2.Norm"></a>2.Norm</h2><p>（在三维中，对谁norm，就是把谁完整的切下来）<br>使用LayerNorm，相比BathNorm，能够</p>
-<blockquote>
-<p>[!Norm]<br>在Transformer中输入的sequence序列长度不一，如果进行batchnorm的话会导致统计量不稳定</p>
-</blockquote>
+<div class="tag-plugin colorful note" color="cyan"><div class="title">Norm</div><div class="body"><p>在Transformer中输入的sequence序列长度不一，如果进行batchnorm的话会导致统计量不稳定</p></div></div>
+
+
 <h1 id="优势"><a href="#优势" class="headerlink" title="优势"></a>优势</h1><h2 id="1-利用依赖关系进行建模"><a href="#1-利用依赖关系进行建模" class="headerlink" title="1.利用依赖关系进行建模"></a>1.利用依赖关系进行建模</h2><blockquote>
 <p>“allowing modeling of dependencies without regard to their distance in the input or output sequences” (<a href="zotero://select/library/items/G6X2KQIM">Vaswani 等, 2023, p. 2</a>) (<a href="zotero://open-pdf/library/items/FUHEISF4?page=2&annotation=LCTN8AVG">pdf</a>)<br>“In this work we propose the Transformer, a model architecture eschewing recurrence and instead relying entirely on an attention mechanism to draw global dependencies between input and output.” (<a href="zotero://select/library/items/G6X2KQIM">Vaswani 等, 2023, p. 2</a>) (<a href="zotero://open-pdf/library/items/FUHEISF4?page=2&annotation=7DS8R5LT">pdf</a>) </p>
 </blockquote>
@@ -158,9 +156,8 @@
 </li>
 <li>label smoothing：设置 $\epsilon_{ls}&#x3D;0.1$ ,虽然对perplexity不利但是有利于提升准确性和BLEU</li>
 </ol>
-<blockquote>
-<p>[!Label Smoothing]<br>设类别数为：$K$<br>平滑系数为：$\epsilon \in [0,1]$<br>平滑后的目标分布为<br>$$y_i^{LS}&#x3D;<br>\begin{cases}<br>1-\epsilon,\ 如果i&#x3D;真实类别 \<br>\frac{\epsilon}{K-1}， elses<br>\end{cases}<br>$$</p>
-</blockquote>
+<div class="tag-plugin colorful note" color="cyan"><div class="title">Label</div><div class="body"><p>Smoothing 设类别数为：$K$ 平滑系数为：$\epsilon \in [0,1]$ 平滑后的目标分布为 $$y_i^{LS}&#x3D; \begin{cases} 1-\epsilon,\ 如果i&#x3D;真实类别 \ \frac{\epsilon}{K-1}， elses \end{cases} $$</p></div></div>
+
 </article>
 <div class="article-footer">
     <section id="license">
@@ -978,6 +975,29 @@ Input与Output个人认为Input与Output之间画一条指向Output的线，毕�
     }
   });
 </script>
+
+<script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML" async></script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+  MathJax.Hub.Config({
+    tex2jax: {
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+  });
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
 <script>
   document.addEventListener('DOMContentLoaded', function () {
     window.codeElements = document.querySelectorAll('.code');

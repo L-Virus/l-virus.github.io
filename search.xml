@@ -1,6 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Git配置proxy</title>
+    <url>/2025/09/24/Git%E9%85%8D%E7%BD%AEproxy/</url>
+    <content><![CDATA[<h1 id="查看git配置"><a href="#查看git配置" class="headerlink" title="查看git配置"></a>查看git配置</h1><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git config  --list</span><br><span class="line">git config --global --list</span><br></pre></td></tr></table></figure>
+<h1 id="配置proxy"><a href="#配置proxy" class="headerlink" title="配置proxy"></a>配置proxy</h1><h2 id="两种proxy方式"><a href="#两种proxy方式" class="headerlink" title="两种proxy方式"></a>两种proxy方式</h2><blockquote>
+<p>走http&#x2F;https形式：git clone <a href="https://github.com/xxxxx">https://github.com/xxxxx</a><br>走ssh 形式：git clone <a href="mailto:&#103;&#105;&#116;&#64;&#x67;&#105;&#116;&#104;&#x75;&#x62;&#46;&#99;&#111;&#x6d;">git@github.com</a>:xxxxx</p>
+</blockquote>
+<h3 id="走http-https"><a href="#走http-https" class="headerlink" title="走http&#x2F;https"></a>走http&#x2F;https</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git config --global http.proxy <span class="string">&quot;http://127.0.0.1:7890&quot;</span></span><br><span class="line">git config --global https.proxy <span class="string">&quot;https://127.0.0.1:7890&quot;</span></span><br></pre></td></tr></table></figure>
+<h3 id="取消proxy"><a href="#取消proxy" class="headerlink" title="取消proxy"></a>取消proxy</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git config --global --<span class="built_in">unset</span> http.proxy</span><br><span class="line">git config --global --<span class="built_in">unset</span> https.proxy</span><br></pre></td></tr></table></figure>
+<h3 id="走ssh"><a href="#走ssh" class="headerlink" title="走ssh"></a>走ssh</h3><blockquote>
+<p>修改 .ssh&#x2F;config 文件（不存在则新建，Windows 一般在 C:\Users\YourName.ssh)文件夹下面新建一个文件 config，注意没有任何后缀名，就叫 config）：</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 必须是 github.com</span></span><br><span class="line">Host github.com</span><br><span class="line">   HostName github.com</span><br><span class="line">   User git</span><br><span class="line">   <span class="comment"># 走 HTTP 代理</span></span><br><span class="line">   ProxyCommand connect -H 127.0.0.1:7890 %h %p</span><br></pre></td></tr></table></figure>]]></content>
+      <tags>
+        <tag>Git</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Attention Is All You Need</title>
     <url>/2025/10/15/Attention%20Is%20All%20You%20Need/</url>
     <content><![CDATA[<h1 id="模型"><a href="#模型" class="headerlink" title="模型"></a>模型</h1><p><img src="https://raw.githubusercontent.com/L-Virus/Pic/main/Blog/20251014145549088.png" alt="image.png"></p>
@@ -8,10 +25,8 @@
 <h2 id="Input与Output"><a href="#Input与Output" class="headerlink" title="Input与Output"></a>Input与Output</h2><p>个人认为Input与Output之间画一条指向Output的线，毕竟，Output Embedding的输入只是Input Embedding输入的下一个输入，图中提到的shifted right 类似与滑动窗口往右边移动</p>
 <h2 id="Positional-Encoding"><a href="#Positional-Encoding" class="headerlink" title="Positional Encoding"></a>Positional Encoding</h2><p>使用不同频率的 $sin$ 和 $cos$ 函数来作为位置编码，使用两个函数来代表奇数项和偶数项的位置，唯一的超参数为 $d_{model}$ 特征的大小</p>
 <p>$$\displaylines{PE_{(pos,2i)}&#x3D;sin(pos&#x2F;10000^{2i&#x2F;d_{model}}) \ PE_{pos,2i+1}&#x3D;cos(pos&#x2F;10000^{2i&#x2F;d_{model}})}$$<br>这样得到一个与输入embedding大小一样的位置编码矩阵，直接加在embedding中</p>
-<div class="tag-plugin colorful note" color="cyan"><div class="body"><p>我们对输入进行分解</p></div></div>
-<blockquote>
-<p>$QK^T&#x3D;(E+P)(E+P)^T&#x3D;EE^T+EP^T+PE^T+PP^T$<br>$EE^T$：表示语义间关系<br>$EP^T,PE^T,PP^T$：表示引入位置信息的影响</p>
-</blockquote>
+<div class="tag-plugin colorful note" color="cyan"><div class="title">我们对输入进行分解</div><div class="body"><p>$QK^T&#x3D;(E+P)(E+P)^T&#x3D;EE^T+EP^T+PE^T+PP^T$ $EE^T$：表示语义间关系 $EP^T,PE^T,PP^T$：表示引入位置信息的影响</p></div></div>
+
 <h2 id="Scaled-Dot-Product-Attention"><a href="#Scaled-Dot-Product-Attention" class="headerlink" title="Scaled Dot-Product Attention"></a>Scaled Dot-Product Attention</h2><h3 id="Step1"><a href="#Step1" class="headerlink" title="Step1"></a>Step1</h3><p>首先关于如何计算出 $Q、K、V$ 矩阵</p>
 <ol>
 <li>将输入的token进行embedding变换成计算机输入的向量格式</li>
@@ -43,9 +58,9 @@
 </blockquote>
 <p>这种固有的顺序性质排除了训练示例中的并行化</p>
 <h2 id="2-Norm"><a href="#2-Norm" class="headerlink" title="2.Norm"></a>2.Norm</h2><p>（在三维中，对谁norm，就是把谁完整的切下来）<br>使用LayerNorm，相比BathNorm，能够</p>
-<blockquote>
-<p>[!Norm]<br>在Transformer中输入的sequence序列长度不一，如果进行batchnorm的话会导致统计量不稳定</p>
-</blockquote>
+<div class="tag-plugin colorful note" color="cyan"><div class="title">Norm</div><div class="body"><p>在Transformer中输入的sequence序列长度不一，如果进行batchnorm的话会导致统计量不稳定</p></div></div>
+
+
 <h1 id="优势"><a href="#优势" class="headerlink" title="优势"></a>优势</h1><h2 id="1-利用依赖关系进行建模"><a href="#1-利用依赖关系进行建模" class="headerlink" title="1.利用依赖关系进行建模"></a>1.利用依赖关系进行建模</h2><blockquote>
 <p>“allowing modeling of dependencies without regard to their distance in the input or output sequences” (<a href="zotero://select/library/items/G6X2KQIM">Vaswani 等, 2023, p. 2</a>) (<a href="zotero://open-pdf/library/items/FUHEISF4?page=2&annotation=LCTN8AVG">pdf</a>)<br>“In this work we propose the Transformer, a model architecture eschewing recurrence and instead relying entirely on an attention mechanism to draw global dependencies between input and output.” (<a href="zotero://select/library/items/G6X2KQIM">Vaswani 等, 2023, p. 2</a>) (<a href="zotero://open-pdf/library/items/FUHEISF4?page=2&annotation=7DS8R5LT">pdf</a>) </p>
 </blockquote>
@@ -66,30 +81,12 @@
 </li>
 <li>label smoothing：设置 $\epsilon_{ls}&#x3D;0.1$ ,虽然对perplexity不利但是有利于提升准确性和BLEU</li>
 </ol>
-<blockquote>
-<p>[!Label Smoothing]<br>设类别数为：$K$<br>平滑系数为：$\epsilon \in [0,1]$<br>平滑后的目标分布为<br>$$y_i^{LS}&#x3D;<br>\begin{cases}<br>1-\epsilon,\ 如果i&#x3D;真实类别 \<br>\frac{\epsilon}{K-1}， elses<br>\end{cases}<br>$$</p>
-</blockquote>
+<div class="tag-plugin colorful note" color="cyan"><div class="title">Label</div><div class="body"><p>Smoothing 设类别数为：$K$ 平滑系数为：$\epsilon \in [0,1]$ 平滑后的目标分布为 $$y_i^{LS}&#x3D; \begin{cases} 1-\epsilon,\ 如果i&#x3D;真实类别 \ \frac{\epsilon}{K-1}， elses \end{cases} $$</p></div></div>
+
 ]]></content>
       <tags>
         <tag>Transformer</tag>
         <tag>NLP</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Git配置proxy</title>
-    <url>/2025/09/24/Git%E9%85%8D%E7%BD%AEproxy/</url>
-    <content><![CDATA[<h1 id="查看git配置"><a href="#查看git配置" class="headerlink" title="查看git配置"></a>查看git配置</h1><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git config  --list</span><br><span class="line">git config --global --list</span><br></pre></td></tr></table></figure>
-<h1 id="配置proxy"><a href="#配置proxy" class="headerlink" title="配置proxy"></a>配置proxy</h1><h2 id="两种proxy方式"><a href="#两种proxy方式" class="headerlink" title="两种proxy方式"></a>两种proxy方式</h2><blockquote>
-<p>走http&#x2F;https形式：git clone <a href="https://github.com/xxxxx">https://github.com/xxxxx</a><br>走ssh 形式：git clone <a href="mailto:&#x67;&#x69;&#116;&#64;&#x67;&#x69;&#116;&#104;&#x75;&#x62;&#46;&#x63;&#x6f;&#x6d;">git@github.com</a>:xxxxx</p>
-</blockquote>
-<h3 id="走http-https"><a href="#走http-https" class="headerlink" title="走http&#x2F;https"></a>走http&#x2F;https</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git config --global http.proxy <span class="string">&quot;http://127.0.0.1:7890&quot;</span></span><br><span class="line">git config --global https.proxy <span class="string">&quot;https://127.0.0.1:7890&quot;</span></span><br></pre></td></tr></table></figure>
-<h3 id="取消proxy"><a href="#取消proxy" class="headerlink" title="取消proxy"></a>取消proxy</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git config --global --<span class="built_in">unset</span> http.proxy</span><br><span class="line">git config --global --<span class="built_in">unset</span> https.proxy</span><br></pre></td></tr></table></figure>
-<h3 id="走ssh"><a href="#走ssh" class="headerlink" title="走ssh"></a>走ssh</h3><blockquote>
-<p>修改 .ssh&#x2F;config 文件（不存在则新建，Windows 一般在 C:\Users\YourName.ssh)文件夹下面新建一个文件 config，注意没有任何后缀名，就叫 config）：</p>
-</blockquote>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 必须是 github.com</span></span><br><span class="line">Host github.com</span><br><span class="line">   HostName github.com</span><br><span class="line">   User git</span><br><span class="line">   <span class="comment"># 走 HTTP 代理</span></span><br><span class="line">   ProxyCommand connect -H 127.0.0.1:7890 %h %p</span><br></pre></td></tr></table></figure>]]></content>
-      <tags>
-        <tag>Git</tag>
       </tags>
   </entry>
   <entry>

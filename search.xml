@@ -182,7 +182,7 @@ Softmax是对最后一个维度进行操作，也就是词汇表维度</p>
 <p>一个U型的结构，左边是下采样进行提取特征，右边是上采样进行恢复特征图，中间是瓶颈层将大量局部特征整合成更高层抽象信息，减少冗余，提供非线性变换，为解码阶段提供新的特征表示，模型在每层下降的过程中会保存下降的结果与对应上升的特征图进行跳跃连接。</p>
 <p>输入为 <span class="math inline">\(572 \times 572\)</span> ，进行下采样每层经过 <span class="math inline">\(3 \times 3\)</span> 无填充的卷积、ReLU和一个大小为 <span class="math inline">\(2 \times 2\)</span>，步长为2 的maxpooling，同时增加一倍通道数
 因为在上采样过程中图像大小与在下采样中不同，使用需要裁剪特征图来跳跃连接</p>
-<div class="tag-plugin blockquote" indent="undefined"><p><span class="math inline">\(1 \times 572 \times 572\)</span> 经过两次卷积和两次ReLU后，大小为 <span class="math inline">\(64 \times 568 \times 568\)</span> (572-3+1-3+1) ；经过maxpooling 后减少特征图大小，大小为 <span class="math inline">\(64 \times 284 \times 284\)</span> ((568-2+2)/2)；直到最底层大小为 <span class="math inline">\(512 \times 32 \times 32\)</span>达到瓶颈层后经历两次卷积块后大小为 <span class="math inline">\(1024 \times 28 \times 28\)</span>在上采样阶段使用反卷积和下降的特征图做拼接，并且通道数量减半到大小为 <span class="math inline">\(64 \times 388 \times 388\)</span>最后进行 <span class="math inline">\(1 \times 1\)</span> 卷积，将通道数降到图像中类别数<strong>在后续的U-net优化中，应该使上下采样的大小相同</strong></p></div>
+<div class="tag-plugin colorful note" color="cyan"><div class="title">Note</div><div class="body"><p><span class="math inline">\(1 \times 572 \times 572\)</span> 经过两次卷积和两次ReLU后，大小为 <span class="math inline">\(64 \times 568 \times 568\)</span> (572-3+1-3+1) ； 经过maxpooling 后减少特征图大小，大小为 <span class="math inline">\(64 \times 284 \times 284\)</span> ((568-2+2)/2)； 直到最底层大小为 <span class="math inline">\(512 \times 32 \times 32\)</span> 达到瓶颈层后经历两次卷积块后大小为 <span class="math inline">\(1024 \times 28 \times 28\)</span> 在上采样阶段使用反卷积和下降的特征图做拼接，并且通道数量减半到大小为 <span class="math inline">\(64 \times 388 \times 388\)</span> 最后进行 <span class="math inline">\(1 \times 1\)</span> 卷积，将通道数降到图像中类别数 <strong>在后续的U-net优化中，应该使上下采样的大小相同</strong></p></div></div>
 <hr />
 <h1 id="模型优化">模型优化</h1>
 <h2 id="重叠切片无缝平铺镜像填充">1.重叠切片（无缝平铺）+镜像填充</h2>
@@ -253,23 +253,27 @@ e_{w_i}=[0,0,\dots,1,\dots,0] \in \{0,1\}^{\mid \mathcal{V} \mid}
 <p>针对<strong>变量少</strong>，<strong>变量相关性不大</strong>的数据来说很方便</p>
 <h2 id="问题">问题</h2>
 <h3 id="相似度">相似度</h3>
-<p>尽管两个词在语义上很相近，但是在经过One-hot Encoding 后，两个向量得到的相似度为0</p>
+<p>尽管两个词在语义上很相近，但是在经过 One-hot Encoding 后，两个向量得到的相似度为0</p>
 <h3 id="冗余">冗余</h3>
 <p>这种 Encoding 模型会导致参数矩阵变得稀疏 <strong>Sparsity</strong> 且冗余</p>
 <h2 id="缓解办法">缓解办法</h2>
 <p>引入 <strong>WordNet</strong> 等语义词典，然后引入它们的共同语义信息作为新的额外特征，从而缓解同义词的独热表示不同的问题。</p>
 <h1 id="分布式语义假设">分布式语义假设</h1>
-<p>人们在阅读过程中遇到从未见过的词时，通常会根据上下文来推断其含义以及相关属性。
-&gt; 有点类似skip-gram的思想，自监督</p>
+<p>人们在阅读过程中遇到从未见过的词时，通常会根据上下文来推断其含义以及相关属性。</p>
+<blockquote>
+<p>有点类似skip-gram的思想，自监督</p>
+</blockquote>
 <p>分布式语义假设：<strong>词的含义可由其上下文的分布进行表示</strong>
 基于这种假设，可以利用大规模的未标注文本数据，根据每个词的上下文分布对词进行表示。</p>
 <h2 id="词语共现频次表">词语共现频次表</h2>
-<p>假设 corpoc 中有三句话：
-- 我 喜欢 自然 语言 处理 。
-- 我 爱 深度 学习 。
-- 我 喜欢 机器 学习 。</p>
+<p>假设 corpoc 中有三句话：</p>
+<ul>
+<li>我 喜欢 自然 语言 处理 。</li>
+<li>我 爱 深度 学习 。</li>
+<li>我 喜欢 机器 学习 。</li>
+</ul>
 <p>假设以词所在句子中的其他词语作为上下文。构建<strong>词语共现频次表</strong>
-表中的每一项代表一个词<span class="math inline">\(wi\)</span>与另一个词<span class="math inline">\(w_j\)</span>（上下文）在同一个句子中的共现频次，每个词与自身的共现频次设置为0。</p>
+表中的每一项代表一个词 <span class="math inline">\(wi\)</span> 与另一个词 <span class="math inline">\(w_j\)</span>（上下文）在同一个句子中的共现频次，每个词与自身的共现频次设置为0。</p>
 <table>
 <colgroup>
 <col style="width: 9%" />
@@ -453,7 +457,7 @@ e_{w_i}=[0,0,\dots,1,\dots,0] \in \{0,1\}^{\mid \mathcal{V} \mid}
 PMI(w,c)=log_2\frac{P(w,c)}{P(w)P(c)}
 \]</span>
 通过这个计算，如果 <span class="math inline">\(w\)</span> 和 <span class="math inline">\(c\)</span> 的共现概率（与频次正相关）较高，但是 <span class="math inline">\(w\)</span> 或者 <span class="math inline">\(c\)</span> 出现的概率也较高（高频词），则最终的<span class="math inline">\(PMI\)</span>值会变小；反之，即便 <span class="math inline">\(w\)</span> 和 <span class="math inline">\(c\)</span> 的共现概率不高，但是 <span class="math inline">\(w\)</span> 或者 <span class="math inline">\(c\)</span> 出现的概率较低（低频词），则最终的<span class="math inline">\(PMI\)</span>值也可能会比较大。从而较好地解决高频词误导计算结果的问题。</p>
-<div class="tag-plugin blockquote" indent="undefined"><p>由于 <span class="math inline">\(log\)</span> 的分布问题，会导致一些低频率词的大小为负数，使得统计方差变大，因此在实际应用中通常采用PPMI （Positive PMI）<span class="math display">\[PPMI(w,c)=max(PMI(w,c),0)\]</span></p></div>
+<div class="tag-plugin colorful note" color="cyan"><div class="title">Note</div><div class="body"><p>由于 <span class="math inline">\(log\)</span> 的分布问题，会导致一些低频率词的大小为负数，使得统计方差变大，因此在实际应用中通常采用PPMI （Positive PMI） <span class="math display">\[PPMI(w,c)=max(PMI(w,c),0)\]</span></p></div></div>
 <p>此外还可以使用，信息检索中常用的<strong>TF-IDF</strong></p>
 <h3 id="共现频次无法反映词之间的高阶关系">共现频次无法反映词之间的高阶关系</h3>
 <p>以奇异值分解为例，对词语共现矩阵 <span class="math inline">\(M\)</span> 做奇异值分解，
@@ -465,8 +469,8 @@ M =U\Sigma V^{T}
 与分布式表示不同的是，词向量中的向量值，是随着目标任务的优化过程自动调整的，也就是说，可以将词向量中的向量值看作模型的参数</p>
 <h2 id="词袋模型">词袋模型</h2>
 <p>词袋模型（Bag of Word BOW）,核心思想就是假设文本中的词语是没有顺序的集合，将文本中的词按照向量进行表示，也就是<strong>将整个句子或文档表示为一个词频向量（统计每个词出现次数）</strong>。</p>
-<p>与One-hot Encoding不同的是，前者是一整个句子或者文档就是一个词频向量，而后者是一个词为一个向量。
-与[[#分布式语义假设]]不同的是，前者不考虑词语在句子中的顺序。</p>
+<p>与 One-hot Encoding 不同的是，前者是一整个句子或者文档就是一个词频向量，而后者是一个词为一个向量。
+与分布式语义假设不同的是，前者不考虑词语在句子中的顺序。</p>
 <h3 id="例子">例子</h3>
 <p>词表：[“我”，“爱”，“自然”，“语言”，“处理”]
 句子：“我 爱 自然 语言 处理 爱 自然”
@@ -485,11 +489,11 @@ M =U\Sigma V^{T}
 实际上就是，隐含层执行对词向量层取平均的操作，而没有线性变换以及非线性激活的过程。
 <div class="tag-plugin image"><div class="image-bg" style="aspect-ratio:733/281;"><img class="lazy" src="https://raw.githubusercontent.com/L-Virus/Pic/main/Blog/20251017155003736.png" data-src="https://raw.githubusercontent.com/L-Virus/Pic/main/Blog/20251017155003736.png" data-fancybox="true"onerror="this.src=&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='2rem' height='2rem' viewBox='0 0 24 24'%3E%3C!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --%3E%3Cpath fill='%23F44336' d='M22 12.698c-.002 1.47-.013 2.718-.096 3.743c-.097 1.19-.296 2.184-.74 3.009a4.2 4.2 0 0 1-.73.983c-.833.833-1.893 1.21-3.237 1.39C15.884 22 14.2 22 12.053 22h-.106c-2.148 0-3.83 0-5.144-.177c-1.343-.18-2.404-.557-3.236-1.39c-.738-.738-1.12-1.656-1.322-2.795c-.2-1.12-.236-2.512-.243-4.241Q1.999 12.737 2 12v-.054c0-2.148 0-3.83.177-5.144c.18-1.343.557-2.404 1.39-3.236s1.893-1.21 3.236-1.39c1.168-.157 2.67-.175 4.499-.177a.697.697 0 1 1 0 1.396c-1.855.002-3.234.018-4.313.163c-1.189.16-1.906.464-2.436.994S3.72 5.8 3.56 6.99C3.397 8.2 3.395 9.788 3.395 12v.784l.932-.814a2.14 2.14 0 0 1 2.922.097l3.99 3.99a1.86 1.86 0 0 0 2.385.207l.278-.195a2.79 2.79 0 0 1 3.471.209l2.633 2.37c.265-.557.423-1.288.507-2.32c.079-.972.09-2.152.091-3.63a.698.698 0 0 1 1.396 0' opacity='.5'/%3E%3Cpath fill='%23F44336' fill-rule='evenodd' d='M17.5 11c-2.121 0-3.182 0-3.841-.659S13 8.621 13 6.5s0-3.182.659-3.841S15.379 2 17.5 2s3.182 0 3.841.659S22 4.379 22 6.5s0 3.182-.659 3.841S19.621 11 17.5 11m-1.47-7.03a.75.75 0 1 0-1.06 1.06l1.47 1.47l-1.47 1.47a.75.75 0 0 0 1.06 1.06l1.47-1.47l1.47 1.47a.75.75 0 1 0 1.06-1.06L18.56 6.5l1.47-1.47a.75.75 0 0 0-1.06-1.06L17.5 5.44z' clip-rule='evenodd'/%3E%3C/svg%3E&quot;"/><div class="lazy-icon" style="background-image:url(https://api.iconify.design/eos-icons:three-dots-loading.svg?color=%231cd0fd);"></div></div></div></p>
 <h2 id="skip-gram">Skip-gram</h2>
-<p>在CBOW的基础上继续做出简化，使用 <span class="math inline">\(C_t\)</span> 中的每个词作为独立的上下文对目标词进行预测。
+<p>在 CBOW 的基础上继续做出简化，使用 <span class="math inline">\(C_t\)</span> 中的每个词作为独立的上下文对目标词进行预测。
 <div class="tag-plugin image"><div class="image-bg" style="aspect-ratio:633/232;"><img class="lazy" src="https://raw.githubusercontent.com/L-Virus/Pic/main/Blog/20251026211114381.png" data-src="https://raw.githubusercontent.com/L-Virus/Pic/main/Blog/20251026211114381.png" data-fancybox="true"onerror="this.src=&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='2rem' height='2rem' viewBox='0 0 24 24'%3E%3C!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --%3E%3Cpath fill='%23F44336' d='M22 12.698c-.002 1.47-.013 2.718-.096 3.743c-.097 1.19-.296 2.184-.74 3.009a4.2 4.2 0 0 1-.73.983c-.833.833-1.893 1.21-3.237 1.39C15.884 22 14.2 22 12.053 22h-.106c-2.148 0-3.83 0-5.144-.177c-1.343-.18-2.404-.557-3.236-1.39c-.738-.738-1.12-1.656-1.322-2.795c-.2-1.12-.236-2.512-.243-4.241Q1.999 12.737 2 12v-.054c0-2.148 0-3.83.177-5.144c.18-1.343.557-2.404 1.39-3.236s1.893-1.21 3.236-1.39c1.168-.157 2.67-.175 4.499-.177a.697.697 0 1 1 0 1.396c-1.855.002-3.234.018-4.313.163c-1.189.16-1.906.464-2.436.994S3.72 5.8 3.56 6.99C3.397 8.2 3.395 9.788 3.395 12v.784l.932-.814a2.14 2.14 0 0 1 2.922.097l3.99 3.99a1.86 1.86 0 0 0 2.385.207l.278-.195a2.79 2.79 0 0 1 3.471.209l2.633 2.37c.265-.557.423-1.288.507-2.32c.079-.972.09-2.152.091-3.63a.698.698 0 0 1 1.396 0' opacity='.5'/%3E%3Cpath fill='%23F44336' fill-rule='evenodd' d='M17.5 11c-2.121 0-3.182 0-3.841-.659S13 8.621 13 6.5s0-3.182.659-3.841S15.379 2 17.5 2s3.182 0 3.841.659S22 4.379 22 6.5s0 3.182-.659 3.841S19.621 11 17.5 11m-1.47-7.03a.75.75 0 1 0-1.06 1.06l1.47 1.47l-1.47 1.47a.75.75 0 0 0 1.06 1.06l1.47-1.47l1.47 1.47a.75.75 0 1 0 1.06-1.06L18.56 6.5l1.47-1.47a.75.75 0 0 0-1.06-1.06L17.5 5.44z' clip-rule='evenodd'/%3E%3C/svg%3E&quot;"/><div class="lazy-icon" style="background-image:url(https://api.iconify.design/eos-icons:three-dots-loading.svg?color=%231cd0fd);"></div></div></div></p>
 <h2 id="总计">总计</h2>
-<p>以上模型可以归纳为对目标词的条件预测任务，CBOW为根据上下文预测当前词，Skip-gram则是根据当前词预测上下文。</p>
-<div class="tag-plugin blockquote" indent="undefined"><p>负采样方法提供了一种新的任务视角：给定当前词与其上下文，最大化两者共现的概率。这样问题就被简化为对于（<span class="math inline">\(w,c\)</span>）的二元分类问题（共现或者非共现），规避了大词表上的归一化计算</p></div>
+<p>以上模型可以归纳为对目标词的条件预测任务，CBOW 为根据上下文预测当前词，Skip-gram 则是根据当前词预测上下文。</p>
+<div class="tag-plugin colorful note" color="cyan"><div class="title">负采样方法</div><div class="body"><p>提供了一种新的任务视角：给定当前词与其上下文，最大化两者共现的概率。 这样问题就被简化为对于（<span class="math inline">\(w,c\)</span>）的二元分类问题（共现或者非共现），规避了大词表上的归一化计算</p></div></div>
 <h1 id="glove">GloVe</h1>
 <p>结合词向量以及矩阵分解的思想
 基本思想是利用词向量对“词–上下文”共现矩阵进行预测（或者回归），从而实现隐式的矩阵分解</p>
@@ -497,7 +501,7 @@ M =U\Sigma V^{T}
 <p>其中矩阵中每个元素为<span class="math inline">\(X_{ij}\)</span>=词 <span class="math inline">\(j\)</span> 在 词 <span class="math inline">\(i\)</span> 的上下文窗口中出现的次数
 将频次转换为概率 <span class="math inline">\(P_{ij}=\frac{X_{ij}}{\Sigma_kX_{ik}}\)</span> ，表示词<span class="math inline">\(i\)</span>在上下文看到词<span class="math inline">\(j\)</span>的概率
 进行学习词向量，使得 <span class="math inline">\(w_i^T \overset{\sim}{w_j}+b_i+\overset{\sim}{b_j}\approx log(X_{ij})\)</span></p>
-<div class="tag-plugin blockquote" indent="undefined"><p>Why使用 <span class="math inline">\(log\)</span> 的含义是对原式子进行缩放，使得，放缩动态范围（减少高频词主导），保持比例关系（共现越多，值越大）</p></div>
+<div class="tag-plugin colorful note" color="cyan"><div class="title">Why</div><div class="body"><p>使用 <span class="math inline">\(log\)</span> 的含义是对原式子进行缩放，使得，放缩动态范围（减少高频词主导），保持比例关系（共现越多，值越大）</p></div></div>
 <h1 id="elmo">ELMo</h1>
 <p>不管是 Word2Vec 还是 GloVe，都是属于<strong>静态词向量</strong>，即对于任何一个词，其向量表示是恒定的，不随上下文的变化而变化。
 因此为了刻画一个词在不同上下文或不同语境下的不同词义信息，引入<strong>动态</strong>构建词向量的方法，也称上下文相关的词向量</p>
@@ -508,7 +512,7 @@ M =U\Sigma V^{T}
 <p>同时训练两个模型，正向语言模型预测下一个词 ：<span class="math inline">\(P(w_t|w_{1},\dots,w_{t-1})\)</span>，反向语言模型预测上一个词：<span class="math inline">\(P(W_t|w_{t+1},\dots,w_T)\)</span>，</p>
 <h2 id="输出层">输出层</h2>
 <p>把每层隐藏层的两个模型的隐状态拼接起来（<span class="math inline">\(h_{t,j}=[\overset{\leftarrow}{h_{t,j}};\overset{\rightarrow}{h_{t,j}}]\)</span>），再加权组合<span class="math display">\[ELMo_t=\gamma\sum{^{L}_{j=0}}s_{j}h_{t,j}\]</span>其中 <span class="math inline">\(\gamma\)</span> 为可学习的放缩参数，<span class="math inline">\(s_j\)</span> 为可学习的权重（经过Softmax后），<span class="math inline">\(h_{t,j}\)</span> 为第 <span class="math inline">\(j\)</span> 层的隐藏状</p>
-<div class="tag-plugin blockquote" indent="undefined"><p>Note整个模型的框架就是RNN</p></div>
+<div class="tag-plugin colorful note" color="cyan"><div class="title">Note</div><div class="body"><p>整个模型的框架就是RNN</p></div></div>
 <h1 id="bert">BERT</h1>
 <p>根据 BERT 中的描述，主要是利用一个双向的，纯 Transformer 的架构，在 pre-training 中利用 MLM 和 NSP 两个子任务来学习语言表示，再在 Fine-tunning 阶段动态的微调这些语言表示。</p>
 ]]></content>
@@ -635,6 +639,334 @@ M =U\Sigma V^{T}
       <tags>
         <tag>Python</tag>
         <tag>Deep Learning</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>BERT</title>
+    <url>/2025/10/26/BERT/</url>
+    <content><![CDATA[<h1 id="模型">模型</h1>
+<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="https://raw.githubusercontent.com/L-Virus/Pic/main/Blog/20251017202746496.png" data-src="https://raw.githubusercontent.com/L-Virus/Pic/main/Blog/20251017202746496.png" data-fancybox="true"onerror="this.src=&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='2rem' height='2rem' viewBox='0 0 24 24'%3E%3C!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --%3E%3Cpath fill='%23F44336' d='M22 12.698c-.002 1.47-.013 2.718-.096 3.743c-.097 1.19-.296 2.184-.74 3.009a4.2 4.2 0 0 1-.73.983c-.833.833-1.893 1.21-3.237 1.39C15.884 22 14.2 22 12.053 22h-.106c-2.148 0-3.83 0-5.144-.177c-1.343-.18-2.404-.557-3.236-1.39c-.738-.738-1.12-1.656-1.322-2.795c-.2-1.12-.236-2.512-.243-4.241Q1.999 12.737 2 12v-.054c0-2.148 0-3.83.177-5.144c.18-1.343.557-2.404 1.39-3.236s1.893-1.21 3.236-1.39c1.168-.157 2.67-.175 4.499-.177a.697.697 0 1 1 0 1.396c-1.855.002-3.234.018-4.313.163c-1.189.16-1.906.464-2.436.994S3.72 5.8 3.56 6.99C3.397 8.2 3.395 9.788 3.395 12v.784l.932-.814a2.14 2.14 0 0 1 2.922.097l3.99 3.99a1.86 1.86 0 0 0 2.385.207l.278-.195a2.79 2.79 0 0 1 3.471.209l2.633 2.37c.265-.557.423-1.288.507-2.32c.079-.972.09-2.152.091-3.63a.698.698 0 0 1 1.396 0' opacity='.5'/%3E%3Cpath fill='%23F44336' fill-rule='evenodd' d='M17.5 11c-2.121 0-3.182 0-3.841-.659S13 8.621 13 6.5s0-3.182.659-3.841S15.379 2 17.5 2s3.182 0 3.841.659S22 4.379 22 6.5s0 3.182-.659 3.841S19.621 11 17.5 11m-1.47-7.03a.75.75 0 1 0-1.06 1.06l1.47 1.47l-1.47 1.47a.75.75 0 0 0 1.06 1.06l1.47-1.47l1.47 1.47a.75.75 0 1 0 1.06-1.06L18.56 6.5l1.47-1.47a.75.75 0 0 0-1.06-1.06L17.5 5.44z' clip-rule='evenodd'/%3E%3C/svg%3E&quot;"/><div class="lazy-icon" style="background-image:url(https://api.iconify.design/eos-icons:three-dots-loading.svg?color=%231cd0fd);"></div></div></div>
+<p>模型具有两个阶段，分别为<strong>预训练</strong>和<strong>微调</strong>
+在预训练阶段进行无监督学习，输入是没有标签的数据
+在微调阶段，使用预训练阶段得到的参数初始化模型，使用下游任务的标注数据进行训练，每个下游任务都有一个单独的微调模型</p>
+<blockquote>
+<p><span class="math inline">\(L\)</span>: Transformer Block
+<span class="math inline">\(H\)</span>: Hidden Size
+<span class="math inline">\(A\)</span>: Self-attention Head</p>
+</blockquote>
+<p>文中使用两种模型：<span class="math display">\[\displaylines{BERT_{BASE}(L=12,H=768,A=12,110M) \\ BERT_{LARGE}(L=24,H=1024,A=16,340M)}\]</span></p>
+<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="https://raw.githubusercontent.com/L-Virus/Pic/main/Blog/20251020134332582.png" data-src="https://raw.githubusercontent.com/L-Virus/Pic/main/Blog/20251020134332582.png" data-fancybox="true"onerror="this.src=&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='2rem' height='2rem' viewBox='0 0 24 24'%3E%3C!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --%3E%3Cpath fill='%23F44336' d='M22 12.698c-.002 1.47-.013 2.718-.096 3.743c-.097 1.19-.296 2.184-.74 3.009a4.2 4.2 0 0 1-.73.983c-.833.833-1.893 1.21-3.237 1.39C15.884 22 14.2 22 12.053 22h-.106c-2.148 0-3.83 0-5.144-.177c-1.343-.18-2.404-.557-3.236-1.39c-.738-.738-1.12-1.656-1.322-2.795c-.2-1.12-.236-2.512-.243-4.241Q1.999 12.737 2 12v-.054c0-2.148 0-3.83.177-5.144c.18-1.343.557-2.404 1.39-3.236s1.893-1.21 3.236-1.39c1.168-.157 2.67-.175 4.499-.177a.697.697 0 1 1 0 1.396c-1.855.002-3.234.018-4.313.163c-1.189.16-1.906.464-2.436.994S3.72 5.8 3.56 6.99C3.397 8.2 3.395 9.788 3.395 12v.784l.932-.814a2.14 2.14 0 0 1 2.922.097l3.99 3.99a1.86 1.86 0 0 0 2.385.207l.278-.195a2.79 2.79 0 0 1 3.471.209l2.633 2.37c.265-.557.423-1.288.507-2.32c.079-.972.09-2.152.091-3.63a.698.698 0 0 1 1.396 0' opacity='.5'/%3E%3Cpath fill='%23F44336' fill-rule='evenodd' d='M17.5 11c-2.121 0-3.182 0-3.841-.659S13 8.621 13 6.5s0-3.182.659-3.841S15.379 2 17.5 2s3.182 0 3.841.659S22 4.379 22 6.5s0 3.182-.659 3.841S19.621 11 17.5 11m-1.47-7.03a.75.75 0 1 0-1.06 1.06l1.47 1.47l-1.47 1.47a.75.75 0 0 0 1.06 1.06l1.47-1.47l1.47 1.47a.75.75 0 1 0 1.06-1.06L18.56 6.5l1.47-1.47a.75.75 0 0 0-1.06-1.06L17.5 5.44z' clip-rule='evenodd'/%3E%3C/svg%3E&quot;"/><div class="lazy-icon" style="background-image:url(https://api.iconify.design/eos-icons:three-dots-loading.svg?color=%231cd0fd);"></div></div></div>
+<h2 id="input-与-output">Input 与 Output</h2>
+<div class="tag-plugin blockquote" indent="undefined"><p>“our input representation is able to unambiguously represent both a single sentence and a pair of sentences (e.g., 〈 Question, Answer 〉) in one token sequence. Throughout this work, a “sentence” can be an arbitrary span of contiguous text, rather than an actual linguistic sentence. A “sequence” refers to the input token sequence to BERT, which may be a single sentence or two sentences packed together.” (<a href="zotero://select/library/items/247M8S5T">Devlin 等, 2019, p. 4</a>) (<a href="zotero://open-pdf/library/items/CINVU4YS?page=4&amp;annotation=7PUY42X5">pdf</a>)</p></div>
+<p>首先论文中的<code>sentence</code>不仅仅只能是语言学上的完整句子，还可以是任意一段连续的文本片段。<code>sequence</code>，可以是刚刚讲到的<code>sentence</code>，以一个单独出现或者成对出现的形似使用<code>WordPiece</code>（一种Tokenize方法）</p>
+<blockquote>
+<p>“First, we separate them with a special token ([SEP]). Second, we add a learned embedding to every token indicating whether it belongs to sentence A or sentence B.” (<a href="zotero://select/library/items/247M8S5T">Devlin 等, 2019, p. 4</a>) (<a href="zotero://open-pdf/library/items/CINVU4YS?page=4&amp;annotation=Q72H6UR7">pdf</a>)</p>
+</blockquote>
+<p>每个<code>sentence</code>的开头都是<code>[CLS]</code>（一个可学习的向量，是后面token的最高级抽象，也就是代表最后的输出y）
+句子对的进入则也是被打包成一个<code>sequence</code>，使用<code>[SEP]</code>来分割句子
+使用 Segment Embedding 来告诉模型，<code>token</code>属于哪个<code>sentence</code>
+而使用 Position Embedding 来告诉模型，<code>token</code> 在句子中的位置
+所以 Embedding = Tokenize Embedding + Segment Embedding + Position Embedding（均是可学习的参数）
+<img src="https://raw.githubusercontent.com/L-Virus/Pic/main/Blog/20251019212423992.png" alt="image.png" /> ^9d0547</p>
+<p>在 Pre-training 中的输入是<strong>无标签</strong>的单个或者一对的 <code>sentence</code>
+在 Fine-tunning 中的输入是<strong>带标签</strong>的单个或者一对的 <code>sentence</code></p>
+<h2 id="pre-training">Pre-training</h2>
+<p>在 Pre-training 的环节里有两个预测任务：[[#Masked LM]]，[[#Next Sentence Predict]]
+<span class="math display">\[
+L_{total}=L_{MLM}+L_{NSP}
+\]</span>
+### Data</p>
+<blockquote>
+<p>“For the pre-training corpus we use the BooksCorpus (800M words) (Zhu et al., 2015) and English Wikipedia (2,500M words).” (<a href="zotero://select/library/items/247M8S5T">Devlin 等, 2019, p. 5</a>) (<a href="zotero://open-pdf/library/items/CINVU4YS?page=5&amp;annotation=756UDAMA">pdf</a>)</p>
+</blockquote>
+<p>训练集为 BookssCorpus，English Wikipedia</p>
+<blockquote>
+<p>“It is critical to use a document-level corpus rather than a shuffled sentence-level corpus” (<a href="zotero://select/library/items/247M8S5T">Devlin 等, 2019, p. 5</a>) (<a href="zotero://open-pdf/library/items/CINVU4YS?page=5&amp;annotation=RMRCR34E">pdf</a>)</p>
+</blockquote>
+<p>最好使用文档级别语料库而不是打乱了的句子级别的语料库</p>
+<h3 id="masked-lmmlm">Masked LM（MLM）</h3>
+<p>^bb1096
+&gt;“In order to train a deep bidirectional representation, we simply mask some percentage of the input tokens at random, and then predict those masked tokens.” (<a href="zotero://select/library/items/247M8S5T">Devlin 等, 2019, p. 4</a>) (<a href="zotero://open-pdf/library/items/CINVU4YS?page=4&amp;annotation=EEUIPCJG">pdf</a>)</p>
+<p>为了使得模型能够训练得更深，需要训练一个Mask LM（<code>MLM</code>，也被称为完形填空任务Cloze task），作用是随机屏蔽一定比例（每个序列中屏蔽 <strong>15%</strong> 的token）的 token，然后再预测这些被屏蔽的 token（就是隐藏状态进入Linear和Softmax），学习<strong>句内关系</strong> ^d36887</p>
+<h4 id="目标函数">目标函数</h4>
+<p><span class="math display">\[
+L_{MLM}=-\sum_{masked tokens}=logP(原始词语|上下文)
+\]</span>
+#### 分布不一致及解决方案</p>
+<blockquote>
+<p>“Although this allows us to obtain a bidirectional pre-trained model, a downside is that we are creating a mismatch between pre-training and fine-tuning, since the [MASK] token does not appear during fine-tuning. To mitigate this, we do not always replace “masked” words with the actual [MASK] token. The training data generator chooses 15% of the token positions at random for prediction. If the i-th token is chosen, we replace the i-th token with (1) the [MASK] token 80% of the time (2) a random token 10% of the time (3) the unchanged i-th token 10% of the time. Then, Ti will be used to predict the original token with cross entropy loss.” (<a href="zotero://select/library/items/247M8S5T">Devlin 等, 2019, p. 4</a>) (<a href="zotero://open-pdf/library/items/CINVU4YS?page=4&amp;annotation=4GSSTBUY">pdf</a>)</p>
+</blockquote>
+<p>由于在 fine-tunning 中并不会出现像 pre-training 一样出现<code>[MASK]</code>，所以导致训练和推理分布的不一致性，因此在实际训练中，[[#^d36887|每个序列中屏蔽15%的token]] 中，<strong>80%</strong> 使用<code>[MASK]</code>，<strong>10%</strong> 使用随机的token（增加鲁棒性），<strong>10%</strong> 保持原 token 不变。最后模型使用交叉熵损失来预测原来的 token</p>
+<h3 id="next-sentence-predictnsp">Next Sentence Predict（NSP）</h3>
+<p>^1d9b91
+&gt;“In order to train a model that understands sentence relationships, we pre-train for a binarized next sentence prediction task that can be trivially generated from any monolingual corpus.” (<a href="zotero://select/library/items/247M8S5T">Devlin 等, 2019, p. 4</a>) (<a href="zotero://open-pdf/library/items/CINVU4YS?page=4&amp;annotation=5JE5EZTU">pdf</a>)</p>
+<p>因为例如 Question and Answering(QA)，Natural Language Inference(NLI)，是基于对两个句子之间关系的理解而构建的，而预训练语言模型是做不到这点的，因此预训练一个<strong>二值化</strong>的<code>NSP</code>任务来捕捉<strong>句间关系</strong>；在实验设置中，50%是下一句，50%为随机抽取的</p>
+<h4 id="目标函数-1">目标函数</h4>
+<p><span class="math display">\[
+L_{NSP}=-[ylogP(IsNext)=(1-y)logP(NotNext)]
+\]</span>
+## Fine-tunning</p>
+<h3 id="文本对的处理">文本对的处理</h3>
+<h4 id="之前的方法">之前的方法</h4>
+<blockquote>
+<p>“a common pattern is to independently encode text pairs before applying bidirectional cross attention” (<a href="zotero://select/library/items/247M8S5T">Devlin 等, 2019, p. 5</a>) (<a href="zotero://open-pdf/library/items/CINVU4YS?page=5&amp;annotation=Y7P79894">pdf</a>)
+1. 分别将编码两个文本（sentence A &amp; B），得到向量表示
+2. 再通过 <strong>bidirectional cross attention</strong>（互相关注对方信息）来建模交互。
+#### 文本的方法
+“uses the self-attention mechanism to unify these two stages” (<a href="zotero://select/library/items/247M8S5T">Devlin 等, 2019, p. 5</a>) (<a href="zotero://open-pdf/library/items/CINVU4YS?page=5&amp;annotation=HBMCRAAT">pdf</a>)
+- 将两句话 <strong>拼接</strong> 作为单个序列输入 <code>[CLS] A [SEP] B [SEP]</code>。
+- 使用 <strong>self-attention</strong> 直接在整个序列上计算注意力。
+- 结果：
+- <code>[A tokens]</code> 可以关注 <code>[B tokens]</code>
+- <code>[B tokens]</code> 也可以关注 <code>[A tokens]</code>
+- 相当于 <strong>一步实现了双向 cross attention</strong>，不需要分两步。</p>
+</blockquote>
+<h2 id="tunning">Tunning</h2>
+<blockquote>
+<p>“For each task, we simply plug in the taskspecific inputs and outputs into BERT and finetune all the parameters end-to-end.” (<a href="zotero://select/library/items/247M8S5T">Devlin 等, 2019, p. 5</a>) (<a href="zotero://open-pdf/library/items/CINVU4YS?page=5&amp;annotation=ZI3FBLYG">pdf</a>)</p>
+</blockquote>
+<p>由于在 [[#Pre-training]] 中利用 [[#Masked LM（MLM）]]学到了<strong>句内关系</strong>，在 [[#Next Sentence Predict（NSP）]]中学会了<strong>句间关系</strong>，使得参数在进行 fine-tunning 的时候能够更加灵活的学习具体的任务模式</p>
+<h2 id="task">Task</h2>
+<h3 id="input">Input</h3>
+<ul>
+<li>Paraphrasing（语义相似性/复述检测）</li>
+<li>Entailment（文本蕴含/推理）</li>
+<li>Question Answering（问答）</li>
+<li>Text classification / sequence tagging（文本分类/序列标注）
+### Output</li>
+<li>Token-level
+<ul>
+<li>NER（Named Entity Recognition，命名实体识别）</li>
+<li>SQuAD（Stanford Question Answering Dataset，问答）</li>
+</ul></li>
+<li>Sequence-level
+<ul>
+<li>MNLI（Multi-Genre Natural Language Inference，多领域自然语言推理）</li>
+</ul></li>
+</ul>
+<h1 id="前言">前言</h1>
+<blockquote>
+<p>“There are two existing strategies for applying pre-trained language representations to downstream tasks: feature-based and fine-tuning” (<a href="zotero://select/library/items/247M8S5T">Devlin 等, 2019, p. 1</a>) (<a href="zotero://open-pdf/library/items/CINVU4YS?page=1&amp;annotation=7ZRR8EQ4">pdf</a>)</p>
+</blockquote>
+<p>现如今预训练语言表示主要有两种方法：<strong>基于特征</strong>，<strong>微调</strong>，使用单向语言模型来学习。</p>
+<blockquote>
+<p>[!两种预训练语言表示方法]
+<strong>基于特征</strong>的方法主要是：当一个预训练好的语言表示放进下游任务进行训练时，词向量作为特征，<strong>不会</strong>随着训练而变化，主要代表是[[Word Embedding#ELMo|ELMo]]
+<strong>微调</strong>的方法主要是：当一个预训练好的语言表示放进下游任务进行训练时，词向量作为特征，<strong>会</strong>随着训练而进行变化，主要代表是[[GPT]]
+[[BERT]]是结合<strong>基于特征</strong>和<strong>微调</strong>两种方法的预训练语言模型，前者是在 pre-training 中，后者是在 fine-tunning 中</p>
+</blockquote>
+<h1 id="核心">核心</h1>
+<blockquote>
+<p>“BERT alleviates the previously mentioned unidirectionality constraint by using a “masked language model” (MLM) pre-training objective” (<a href="zotero://select/library/items/247M8S5T">Devlin 等, 2019, p. 1</a>) (<a href="zotero://open-pdf/library/items/CINVU4YS?page=1&amp;annotation=W6FD2J97">pdf</a>)</p>
+</blockquote>
+<p>双向的、基于Transformer编码器([[Attention Is All You Need#^1696d3|Encoder]])的、使用掩码的语言模型
+模型将输入的词随机掩盖，希望模型能仅从上下文中预测到被掩盖的词，这样就融合了上下文的特征来学习</p>
+<h1 id="改进">改进</h1>
+<h2 id="首次提出双向语言表示模型">1.首次提出双向语言表示模型</h2>
+<h2 id="使用掩码语言模型来使用上下文信息">2.使用掩码语言模型来使用上下文信息</h2>
+<p>而不是简单训练两个分别从左到右和从右到左的模型的浅层串联，[[GPT#GPT-1|GPT-1]] 都还是单向的
+## 3.使用下一句话预测的任务来训练文本对表示</p>
+<h1 id="迁移学习">迁移学习</h1>
+<p>受到在大数据集上进行迁移学习的有效性和计算机视觉中 pre-trained model 和 fine-tune 的启发
+才使得 BERT 有了两个阶段：pre-training 和 fine-tunning</p>
+<h1 id="训练">训练</h1>
+<ul>
+<li>batch size = 256</li>
+<li>epoch = 40</li>
+<li>Adam（lr = 1e-4，<span class="math inline">\(\beta_1=0.9,\beta_2=0.999\)</span>)</li>
+<li>L2 weight decay =0.01</li>
+<li>dropout = 0.1 (all)</li>
+<li>activate = gule</li>
+<li>loss = <span class="math inline">\(\frac{mean \log mlm+mean \log nsp}{2}\)</span></li>
+</ul>
+<h1 id="微调">微调</h1>
+<ul>
+<li>batch size = 32</li>
+<li>epoch = 3</li>
+</ul>
+<h1 id="glue-test">GLUE Test</h1>
+<table>
+<colgroup>
+<col style="width: 7%" />
+<col style="width: 11%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 30%" />
+</colgroup>
+<thead>
+<tr>
+<th>任务</th>
+<th>类型</th>
+<th>输入</th>
+<th>输出</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>QQP</strong></td>
+<td>Sequence-level</td>
+<td>问题对（question1, question2）</td>
+<td>是否语义重复（Yes/No）</td>
+<td>Quora Question Pairs</td>
+</tr>
+<tr>
+<td><strong>QNLI</strong></td>
+<td>Sequence-level</td>
+<td>句子对（question, sentence）</td>
+<td>是否蕴含（entailment/none）</td>
+<td>Question Natural Language Inference</td>
+</tr>
+<tr>
+<td><strong>SST-2</strong></td>
+<td>Sequence-level</td>
+<td>单句</td>
+<td>情感分类（positive/negative）</td>
+<td>Stanford Sentiment Treebank</td>
+</tr>
+<tr>
+<td><strong>CoLA</strong></td>
+<td>Sequence-level</td>
+<td>单句</td>
+<td>语法正确/错误（acceptability）</td>
+<td>Corpus of Linguistic Acceptability</td>
+</tr>
+<tr>
+<td><strong>STS-B</strong></td>
+<td>Regression</td>
+<td>句子对</td>
+<td>相似度分数（0–5）</td>
+<td>Semantic Textual Similarity Benchmark</td>
+</tr>
+<tr>
+<td><strong>MRPC</strong></td>
+<td>Sequence-level</td>
+<td>句子对</td>
+<td>是否语义等价（Yes/No）</td>
+<td>Microsoft Research Paraphrase Corpus</td>
+</tr>
+<tr>
+<td><strong>RTE</strong></td>
+<td>Sequence-level</td>
+<td>句子对（premise, hypothesis）</td>
+<td>是否蕴含（entailment/none）</td>
+<td>Recognizing Textual Entailment</td>
+</tr>
+</tbody>
+</table>
+<h1 id="变体">变体</h1>
+<h2 id="roberta">RoBERTa</h2>
+<p>A Robustly Optimized BERT</p>
+<h3 id="改进-1">改进</h3>
+<p>^18b0da</p>
+<table>
+<colgroup>
+<col style="width: 15%" />
+<col style="width: 22%" />
+<col style="width: 47%" />
+<col style="width: 14%" />
+</colgroup>
+<thead>
+<tr>
+<th>方面</th>
+<th>BERT</th>
+<th>RoBERTa</th>
+<th>改进效果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>训练数据</strong></td>
+<td>~16GB</td>
+<td><strong>160GB+</strong>（BookCorpus + CC-News + OpenWebText + Stories）</td>
+<td>×10 数据量</td>
+</tr>
+<tr>
+<td><strong>动态 Mask</strong></td>
+<td>静态 mask 一次</td>
+<td><strong>每次 epoch 随机 mask</strong></td>
+<td>防止 overfit 掩码</td>
+</tr>
+<tr>
+<td><strong>训练时长</strong></td>
+<td>1M steps</td>
+<td><strong>更久 + 更大 batch (≈8K)</strong></td>
+<td>学得更扎实</td>
+</tr>
+<tr>
+<td><strong>去掉 NSP</strong></td>
+<td>有 Next Sentence Prediction</td>
+<td>❌ NSP 任务<strong>直接移除</strong></td>
+<td>证明 NSP 没用</td>
+</tr>
+<tr>
+<td><strong>学习率 &amp; warmup</strong></td>
+<td>较保守</td>
+<td><strong>大 LR + 大 warmup + longer training</strong></td>
+<td>更鲁莽但有效</td>
+</tr>
+<tr>
+<td><strong>batch size</strong></td>
+<td>256 / 512</td>
+<td><strong>8k / 32k</strong></td>
+<td>大幅提升训练稳定性</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>[!动态 Mask]
+每次训练迭代重新随机 Mask 句子中的词，而不是像 BERT 那样只 Mask 一次后固定不变。</p>
+</blockquote>
+<h2 id="deberta">DeBERTa</h2>
+<p>Decoding-enhanced BERT with Disentangled Attention</p>
+<h3 id="改进-2">改进</h3>
+<h4 id="解耦及相对位置编码">1. 解耦及相对位置编码</h4>
+<p>^9dc80a</p>
+<p>Disentangled Attention 解耦 “词的内容” &amp; “词的位置”
+Relative Position 相对位置编码
+BERT 把 word embedding 和 position embedding 直接加起来 → 混在一起，使得模型无法明确区分“是什么词”和“在什么位置”[[#^9d0547|Embedding]]
+而DeBERTa 不这样，它是：
+每个 token 变成两个<strong>可学习</strong>的 embedding：<br />
+<strong>内容 embedding（content）</strong> → 这个词是什么<br />
+<strong>位置 embedding（position）</strong> → 它跟别的词相对几位
+<span class="math display">\[
+Embedding=content \ embedding + position \ embedding
+\]</span>
+然后注意力计算变成 <strong>跨类型 attention</strong>，显式的学习位置对值的影响：
+<span class="math display">\[
+\begin{align}
+QK^T &amp;= (Q^c+Q^p)(K^c+K^p)^T \\
+     &amp;=Q^c {(K^c)}^T + Q^c {(K^p)}^T + Q^p {(K^c)^T} + Q^p {(K^p)}^T 
+\end{align}
+\]</span>
+其中根据文献啥忘记了，最后一位 <span class="math inline">\(Q^p {(K^p)}^T\)</span> 由于是相对位置编码故没有过多有效信息所以省略。因此，
+<span class="math display">\[
+QK^T = Q^c {(K^c)}^T + Q^c {(K^p)}^T + Q^p {(K^c)^T} 
+\]</span>
+#### 2. 不变微调
+scale-invariant-Fine-Tunning（SiFT）
+在BERT中提过，在遇到小数据集的效果不好，因此 DeBERTa 采用 SiFT 来提高泛化性
+##### 1. 计算扰动
+先计算普通损失的梯度，在进行归一化（保证方向正确）并放大
+<span class="math display">\[
+\displaylines{
+g=\nabla_{\theta}L(\theta)\\
+r_{adv}=\epsilon \frac{g}{\parallel g \parallel_2}
+}
+\]</span>
+其中 <span class="math inline">\(\epsilon\)</span> 为超参数，<span class="math inline">\(r_{adv}\)</span> 为扰动
+##### 2. 扰动训练
+<span class="math display">\[
+\displaylines{
+L_{adv}=l(\theta+r_{adv}) \\
+\theta \leftarrow \theta - \eta \nabla_{\theta} L_{adv}
+}
+\]</span></p>
+]]></content>
+      <tags>
+        <tag>NLP</tag>
+        <tag>WordEmbedding</tag>
+        <tag>BERT</tag>
       </tags>
   </entry>
 </search>

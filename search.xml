@@ -94,31 +94,6 @@ Softmax是对最后一个维度进行操作，也就是词汇表维度</p>
       </tags>
   </entry>
   <entry>
-    <title>Git配置proxy</title>
-    <url>/2025/09/24/Git%E9%85%8D%E7%BD%AEproxy/</url>
-    <content><![CDATA[<h1 id="查看git配置">查看git配置</h1>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git config  --list</span><br><span class="line">git config --global --list</span><br></pre></td></tr></table></figure>
-<h1 id="配置proxy">配置proxy</h1>
-<h2 id="两种proxy方式">两种proxy方式</h2>
-<blockquote>
-<p>走http/https形式：git clone https://github.com/xxxxx
-走ssh 形式：git clone git@github.com:xxxxx</p>
-</blockquote>
-<h3 id="走httphttps">走http/https</h3>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git config --global http.proxy <span class="string">&quot;http://127.0.0.1:7890&quot;</span></span><br><span class="line">git config --global https.proxy <span class="string">&quot;https://127.0.0.1:7890&quot;</span></span><br></pre></td></tr></table></figure>
-<h3 id="取消proxy">取消proxy</h3>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git config --global --<span class="built_in">unset</span> http.proxy</span><br><span class="line">git config --global --<span class="built_in">unset</span> https.proxy</span><br></pre></td></tr></table></figure>
-<h3 id="走ssh">走ssh</h3>
-<blockquote>
-<p>修改 .ssh/config 文件（不存在则新建，Windows 一般在 C:.ssh)文件夹下面新建一个文件 config，注意没有任何后缀名，就叫 config）：
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 必须是 github.com</span></span><br><span class="line">Host github.com</span><br><span class="line">   HostName github.com</span><br><span class="line">   User git</span><br><span class="line">   <span class="comment"># 走 HTTP 代理</span></span><br><span class="line">   ProxyCommand connect -H 127.0.0.1:7890 %h %p</span><br></pre></td></tr></table></figure></p>
-</blockquote>
-]]></content>
-      <tags>
-        <tag>Git</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>BERT</title>
     <url>/2025/10/26/BERT/</url>
     <content><![CDATA[<h1 id="模型">模型</h1>
@@ -219,7 +194,7 @@ L_{NSP}=-[ylogP(IsNext)=(1-y)logP(NotNext)]
 <h1 id="前言">前言</h1>
 <div class="tag-plugin blockquote" indent="undefined"><p>“There are two existing strategies for applying pre-trained language representations to downstream tasks: feature-based and fine-tuning” (<a href="zotero://select/library/items/247M8S5T">Devlin 等, 2019, p. 1</a>) (<a href="zotero://open-pdf/library/items/CINVU4YS?page=1&amp;annotation=7ZRR8EQ4">pdf</a>)</p></div>
 <p>现如今预训练语言表示主要有两种方法：<strong>基于特征</strong>，<strong>微调</strong>，使用单向语言模型来学习。</p>
-<div class="tag-plugin colorful note" color="cyan"><div class="title">两种预训练语言表示方法</div><div class="body"><p><strong>基于特征</strong>的方法主要是：当一个预训练好的语言表示放进下游任务进行训练时，词向量作为特征，<strong>不会</strong>随着训练而变化，主要代表是 ELMo <strong>微调</strong>的方法主要是：当一个预训练好的语言表示放进下游任务进行训练时，词向量作为特征，<strong>会</strong>随着训练而进行变化，主要代表是 GPT BERT 是结合<strong>基于特征</strong>和<strong>微调</strong>两种方法的预训练语言模型，前者是在 pre-training 中，后者是在 fine-tunning 中</p></div></div>
+<div class="tag-plugin colorful note" color="cyan"><div class="title">两种预训练语言表示方法</div><div class="body"><p><strong>基于特征</strong>的方法主要是：当一个预训练好的语言表示放进下游任务进行训练时，词向量作为特征，<strong>不会</strong>随着训练而变化，主要代表是 ELMo<br> <strong>微调</strong>的方法主要是：当一个预训练好的语言表示放进下游任务进行训练时，词向量作为特征，<strong>会</strong>随着训练而进行变化，主要代表是 GPT<br> BERT 是结合<strong>基于特征</strong>和<strong>微调</strong>两种方法的预训练语言模型，前者是在 pre-training 中，后者是在 fine-tunning 中</p></div></div>
 <h1 id="核心">核心</h1>
 <div class="tag-plugin blockquote" indent="undefined"><p>“BERT alleviates the previously mentioned unidirectionality constraint by using a “masked language model” (MLM) pre-training objective” (<a href="zotero://select/library/items/247M8S5T">Devlin 等, 2019, p. 1</a>) (<a href="zotero://open-pdf/library/items/CINVU4YS?page=1&amp;annotation=W6FD2J97">pdf</a>)</p></div>
 <p>双向的、基于Transformer编码器(Encoder)的、使用掩码的语言模型
@@ -379,9 +354,7 @@ L_{NSP}=-[ylogP(IsNext)=(1-y)logP(NotNext)]
 </tr>
 </tbody>
 </table>
-<blockquote>
-<div class="tag-plugin colorful note" color="cyan"><div class="title">动态</div><div class="body"><p>Mask &gt;每次训练迭代重新随机 Mask 句子中的词，而不是像 BERT 那样只 Mask 一次后固定不变。</p></div></div>
-</blockquote>
+<div class="tag-plugin colorful note" color="cyan"><div class="title">动态Mask</div><div class="body"><p>每次训练迭代重新随机 Mask 句子中的词，而不是像 BERT 那样只 Mask 一次后固定不变。</p></div></div>
 <h2 id="deberta">DeBERTa</h2>
 <p>Decoding-enhanced BERT with Disentangled Attention</p>
 <h3 id="改进-2">改进</h3>
@@ -469,6 +442,31 @@ L_{adv}=l(\theta+r_{adv}) \\
       </tags>
   </entry>
   <entry>
+    <title>Git配置proxy</title>
+    <url>/2025/09/24/Git%E9%85%8D%E7%BD%AEproxy/</url>
+    <content><![CDATA[<h1 id="查看git配置">查看git配置</h1>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git config  --list</span><br><span class="line">git config --global --list</span><br></pre></td></tr></table></figure>
+<h1 id="配置proxy">配置proxy</h1>
+<h2 id="两种proxy方式">两种proxy方式</h2>
+<blockquote>
+<p>走http/https形式：git clone https://github.com/xxxxx
+走ssh 形式：git clone git@github.com:xxxxx</p>
+</blockquote>
+<h3 id="走httphttps">走http/https</h3>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git config --global http.proxy <span class="string">&quot;http://127.0.0.1:7890&quot;</span></span><br><span class="line">git config --global https.proxy <span class="string">&quot;https://127.0.0.1:7890&quot;</span></span><br></pre></td></tr></table></figure>
+<h3 id="取消proxy">取消proxy</h3>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git config --global --<span class="built_in">unset</span> http.proxy</span><br><span class="line">git config --global --<span class="built_in">unset</span> https.proxy</span><br></pre></td></tr></table></figure>
+<h3 id="走ssh">走ssh</h3>
+<blockquote>
+<p>修改 .ssh/config 文件（不存在则新建，Windows 一般在 C:.ssh)文件夹下面新建一个文件 config，注意没有任何后缀名，就叫 config）：
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 必须是 github.com</span></span><br><span class="line">Host github.com</span><br><span class="line">   HostName github.com</span><br><span class="line">   User git</span><br><span class="line">   <span class="comment"># 走 HTTP 代理</span></span><br><span class="line">   ProxyCommand connect -H 127.0.0.1:7890 %h %p</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+]]></content>
+      <tags>
+        <tag>Git</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Stellar设置专栏（topic）</title>
     <url>/2025/09/24/Stellar%E8%AE%BE%E7%BD%AE%E4%B8%93%E6%A0%8F/</url>
     <content><![CDATA[<div class="tag-plugin quot p"><p class="content"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from BoxIcons Solid by Atisa - https://creativecommons.org/licenses/by/4.0/ --><path fill="currentColor" d="M3.691 6.292C5.094 4.771 7.217 4 10 4h1v2.819l-.804.161c-1.37.274-2.323.813-2.833 1.604A2.9 2.9 0 0 0 6.925 10H10a1 1 0 0 1 1 1v7c0 1.103-.897 2-2 2H3a1 1 0 0 1-1-1v-5l.003-2.919c-.009-.111-.199-2.741 1.688-4.789M20 20h-6a1 1 0 0 1-1-1v-5l.003-2.919c-.009-.111-.199-2.741 1.688-4.789C16.094 4.771 18.217 4 21 4h1v2.819l-.804.161c-1.37.274-2.323.813-2.833 1.604A2.9 2.9 0 0 0 17.925 10H21a1 1 0 0 1 1 1v7c0 1.103-.897 2-2 2"/></svg><span class="text">专栏文件夹的配置</span><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from BoxIcons Solid by Atisa - https://creativecommons.org/licenses/by/4.0/ --><path fill="currentColor" d="M20.309 17.708C22.196 15.66 22.006 13.03 22 13V5a1 1 0 0 0-1-1h-6c-1.103 0-2 .897-2 2v7a1 1 0 0 0 1 1h3.078a2.9 2.9 0 0 1-.429 1.396c-.508.801-1.465 1.348-2.846 1.624l-.803.16V20h1c2.783 0 4.906-.771 6.309-2.292m-11.007 0C11.19 15.66 10.999 13.03 10.993 13V5a1 1 0 0 0-1-1h-6c-1.103 0-2 .897-2 2v7a1 1 0 0 0 1 1h3.078a2.9 2.9 0 0 1-.429 1.396c-.508.801-1.465 1.348-2.846 1.624l-.803.16V20h1c2.783 0 4.906-.771 6.309-2.292"/></svg></p></div>
@@ -483,6 +481,54 @@ L_{adv}=l(\theta+r_{adv}) \\
         <tag>stellar</tag>
         <tag>Hexo</tag>
         <tag>瞎折腾</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>U-Net：Convolutional Networks for Biomedical  Image Segmentation</title>
+    <url>/2025/10/26/U-Net%EF%BC%9AConvolutional%20Networks%20for%20Biomedical%20%20Image%20Segmentation/</url>
+    <content><![CDATA[<h1 id="前言">前言</h1>
+<div class="tag-plugin blockquote" indent="undefined"><p>“In this paper, we build upon a more elegant architecture, the so-called “fully convolutional network”” (<a href="zotero://select/library/items/QY2VXDUT">Ronneberger 等, 2015, p. 2</a>) (<a href="zotero://open-pdf/library/items/KK6KJIRN?page=2&amp;annotation=98WX22RK">pdf</a>)</p></div>
+<p>模型是建立在全卷积网络上</p>
+<hr />
+<h1 id="模型">模型</h1>
+<div class="tag-plugin image"><div class="image-bg" style="aspect-ratio:1017/805;"><img class="lazy" src="https://raw.githubusercontent.com/L-Virus/Pic/main/Blog/20251010201750705.png" data-src="https://raw.githubusercontent.com/L-Virus/Pic/main/Blog/20251010201750705.png" data-fancybox="true"onerror="this.src=&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='2rem' height='2rem' viewBox='0 0 24 24'%3E%3C!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --%3E%3Cpath fill='%23F44336' d='M22 12.698c-.002 1.47-.013 2.718-.096 3.743c-.097 1.19-.296 2.184-.74 3.009a4.2 4.2 0 0 1-.73.983c-.833.833-1.893 1.21-3.237 1.39C15.884 22 14.2 22 12.053 22h-.106c-2.148 0-3.83 0-5.144-.177c-1.343-.18-2.404-.557-3.236-1.39c-.738-.738-1.12-1.656-1.322-2.795c-.2-1.12-.236-2.512-.243-4.241Q1.999 12.737 2 12v-.054c0-2.148 0-3.83.177-5.144c.18-1.343.557-2.404 1.39-3.236s1.893-1.21 3.236-1.39c1.168-.157 2.67-.175 4.499-.177a.697.697 0 1 1 0 1.396c-1.855.002-3.234.018-4.313.163c-1.189.16-1.906.464-2.436.994S3.72 5.8 3.56 6.99C3.397 8.2 3.395 9.788 3.395 12v.784l.932-.814a2.14 2.14 0 0 1 2.922.097l3.99 3.99a1.86 1.86 0 0 0 2.385.207l.278-.195a2.79 2.79 0 0 1 3.471.209l2.633 2.37c.265-.557.423-1.288.507-2.32c.079-.972.09-2.152.091-3.63a.698.698 0 0 1 1.396 0' opacity='.5'/%3E%3Cpath fill='%23F44336' fill-rule='evenodd' d='M17.5 11c-2.121 0-3.182 0-3.841-.659S13 8.621 13 6.5s0-3.182.659-3.841S15.379 2 17.5 2s3.182 0 3.841.659S22 4.379 22 6.5s0 3.182-.659 3.841S19.621 11 17.5 11m-1.47-7.03a.75.75 0 1 0-1.06 1.06l1.47 1.47l-1.47 1.47a.75.75 0 0 0 1.06 1.06l1.47-1.47l1.47 1.47a.75.75 0 1 0 1.06-1.06L18.56 6.5l1.47-1.47a.75.75 0 0 0-1.06-1.06L17.5 5.44z' clip-rule='evenodd'/%3E%3C/svg%3E&quot;"/><div class="lazy-icon" style="background-image:url(https://api.iconify.design/eos-icons:three-dots-loading.svg?color=%231cd0fd);"></div></div></div>
+<p>一个U型的结构，左边是下采样进行提取特征，右边是上采样进行恢复特征图，中间是瓶颈层将大量局部特征整合成更高层抽象信息，减少冗余，提供非线性变换，为解码阶段提供新的特征表示，模型在每层下降的过程中会保存下降的结果与对应上升的特征图进行跳跃连接。</p>
+<p>输入为 <span class="math inline">\(572 \times 572\)</span> ，进行下采样每层经过 <span class="math inline">\(3 \times 3\)</span> 无填充的卷积、ReLU和一个大小为 <span class="math inline">\(2 \times 2\)</span>，步长为2 的maxpooling，同时增加一倍通道数
+因为在上采样过程中图像大小与在下采样中不同，使用需要裁剪特征图来跳跃连接</p>
+<div class="tag-plugin colorful note" color="cyan"><div class="title">Note</div><div class="body"><p><span class="math inline">\(1 \times 572 \times 572\)</span> 经过两次卷积和两次ReLU后，大小为 <span class="math inline">\(64 \times 568 \times 568\)</span> (572-3+1-3+1) ； 经过maxpooling 后减少特征图大小，大小为 <span class="math inline">\(64 \times 284 \times 284\)</span> ((568-2+2)/2)； 直到最底层大小为 <span class="math inline">\(512 \times 32 \times 32\)</span> 达到瓶颈层后经历两次卷积块后大小为 <span class="math inline">\(1024 \times 28 \times 28\)</span> 在上采样阶段使用反卷积和下降的特征图做拼接，并且通道数量减半到大小为 <span class="math inline">\(64 \times 388 \times 388\)</span> 最后进行 <span class="math inline">\(1 \times 1\)</span> 卷积，将通道数降到图像中类别数 <strong>在后续的U-net优化中，应该使上下采样的大小相同</strong></p></div></div>
+<hr />
+<h1 id="模型优化">模型优化</h1>
+<h2 id="重叠切片无缝平铺镜像填充">1.重叠切片（无缝平铺）+镜像填充</h2>
+<div class="tag-plugin image"><div class="image-bg" style="aspect-ratio:1086/502;"><img class="lazy" src="https://raw.githubusercontent.com/L-Virus/Pic/main/Blog/20251010210914301.png" data-src="https://raw.githubusercontent.com/L-Virus/Pic/main/Blog/20251010210914301.png" data-fancybox="true"onerror="this.src=&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='2rem' height='2rem' viewBox='0 0 24 24'%3E%3C!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --%3E%3Cpath fill='%23F44336' d='M22 12.698c-.002 1.47-.013 2.718-.096 3.743c-.097 1.19-.296 2.184-.74 3.009a4.2 4.2 0 0 1-.73.983c-.833.833-1.893 1.21-3.237 1.39C15.884 22 14.2 22 12.053 22h-.106c-2.148 0-3.83 0-5.144-.177c-1.343-.18-2.404-.557-3.236-1.39c-.738-.738-1.12-1.656-1.322-2.795c-.2-1.12-.236-2.512-.243-4.241Q1.999 12.737 2 12v-.054c0-2.148 0-3.83.177-5.144c.18-1.343.557-2.404 1.39-3.236s1.893-1.21 3.236-1.39c1.168-.157 2.67-.175 4.499-.177a.697.697 0 1 1 0 1.396c-1.855.002-3.234.018-4.313.163c-1.189.16-1.906.464-2.436.994S3.72 5.8 3.56 6.99C3.397 8.2 3.395 9.788 3.395 12v.784l.932-.814a2.14 2.14 0 0 1 2.922.097l3.99 3.99a1.86 1.86 0 0 0 2.385.207l.278-.195a2.79 2.79 0 0 1 3.471.209l2.633 2.37c.265-.557.423-1.288.507-2.32c.079-.972.09-2.152.091-3.63a.698.698 0 0 1 1.396 0' opacity='.5'/%3E%3Cpath fill='%23F44336' fill-rule='evenodd' d='M17.5 11c-2.121 0-3.182 0-3.841-.659S13 8.621 13 6.5s0-3.182.659-3.841S15.379 2 17.5 2s3.182 0 3.841.659S22 4.379 22 6.5s0 3.182-.659 3.841S19.621 11 17.5 11m-1.47-7.03a.75.75 0 1 0-1.06 1.06l1.47 1.47l-1.47 1.47a.75.75 0 0 0 1.06 1.06l1.47-1.47l1.47 1.47a.75.75 0 1 0 1.06-1.06L18.56 6.5l1.47-1.47a.75.75 0 0 0-1.06-1.06L17.5 5.44z' clip-rule='evenodd'/%3E%3C/svg%3E&quot;"/><div class="lazy-icon" style="background-image:url(https://api.iconify.design/eos-icons:three-dots-loading.svg?color=%231cd0fd);"></div></div></div>
+<p>因为卷积网络在经过下采样和上采样后，图片中的物体边缘精度会降低，因为在U-net中使用一种名为<strong>重叠切片+镜像填充</strong>的方法解决</p>
+<h2 id="弹性形变">2.弹性形变</h2>
+<p>使用弹性形变来进行充分的数据增强，因为在医学图像中，组织的形变是最常见的变化，Dosovitskiy [Dosovitskiy, A., Springenberg, J.T., Riedmiller, M., Brox, T.: Discriminative unsupervised feature learning with convolutional neural networks. In: NIPS (2014)]
+在无监督特征学习的范围内已经证明了数据增强对学习不变性的价值。</p>
+<h2 id="加权损失">3.加权损失</h2>
+<div class="tag-plugin image"><div class="image-bg" style="aspect-ratio:1076/419;"><img class="lazy" src="https://raw.githubusercontent.com/L-Virus/Pic/main/Blog/20251010214902599.png" data-src="https://raw.githubusercontent.com/L-Virus/Pic/main/Blog/20251010214902599.png" data-fancybox="true"onerror="this.src=&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='2rem' height='2rem' viewBox='0 0 24 24'%3E%3C!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --%3E%3Cpath fill='%23F44336' d='M22 12.698c-.002 1.47-.013 2.718-.096 3.743c-.097 1.19-.296 2.184-.74 3.009a4.2 4.2 0 0 1-.73.983c-.833.833-1.893 1.21-3.237 1.39C15.884 22 14.2 22 12.053 22h-.106c-2.148 0-3.83 0-5.144-.177c-1.343-.18-2.404-.557-3.236-1.39c-.738-.738-1.12-1.656-1.322-2.795c-.2-1.12-.236-2.512-.243-4.241Q1.999 12.737 2 12v-.054c0-2.148 0-3.83.177-5.144c.18-1.343.557-2.404 1.39-3.236s1.893-1.21 3.236-1.39c1.168-.157 2.67-.175 4.499-.177a.697.697 0 1 1 0 1.396c-1.855.002-3.234.018-4.313.163c-1.189.16-1.906.464-2.436.994S3.72 5.8 3.56 6.99C3.397 8.2 3.395 9.788 3.395 12v.784l.932-.814a2.14 2.14 0 0 1 2.922.097l3.99 3.99a1.86 1.86 0 0 0 2.385.207l.278-.195a2.79 2.79 0 0 1 3.471.209l2.633 2.37c.265-.557.423-1.288.507-2.32c.079-.972.09-2.152.091-3.63a.698.698 0 0 1 1.396 0' opacity='.5'/%3E%3Cpath fill='%23F44336' fill-rule='evenodd' d='M17.5 11c-2.121 0-3.182 0-3.841-.659S13 8.621 13 6.5s0-3.182.659-3.841S15.379 2 17.5 2s3.182 0 3.841.659S22 4.379 22 6.5s0 3.182-.659 3.841S19.621 11 17.5 11m-1.47-7.03a.75.75 0 1 0-1.06 1.06l1.47 1.47l-1.47 1.47a.75.75 0 0 0 1.06 1.06l1.47-1.47l1.47 1.47a.75.75 0 1 0 1.06-1.06L18.56 6.5l1.47-1.47a.75.75 0 0 0-1.06-1.06L17.5 5.44z' clip-rule='evenodd'/%3E%3C/svg%3E&quot;"/><div class="lazy-icon" style="background-image:url(https://api.iconify.design/eos-icons:three-dots-loading.svg?color=%231cd0fd);"></div></div></div>
+<p>为了解决细胞分割中的一个挑战：<strong>分离同一类的接触物体</strong>；
+U-net使用加权损失的方法：接触细胞之间的分离背景标签在损失函数中获得较大的权重。
+<strong>这样能更好的分离出两个接触细胞之间的背景信息</strong>
+在后续的优化中，我们更通常使用<strong>Dice loss</strong> 或 <strong>Focal loss</strong>，<strong>Boundary loss / Hausdorff loss</strong></p>
+<h2 id="选择合适的池化窗口大小">4.选择合适的池化窗口大小</h2>
+<p>为了保证 tile 能被网络多层池化后尺寸仍然对齐，需要选择合适的 tile 大小（通常是 <span class="math inline">\(2^N\)</span> 的倍数 + U-Net 卷积裁剪调整）。</p>
+<h1 id="数据">数据</h1>
+<p>ISBI 2015</p>
+<h1 id="训练">训练</h1>
+<ul>
+<li>优化器：SGD</li>
+<li>batch_size：1</li>
+<li>momentum：0.99</li>
+<li>loss：softmax、cross-entropy</li>
+<li>init_weight：使用标准差为 <span class="math inline">\(\sqrt{2/N}\)</span> 的高斯分布，其中N为每层输入的像素点数</li>
+</ul>
+<h1 id="数据增强">数据增强</h1>
+<div class="tag-plugin blockquote" indent="undefined"><p>“We generate smooth deformations using random displacement vectors on a coarse 3 by 3 grid. The displacements are sampled from a Gaussian distribution with 10 pixels standard deviation. Per-pixel displacements are then computed using bicubic interpolation. Drop-out layers at the end of the contracting path perform further implicit data augmentation.” (<a href="zotero://select/library/items/QY2VXDUT">Ronneberger 等, 2015, p. 6</a>) (<a href="zotero://open-pdf/library/items/KK6KJIRN?page=6&amp;annotation=BGIJA9DX">pdf</a>)</p></div>
+<p>在粗糙的 3 x 3 网格上使用随机位移矢量生成平滑变形。位移是从具有 10 像素标准差的高斯分布中采样的。然后使用双三次插值计算每像素位移。收缩路径末端的辍学层执行进一步的隐式数据扩充。
+以及正常的旋转和变色</p>
+]]></content>
+      <tags>
+        <tag>U-net，CV</tag>
       </tags>
   </entry>
   <entry>
@@ -787,54 +833,6 @@ M =U\Sigma V^{T}
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
 <p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
 ]]></content>
-  </entry>
-  <entry>
-    <title>U-Net：Convolutional Networks for Biomedical  Image Segmentation</title>
-    <url>/2025/10/26/U-Net%EF%BC%9AConvolutional%20Networks%20for%20Biomedical%20%20Image%20Segmentation/</url>
-    <content><![CDATA[<h1 id="前言">前言</h1>
-<div class="tag-plugin blockquote" indent="undefined"><p>“In this paper, we build upon a more elegant architecture, the so-called “fully convolutional network”” (<a href="zotero://select/library/items/QY2VXDUT">Ronneberger 等, 2015, p. 2</a>) (<a href="zotero://open-pdf/library/items/KK6KJIRN?page=2&amp;annotation=98WX22RK">pdf</a>)</p></div>
-<p>模型是建立在全卷积网络上</p>
-<hr />
-<h1 id="模型">模型</h1>
-<div class="tag-plugin image"><div class="image-bg" style="aspect-ratio:1017/805;"><img class="lazy" src="https://raw.githubusercontent.com/L-Virus/Pic/main/Blog/20251010201750705.png" data-src="https://raw.githubusercontent.com/L-Virus/Pic/main/Blog/20251010201750705.png" data-fancybox="true"onerror="this.src=&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='2rem' height='2rem' viewBox='0 0 24 24'%3E%3C!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --%3E%3Cpath fill='%23F44336' d='M22 12.698c-.002 1.47-.013 2.718-.096 3.743c-.097 1.19-.296 2.184-.74 3.009a4.2 4.2 0 0 1-.73.983c-.833.833-1.893 1.21-3.237 1.39C15.884 22 14.2 22 12.053 22h-.106c-2.148 0-3.83 0-5.144-.177c-1.343-.18-2.404-.557-3.236-1.39c-.738-.738-1.12-1.656-1.322-2.795c-.2-1.12-.236-2.512-.243-4.241Q1.999 12.737 2 12v-.054c0-2.148 0-3.83.177-5.144c.18-1.343.557-2.404 1.39-3.236s1.893-1.21 3.236-1.39c1.168-.157 2.67-.175 4.499-.177a.697.697 0 1 1 0 1.396c-1.855.002-3.234.018-4.313.163c-1.189.16-1.906.464-2.436.994S3.72 5.8 3.56 6.99C3.397 8.2 3.395 9.788 3.395 12v.784l.932-.814a2.14 2.14 0 0 1 2.922.097l3.99 3.99a1.86 1.86 0 0 0 2.385.207l.278-.195a2.79 2.79 0 0 1 3.471.209l2.633 2.37c.265-.557.423-1.288.507-2.32c.079-.972.09-2.152.091-3.63a.698.698 0 0 1 1.396 0' opacity='.5'/%3E%3Cpath fill='%23F44336' fill-rule='evenodd' d='M17.5 11c-2.121 0-3.182 0-3.841-.659S13 8.621 13 6.5s0-3.182.659-3.841S15.379 2 17.5 2s3.182 0 3.841.659S22 4.379 22 6.5s0 3.182-.659 3.841S19.621 11 17.5 11m-1.47-7.03a.75.75 0 1 0-1.06 1.06l1.47 1.47l-1.47 1.47a.75.75 0 0 0 1.06 1.06l1.47-1.47l1.47 1.47a.75.75 0 1 0 1.06-1.06L18.56 6.5l1.47-1.47a.75.75 0 0 0-1.06-1.06L17.5 5.44z' clip-rule='evenodd'/%3E%3C/svg%3E&quot;"/><div class="lazy-icon" style="background-image:url(https://api.iconify.design/eos-icons:three-dots-loading.svg?color=%231cd0fd);"></div></div></div>
-<p>一个U型的结构，左边是下采样进行提取特征，右边是上采样进行恢复特征图，中间是瓶颈层将大量局部特征整合成更高层抽象信息，减少冗余，提供非线性变换，为解码阶段提供新的特征表示，模型在每层下降的过程中会保存下降的结果与对应上升的特征图进行跳跃连接。</p>
-<p>输入为 <span class="math inline">\(572 \times 572\)</span> ，进行下采样每层经过 <span class="math inline">\(3 \times 3\)</span> 无填充的卷积、ReLU和一个大小为 <span class="math inline">\(2 \times 2\)</span>，步长为2 的maxpooling，同时增加一倍通道数
-因为在上采样过程中图像大小与在下采样中不同，使用需要裁剪特征图来跳跃连接</p>
-<div class="tag-plugin colorful note" color="cyan"><div class="title">Note</div><div class="body"><p><span class="math inline">\(1 \times 572 \times 572\)</span> 经过两次卷积和两次ReLU后，大小为 <span class="math inline">\(64 \times 568 \times 568\)</span> (572-3+1-3+1) ； 经过maxpooling 后减少特征图大小，大小为 <span class="math inline">\(64 \times 284 \times 284\)</span> ((568-2+2)/2)； 直到最底层大小为 <span class="math inline">\(512 \times 32 \times 32\)</span> 达到瓶颈层后经历两次卷积块后大小为 <span class="math inline">\(1024 \times 28 \times 28\)</span> 在上采样阶段使用反卷积和下降的特征图做拼接，并且通道数量减半到大小为 <span class="math inline">\(64 \times 388 \times 388\)</span> 最后进行 <span class="math inline">\(1 \times 1\)</span> 卷积，将通道数降到图像中类别数 <strong>在后续的U-net优化中，应该使上下采样的大小相同</strong></p></div></div>
-<hr />
-<h1 id="模型优化">模型优化</h1>
-<h2 id="重叠切片无缝平铺镜像填充">1.重叠切片（无缝平铺）+镜像填充</h2>
-<div class="tag-plugin image"><div class="image-bg" style="aspect-ratio:1086/502;"><img class="lazy" src="https://raw.githubusercontent.com/L-Virus/Pic/main/Blog/20251010210914301.png" data-src="https://raw.githubusercontent.com/L-Virus/Pic/main/Blog/20251010210914301.png" data-fancybox="true"onerror="this.src=&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='2rem' height='2rem' viewBox='0 0 24 24'%3E%3C!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --%3E%3Cpath fill='%23F44336' d='M22 12.698c-.002 1.47-.013 2.718-.096 3.743c-.097 1.19-.296 2.184-.74 3.009a4.2 4.2 0 0 1-.73.983c-.833.833-1.893 1.21-3.237 1.39C15.884 22 14.2 22 12.053 22h-.106c-2.148 0-3.83 0-5.144-.177c-1.343-.18-2.404-.557-3.236-1.39c-.738-.738-1.12-1.656-1.322-2.795c-.2-1.12-.236-2.512-.243-4.241Q1.999 12.737 2 12v-.054c0-2.148 0-3.83.177-5.144c.18-1.343.557-2.404 1.39-3.236s1.893-1.21 3.236-1.39c1.168-.157 2.67-.175 4.499-.177a.697.697 0 1 1 0 1.396c-1.855.002-3.234.018-4.313.163c-1.189.16-1.906.464-2.436.994S3.72 5.8 3.56 6.99C3.397 8.2 3.395 9.788 3.395 12v.784l.932-.814a2.14 2.14 0 0 1 2.922.097l3.99 3.99a1.86 1.86 0 0 0 2.385.207l.278-.195a2.79 2.79 0 0 1 3.471.209l2.633 2.37c.265-.557.423-1.288.507-2.32c.079-.972.09-2.152.091-3.63a.698.698 0 0 1 1.396 0' opacity='.5'/%3E%3Cpath fill='%23F44336' fill-rule='evenodd' d='M17.5 11c-2.121 0-3.182 0-3.841-.659S13 8.621 13 6.5s0-3.182.659-3.841S15.379 2 17.5 2s3.182 0 3.841.659S22 4.379 22 6.5s0 3.182-.659 3.841S19.621 11 17.5 11m-1.47-7.03a.75.75 0 1 0-1.06 1.06l1.47 1.47l-1.47 1.47a.75.75 0 0 0 1.06 1.06l1.47-1.47l1.47 1.47a.75.75 0 1 0 1.06-1.06L18.56 6.5l1.47-1.47a.75.75 0 0 0-1.06-1.06L17.5 5.44z' clip-rule='evenodd'/%3E%3C/svg%3E&quot;"/><div class="lazy-icon" style="background-image:url(https://api.iconify.design/eos-icons:three-dots-loading.svg?color=%231cd0fd);"></div></div></div>
-<p>因为卷积网络在经过下采样和上采样后，图片中的物体边缘精度会降低，因为在U-net中使用一种名为<strong>重叠切片+镜像填充</strong>的方法解决</p>
-<h2 id="弹性形变">2.弹性形变</h2>
-<p>使用弹性形变来进行充分的数据增强，因为在医学图像中，组织的形变是最常见的变化，Dosovitskiy [Dosovitskiy, A., Springenberg, J.T., Riedmiller, M., Brox, T.: Discriminative unsupervised feature learning with convolutional neural networks. In: NIPS (2014)]
-在无监督特征学习的范围内已经证明了数据增强对学习不变性的价值。</p>
-<h2 id="加权损失">3.加权损失</h2>
-<div class="tag-plugin image"><div class="image-bg" style="aspect-ratio:1076/419;"><img class="lazy" src="https://raw.githubusercontent.com/L-Virus/Pic/main/Blog/20251010214902599.png" data-src="https://raw.githubusercontent.com/L-Virus/Pic/main/Blog/20251010214902599.png" data-fancybox="true"onerror="this.src=&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='2rem' height='2rem' viewBox='0 0 24 24'%3E%3C!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --%3E%3Cpath fill='%23F44336' d='M22 12.698c-.002 1.47-.013 2.718-.096 3.743c-.097 1.19-.296 2.184-.74 3.009a4.2 4.2 0 0 1-.73.983c-.833.833-1.893 1.21-3.237 1.39C15.884 22 14.2 22 12.053 22h-.106c-2.148 0-3.83 0-5.144-.177c-1.343-.18-2.404-.557-3.236-1.39c-.738-.738-1.12-1.656-1.322-2.795c-.2-1.12-.236-2.512-.243-4.241Q1.999 12.737 2 12v-.054c0-2.148 0-3.83.177-5.144c.18-1.343.557-2.404 1.39-3.236s1.893-1.21 3.236-1.39c1.168-.157 2.67-.175 4.499-.177a.697.697 0 1 1 0 1.396c-1.855.002-3.234.018-4.313.163c-1.189.16-1.906.464-2.436.994S3.72 5.8 3.56 6.99C3.397 8.2 3.395 9.788 3.395 12v.784l.932-.814a2.14 2.14 0 0 1 2.922.097l3.99 3.99a1.86 1.86 0 0 0 2.385.207l.278-.195a2.79 2.79 0 0 1 3.471.209l2.633 2.37c.265-.557.423-1.288.507-2.32c.079-.972.09-2.152.091-3.63a.698.698 0 0 1 1.396 0' opacity='.5'/%3E%3Cpath fill='%23F44336' fill-rule='evenodd' d='M17.5 11c-2.121 0-3.182 0-3.841-.659S13 8.621 13 6.5s0-3.182.659-3.841S15.379 2 17.5 2s3.182 0 3.841.659S22 4.379 22 6.5s0 3.182-.659 3.841S19.621 11 17.5 11m-1.47-7.03a.75.75 0 1 0-1.06 1.06l1.47 1.47l-1.47 1.47a.75.75 0 0 0 1.06 1.06l1.47-1.47l1.47 1.47a.75.75 0 1 0 1.06-1.06L18.56 6.5l1.47-1.47a.75.75 0 0 0-1.06-1.06L17.5 5.44z' clip-rule='evenodd'/%3E%3C/svg%3E&quot;"/><div class="lazy-icon" style="background-image:url(https://api.iconify.design/eos-icons:three-dots-loading.svg?color=%231cd0fd);"></div></div></div>
-<p>为了解决细胞分割中的一个挑战：<strong>分离同一类的接触物体</strong>；
-U-net使用加权损失的方法：接触细胞之间的分离背景标签在损失函数中获得较大的权重。
-<strong>这样能更好的分离出两个接触细胞之间的背景信息</strong>
-在后续的优化中，我们更通常使用<strong>Dice loss</strong> 或 <strong>Focal loss</strong>，<strong>Boundary loss / Hausdorff loss</strong></p>
-<h2 id="选择合适的池化窗口大小">4.选择合适的池化窗口大小</h2>
-<p>为了保证 tile 能被网络多层池化后尺寸仍然对齐，需要选择合适的 tile 大小（通常是 <span class="math inline">\(2^N\)</span> 的倍数 + U-Net 卷积裁剪调整）。</p>
-<h1 id="数据">数据</h1>
-<p>ISBI 2015</p>
-<h1 id="训练">训练</h1>
-<ul>
-<li>优化器：SGD</li>
-<li>batch_size：1</li>
-<li>momentum：0.99</li>
-<li>loss：softmax、cross-entropy</li>
-<li>init_weight：使用标准差为 <span class="math inline">\(\sqrt{2/N}\)</span> 的高斯分布，其中N为每层输入的像素点数</li>
-</ul>
-<h1 id="数据增强">数据增强</h1>
-<div class="tag-plugin blockquote" indent="undefined"><p>“We generate smooth deformations using random displacement vectors on a coarse 3 by 3 grid. The displacements are sampled from a Gaussian distribution with 10 pixels standard deviation. Per-pixel displacements are then computed using bicubic interpolation. Drop-out layers at the end of the contracting path perform further implicit data augmentation.” (<a href="zotero://select/library/items/QY2VXDUT">Ronneberger 等, 2015, p. 6</a>) (<a href="zotero://open-pdf/library/items/KK6KJIRN?page=6&amp;annotation=BGIJA9DX">pdf</a>)</p></div>
-<p>在粗糙的 3 x 3 网格上使用随机位移矢量生成平滑变形。位移是从具有 10 像素标准差的高斯分布中采样的。然后使用双三次插值计算每像素位移。收缩路径末端的辍学层执行进一步的隐式数据扩充。
-以及正常的旋转和变色</p>
-]]></content>
-      <tags>
-        <tag>U-net，CV</tag>
-      </tags>
   </entry>
   <entry>
     <title>使用Pycharm进行远程ssh（以Featurize为例）</title>

@@ -29,7 +29,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://example.com/images/avatar.jpg">
 <meta property="article:published_time" content="2025-10-26T13:47:07.442Z">
-<meta property="article:modified_time" content="2025-10-26T14:17:08.369Z">
+<meta property="article:modified_time" content="2025-10-26T14:30:14.704Z">
 <meta property="article:author" content="VirusL">
 <meta property="article:tag" content="NLP">
 <meta property="article:tag" content="BERT">
@@ -53,7 +53,7 @@
 
   
 
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"VirusL","sameAs":[],"image":"/images/avatar.jpg"},"dateCreated":"2025-10-26T21:47:07+08:00","dateModified":"2025-10-26T22:17:08+08:00","datePublished":"2025-10-26T21:47:07+08:00","description":"","headline":"BERT","mainEntityOfPage":{"@type":"WebPage","@id":"http://example.com/2025/10/26/BERT/"},"publisher":{"@type":"Organization","name":"VirusL","sameAs":[],"image":"/images/avatar.jpg","logo":{"@type":"ImageObject","url":"/images/avatar.jpg"}},"url":"http://example.com/2025/10/26/BERT/","keywords":"NLP, BERT, WordEmbedding","image":[]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"VirusL","sameAs":[],"image":"/images/avatar.jpg"},"dateCreated":"2025-10-26T21:47:07+08:00","dateModified":"2025-10-26T22:30:14+08:00","datePublished":"2025-10-26T21:47:07+08:00","description":"","headline":"BERT","mainEntityOfPage":{"@type":"WebPage","@id":"http://example.com/2025/10/26/BERT/"},"publisher":{"@type":"Organization","name":"VirusL","sameAs":[],"image":"/images/avatar.jpg","logo":{"@type":"ImageObject","url":"/images/avatar.jpg"}},"url":"http://example.com/2025/10/26/BERT/","keywords":"NLP, BERT, WordEmbedding","image":[]}</script>
   
 </head>
 <body>
@@ -85,7 +85,7 @@
   <div class="content">
     <div class="top bread-nav footnote"><div class="left"><div class="flex-row" id="breadcrumb"><a class="cap breadcrumb" href="/">主页</a>
 <span class="sep"></span><a class="cap breadcrumb" id="menu" href="/topic/">专栏</a><span class="sep"></span><a class="cap breadcrumb" id="proj" href="/2025/10/26/BERT/">文献阅读</a></div>
-<div class="flex-row" id="post-meta"><span class="text created">发布于：<time datetime="2025-10-26T13:47:07.442Z">2025-10-26</time></span><span class="sep updated"></span><span class="text updated">更新于：<time datetime="2025-10-26T14:17:08.369Z">2025-10-26</time></span></div><div class="flex-row" id="page-words"><span style="padding: 4px;">本文：2.5k字</span><span class="sep updated" style="padding: 4px;"></span><span class="text updated" style="padding: 4px;">阅读时长：11分</span></div><div class="flex-row" id="tag"> <span>&nbsp标签：</span><a class="cap breadcrumb-link" href="/tags/BERT/">BERT</a>&nbsp; <a class="cap breadcrumb-link" href="/tags/NLP/">NLP</a>&nbsp; <a class="cap breadcrumb-link" href="/tags/WordEmbedding/">WordEmbedding</a>&nbsp</div></div></div>
+<div class="flex-row" id="post-meta"><span class="text created">发布于：<time datetime="2025-10-26T13:47:07.442Z">2025-10-26</time></span><span class="sep updated"></span><span class="text updated">更新于：<time datetime="2025-10-26T14:30:14.704Z">2025-10-26</time></span></div><div class="flex-row" id="page-words"><span style="padding: 4px;">本文：2.5k字</span><span class="sep updated" style="padding: 4px;"></span><span class="text updated" style="padding: 4px;">阅读时长：11分</span></div><div class="flex-row" id="tag"> <span>&nbsp标签：</span><a class="cap breadcrumb-link" href="/tags/BERT/">BERT</a>&nbsp; <a class="cap breadcrumb-link" href="/tags/NLP/">NLP</a>&nbsp; <a class="cap breadcrumb-link" href="/tags/WordEmbedding/">WordEmbedding</a>&nbsp</div></div></div>
     
     <div class="bottom only-title">
       
@@ -194,7 +194,7 @@ L_{NSP}=-[ylogP(IsNext)=(1-y)logP(NotNext)]
 <h1 id="前言">前言</h1>
 <div class="tag-plugin blockquote" indent="undefined"><p>“There are two existing strategies for applying pre-trained language representations to downstream tasks: feature-based and fine-tuning” (<a href="zotero://select/library/items/247M8S5T">Devlin 等, 2019, p. 1</a>) (<a href="zotero://open-pdf/library/items/CINVU4YS?page=1&amp;annotation=7ZRR8EQ4">pdf</a>)</p></div>
 <p>现如今预训练语言表示主要有两种方法：<strong>基于特征</strong>，<strong>微调</strong>，使用单向语言模型来学习。</p>
-<div class="tag-plugin colorful note" color="cyan"><div class="title">两种预训练语言表示方法</div><div class="body"><p><strong>基于特征</strong>的方法主要是：当一个预训练好的语言表示放进下游任务进行训练时，词向量作为特征，<strong>不会</strong>随着训练而变化，主要代表是 ELMo <strong>微调</strong>的方法主要是：当一个预训练好的语言表示放进下游任务进行训练时，词向量作为特征，<strong>会</strong>随着训练而进行变化，主要代表是 GPT BERT 是结合<strong>基于特征</strong>和<strong>微调</strong>两种方法的预训练语言模型，前者是在 pre-training 中，后者是在 fine-tunning 中</p></div></div>
+<div class="tag-plugin colorful note" color="cyan"><div class="title">两种预训练语言表示方法</div><div class="body"><p><strong>基于特征</strong>的方法主要是：当一个预训练好的语言表示放进下游任务进行训练时，词向量作为特征，<strong>不会</strong>随着训练而变化，主要代表是 ELMo<br> <strong>微调</strong>的方法主要是：当一个预训练好的语言表示放进下游任务进行训练时，词向量作为特征，<strong>会</strong>随着训练而进行变化，主要代表是 GPT<br> BERT 是结合<strong>基于特征</strong>和<strong>微调</strong>两种方法的预训练语言模型，前者是在 pre-training 中，后者是在 fine-tunning 中</p></div></div>
 <h1 id="核心">核心</h1>
 <div class="tag-plugin blockquote" indent="undefined"><p>“BERT alleviates the previously mentioned unidirectionality constraint by using a “masked language model” (MLM) pre-training objective” (<a href="zotero://select/library/items/247M8S5T">Devlin 等, 2019, p. 1</a>) (<a href="zotero://open-pdf/library/items/CINVU4YS?page=1&amp;annotation=W6FD2J97">pdf</a>)</p></div>
 <p>双向的、基于Transformer编码器(Encoder)的、使用掩码的语言模型
@@ -354,9 +354,7 @@ L_{NSP}=-[ylogP(IsNext)=(1-y)logP(NotNext)]
 </tr>
 </tbody>
 </table>
-<blockquote>
-<div class="tag-plugin colorful note" color="cyan"><div class="title">动态</div><div class="body"><p>Mask &gt;每次训练迭代重新随机 Mask 句子中的词，而不是像 BERT 那样只 Mask 一次后固定不变。</p></div></div>
-</blockquote>
+<div class="tag-plugin colorful note" color="cyan"><div class="title">动态Mask</div><div class="body"><p>每次训练迭代重新随机 Mask 句子中的词，而不是像 BERT 那样只 Mask 一次后固定不变。</p></div></div>
 <h2 id="deberta">DeBERTa</h2>
 <p>Decoding-enhanced BERT with Disentangled Attention</p>
 <h3 id="改进-2">改进</h3>

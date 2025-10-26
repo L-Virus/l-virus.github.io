@@ -20,26 +20,26 @@
   <title>BERT - 美好的明天</title>
 
   
-    <meta name="description" content="模型  模型具有两个阶段，分别为预训练和微调 在预训练阶段进行无监督学习，输入是没有标签的数据 在微调阶段，使用预训练阶段得到的参数初始化模型，使用下游任务的标注数据进行训练，每个下游任务都有一个单独的微调模型  \(L\): Transformer Block \(H\): Hidden Size \(A\): Self-attention Head  文中使用两种模型：\[">
+    <meta name="description" content="模型  模型具有两个阶段，分别为预训练和微调 在预训练阶段进行无监督学习，输入是没有标签的数据 在微调阶段，使用预训练阶段得到的参数初始化模型，使用下游任务的标注数据进行训练，每个下游任务都有一个单独的微调模型  \(L\): Transformer Block \(H\): Hidden Size \(A\): Self-attention Head  文中使用两种模型：">
 <meta property="og:type" content="article">
 <meta property="og:title" content="BERT">
 <meta property="og:url" content="http://example.com/2025/10/26/BERT/">
 <meta property="og:site_name" content="美好的明天">
-<meta property="og:description" content="模型  模型具有两个阶段，分别为预训练和微调 在预训练阶段进行无监督学习，输入是没有标签的数据 在微调阶段，使用预训练阶段得到的参数初始化模型，使用下游任务的标注数据进行训练，每个下游任务都有一个单独的微调模型  \(L\): Transformer Block \(H\): Hidden Size \(A\): Self-attention Head  文中使用两种模型：\[">
+<meta property="og:description" content="模型  模型具有两个阶段，分别为预训练和微调 在预训练阶段进行无监督学习，输入是没有标签的数据 在微调阶段，使用预训练阶段得到的参数初始化模型，使用下游任务的标注数据进行训练，每个下游任务都有一个单独的微调模型  \(L\): Transformer Block \(H\): Hidden Size \(A\): Self-attention Head  文中使用两种模型：">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://example.com/images/avatar.jpg">
 <meta property="article:published_time" content="2025-10-26T13:47:07.442Z">
-<meta property="article:modified_time" content="2025-10-26T13:58:51.866Z">
+<meta property="article:modified_time" content="2025-10-26T14:17:08.369Z">
 <meta property="article:author" content="VirusL">
 <meta property="article:tag" content="NLP">
-<meta property="article:tag" content="WordEmbedding">
 <meta property="article:tag" content="BERT">
+<meta property="article:tag" content="WordEmbedding">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://example.com/images/avatar.jpg">
   
   
   
-  <meta name="keywords" content="NLP,WordEmbedding,BERT">
+  <meta name="keywords" content="NLP,BERT,WordEmbedding">
 
   <!-- feed -->
   
@@ -53,7 +53,7 @@
 
   
 
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"VirusL","sameAs":[],"image":"/images/avatar.jpg"},"dateCreated":"2025-10-26T21:47:07+08:00","dateModified":"2025-10-26T21:58:51+08:00","datePublished":"2025-10-26T21:47:07+08:00","description":"","headline":"BERT","mainEntityOfPage":{"@type":"WebPage","@id":"http://example.com/2025/10/26/BERT/"},"publisher":{"@type":"Organization","name":"VirusL","sameAs":[],"image":"/images/avatar.jpg","logo":{"@type":"ImageObject","url":"/images/avatar.jpg"}},"url":"http://example.com/2025/10/26/BERT/","keywords":"NLP, WordEmbedding, BERT","image":[]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"VirusL","sameAs":[],"image":"/images/avatar.jpg"},"dateCreated":"2025-10-26T21:47:07+08:00","dateModified":"2025-10-26T22:17:08+08:00","datePublished":"2025-10-26T21:47:07+08:00","description":"","headline":"BERT","mainEntityOfPage":{"@type":"WebPage","@id":"http://example.com/2025/10/26/BERT/"},"publisher":{"@type":"Organization","name":"VirusL","sameAs":[],"image":"/images/avatar.jpg","logo":{"@type":"ImageObject","url":"/images/avatar.jpg"}},"url":"http://example.com/2025/10/26/BERT/","keywords":"NLP, BERT, WordEmbedding","image":[]}</script>
   
 </head>
 <body>
@@ -85,7 +85,7 @@
   <div class="content">
     <div class="top bread-nav footnote"><div class="left"><div class="flex-row" id="breadcrumb"><a class="cap breadcrumb" href="/">主页</a>
 <span class="sep"></span><a class="cap breadcrumb" id="menu" href="/topic/">专栏</a><span class="sep"></span><a class="cap breadcrumb" id="proj" href="/2025/10/26/BERT/">文献阅读</a></div>
-<div class="flex-row" id="post-meta"><span class="text created">发布于：<time datetime="2025-10-26T13:47:07.442Z">2025-10-26</time></span><span class="sep updated"></span><span class="text updated">更新于：<time datetime="2025-10-26T13:58:51.866Z">2025-10-26</time></span></div><div class="flex-row" id="page-words"><span style="padding: 4px;">本文：2.6k字</span><span class="sep updated" style="padding: 4px;"></span><span class="text updated" style="padding: 4px;">阅读时长：11分</span></div><div class="flex-row" id="tag"> <span>&nbsp标签：</span><a class="cap breadcrumb-link" href="/tags/BERT/">BERT</a>&nbsp; <a class="cap breadcrumb-link" href="/tags/NLP/">NLP</a>&nbsp; <a class="cap breadcrumb-link" href="/tags/WordEmbedding/">WordEmbedding</a>&nbsp</div></div></div>
+<div class="flex-row" id="post-meta"><span class="text created">发布于：<time datetime="2025-10-26T13:47:07.442Z">2025-10-26</time></span><span class="sep updated"></span><span class="text updated">更新于：<time datetime="2025-10-26T14:17:08.369Z">2025-10-26</time></span></div><div class="flex-row" id="page-words"><span style="padding: 4px;">本文：2.5k字</span><span class="sep updated" style="padding: 4px;"></span><span class="text updated" style="padding: 4px;">阅读时长：11分</span></div><div class="flex-row" id="tag"> <span>&nbsp标签：</span><a class="cap breadcrumb-link" href="/tags/BERT/">BERT</a>&nbsp; <a class="cap breadcrumb-link" href="/tags/NLP/">NLP</a>&nbsp; <a class="cap breadcrumb-link" href="/tags/WordEmbedding/">WordEmbedding</a>&nbsp</div></div></div>
     
     <div class="bottom only-title">
       
@@ -97,95 +97,90 @@
     
   </div>
   </div><article class="md-text content"><h1 id="模型">模型</h1>
-<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="https://raw.githubusercontent.com/L-Virus/Pic/main/Blog/20251017202746496.png" data-src="https://raw.githubusercontent.com/L-Virus/Pic/main/Blog/20251017202746496.png" data-fancybox="true"onerror="this.src=&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='2rem' height='2rem' viewBox='0 0 24 24'%3E%3C!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --%3E%3Cpath fill='%23F44336' d='M22 12.698c-.002 1.47-.013 2.718-.096 3.743c-.097 1.19-.296 2.184-.74 3.009a4.2 4.2 0 0 1-.73.983c-.833.833-1.893 1.21-3.237 1.39C15.884 22 14.2 22 12.053 22h-.106c-2.148 0-3.83 0-5.144-.177c-1.343-.18-2.404-.557-3.236-1.39c-.738-.738-1.12-1.656-1.322-2.795c-.2-1.12-.236-2.512-.243-4.241Q1.999 12.737 2 12v-.054c0-2.148 0-3.83.177-5.144c.18-1.343.557-2.404 1.39-3.236s1.893-1.21 3.236-1.39c1.168-.157 2.67-.175 4.499-.177a.697.697 0 1 1 0 1.396c-1.855.002-3.234.018-4.313.163c-1.189.16-1.906.464-2.436.994S3.72 5.8 3.56 6.99C3.397 8.2 3.395 9.788 3.395 12v.784l.932-.814a2.14 2.14 0 0 1 2.922.097l3.99 3.99a1.86 1.86 0 0 0 2.385.207l.278-.195a2.79 2.79 0 0 1 3.471.209l2.633 2.37c.265-.557.423-1.288.507-2.32c.079-.972.09-2.152.091-3.63a.698.698 0 0 1 1.396 0' opacity='.5'/%3E%3Cpath fill='%23F44336' fill-rule='evenodd' d='M17.5 11c-2.121 0-3.182 0-3.841-.659S13 8.621 13 6.5s0-3.182.659-3.841S15.379 2 17.5 2s3.182 0 3.841.659S22 4.379 22 6.5s0 3.182-.659 3.841S19.621 11 17.5 11m-1.47-7.03a.75.75 0 1 0-1.06 1.06l1.47 1.47l-1.47 1.47a.75.75 0 0 0 1.06 1.06l1.47-1.47l1.47 1.47a.75.75 0 1 0 1.06-1.06L18.56 6.5l1.47-1.47a.75.75 0 0 0-1.06-1.06L17.5 5.44z' clip-rule='evenodd'/%3E%3C/svg%3E&quot;"/><div class="lazy-icon" style="background-image:url(https://api.iconify.design/eos-icons:three-dots-loading.svg?color=%231cd0fd);"></div></div></div>
+<div class="tag-plugin image"><div class="image-bg" style="aspect-ratio:1380/553;"><img class="lazy" src="https://raw.githubusercontent.com/L-Virus/Pic/main/Blog/20251017202746496.png" data-src="https://raw.githubusercontent.com/L-Virus/Pic/main/Blog/20251017202746496.png" data-fancybox="true"onerror="this.src=&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='2rem' height='2rem' viewBox='0 0 24 24'%3E%3C!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --%3E%3Cpath fill='%23F44336' d='M22 12.698c-.002 1.47-.013 2.718-.096 3.743c-.097 1.19-.296 2.184-.74 3.009a4.2 4.2 0 0 1-.73.983c-.833.833-1.893 1.21-3.237 1.39C15.884 22 14.2 22 12.053 22h-.106c-2.148 0-3.83 0-5.144-.177c-1.343-.18-2.404-.557-3.236-1.39c-.738-.738-1.12-1.656-1.322-2.795c-.2-1.12-.236-2.512-.243-4.241Q1.999 12.737 2 12v-.054c0-2.148 0-3.83.177-5.144c.18-1.343.557-2.404 1.39-3.236s1.893-1.21 3.236-1.39c1.168-.157 2.67-.175 4.499-.177a.697.697 0 1 1 0 1.396c-1.855.002-3.234.018-4.313.163c-1.189.16-1.906.464-2.436.994S3.72 5.8 3.56 6.99C3.397 8.2 3.395 9.788 3.395 12v.784l.932-.814a2.14 2.14 0 0 1 2.922.097l3.99 3.99a1.86 1.86 0 0 0 2.385.207l.278-.195a2.79 2.79 0 0 1 3.471.209l2.633 2.37c.265-.557.423-1.288.507-2.32c.079-.972.09-2.152.091-3.63a.698.698 0 0 1 1.396 0' opacity='.5'/%3E%3Cpath fill='%23F44336' fill-rule='evenodd' d='M17.5 11c-2.121 0-3.182 0-3.841-.659S13 8.621 13 6.5s0-3.182.659-3.841S15.379 2 17.5 2s3.182 0 3.841.659S22 4.379 22 6.5s0 3.182-.659 3.841S19.621 11 17.5 11m-1.47-7.03a.75.75 0 1 0-1.06 1.06l1.47 1.47l-1.47 1.47a.75.75 0 0 0 1.06 1.06l1.47-1.47l1.47 1.47a.75.75 0 1 0 1.06-1.06L18.56 6.5l1.47-1.47a.75.75 0 0 0-1.06-1.06L17.5 5.44z' clip-rule='evenodd'/%3E%3C/svg%3E&quot;"/><div class="lazy-icon" style="background-image:url(https://api.iconify.design/eos-icons:three-dots-loading.svg?color=%231cd0fd);"></div></div></div>
 <p>模型具有两个阶段，分别为<strong>预训练</strong>和<strong>微调</strong>
 在预训练阶段进行无监督学习，输入是没有标签的数据
 在微调阶段，使用预训练阶段得到的参数初始化模型，使用下游任务的标注数据进行训练，每个下游任务都有一个单独的微调模型</p>
 <blockquote>
-<p><span class="math inline">\(L\)</span>: Transformer Block
-<span class="math inline">\(H\)</span>: Hidden Size
-<span class="math inline">\(A\)</span>: Self-attention Head</p>
+<p><span class="math inline">\(L\)</span>: Transformer Block</p>
+<p><span class="math inline">\(H\)</span>: Hidden Size</p>
+<p><span class="math inline">\(A\)</span>: Self-attention Head</p>
 </blockquote>
-<p>文中使用两种模型：<span class="math display">\[\displaylines{BERT_{BASE}(L=12,H=768,A=12,110M) \\ BERT_{LARGE}(L=24,H=1024,A=16,340M)}\]</span></p>
-<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="https://raw.githubusercontent.com/L-Virus/Pic/main/Blog/20251020134332582.png" data-src="https://raw.githubusercontent.com/L-Virus/Pic/main/Blog/20251020134332582.png" data-fancybox="true"onerror="this.src=&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='2rem' height='2rem' viewBox='0 0 24 24'%3E%3C!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --%3E%3Cpath fill='%23F44336' d='M22 12.698c-.002 1.47-.013 2.718-.096 3.743c-.097 1.19-.296 2.184-.74 3.009a4.2 4.2 0 0 1-.73.983c-.833.833-1.893 1.21-3.237 1.39C15.884 22 14.2 22 12.053 22h-.106c-2.148 0-3.83 0-5.144-.177c-1.343-.18-2.404-.557-3.236-1.39c-.738-.738-1.12-1.656-1.322-2.795c-.2-1.12-.236-2.512-.243-4.241Q1.999 12.737 2 12v-.054c0-2.148 0-3.83.177-5.144c.18-1.343.557-2.404 1.39-3.236s1.893-1.21 3.236-1.39c1.168-.157 2.67-.175 4.499-.177a.697.697 0 1 1 0 1.396c-1.855.002-3.234.018-4.313.163c-1.189.16-1.906.464-2.436.994S3.72 5.8 3.56 6.99C3.397 8.2 3.395 9.788 3.395 12v.784l.932-.814a2.14 2.14 0 0 1 2.922.097l3.99 3.99a1.86 1.86 0 0 0 2.385.207l.278-.195a2.79 2.79 0 0 1 3.471.209l2.633 2.37c.265-.557.423-1.288.507-2.32c.079-.972.09-2.152.091-3.63a.698.698 0 0 1 1.396 0' opacity='.5'/%3E%3Cpath fill='%23F44336' fill-rule='evenodd' d='M17.5 11c-2.121 0-3.182 0-3.841-.659S13 8.621 13 6.5s0-3.182.659-3.841S15.379 2 17.5 2s3.182 0 3.841.659S22 4.379 22 6.5s0 3.182-.659 3.841S19.621 11 17.5 11m-1.47-7.03a.75.75 0 1 0-1.06 1.06l1.47 1.47l-1.47 1.47a.75.75 0 0 0 1.06 1.06l1.47-1.47l1.47 1.47a.75.75 0 1 0 1.06-1.06L18.56 6.5l1.47-1.47a.75.75 0 0 0-1.06-1.06L17.5 5.44z' clip-rule='evenodd'/%3E%3C/svg%3E&quot;"/><div class="lazy-icon" style="background-image:url(https://api.iconify.design/eos-icons:three-dots-loading.svg?color=%231cd0fd);"></div></div></div>
+<p>文中使用两种模型：</p>
+<p><span class="math display">\[\displaylines{BERT_{BASE}(L=12,H=768,A=12,110M) \\ BERT_{LARGE}(L=24,H=1024,A=16,340M)}\]</span></p>
+<div class="tag-plugin image"><div class="image-bg" style="aspect-ratio:332/298;"><img class="lazy" src="https://raw.githubusercontent.com/L-Virus/Pic/main/Blog/20251020134332582.png" data-src="https://raw.githubusercontent.com/L-Virus/Pic/main/Blog/20251020134332582.png" data-fancybox="true"onerror="this.src=&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='2rem' height='2rem' viewBox='0 0 24 24'%3E%3C!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --%3E%3Cpath fill='%23F44336' d='M22 12.698c-.002 1.47-.013 2.718-.096 3.743c-.097 1.19-.296 2.184-.74 3.009a4.2 4.2 0 0 1-.73.983c-.833.833-1.893 1.21-3.237 1.39C15.884 22 14.2 22 12.053 22h-.106c-2.148 0-3.83 0-5.144-.177c-1.343-.18-2.404-.557-3.236-1.39c-.738-.738-1.12-1.656-1.322-2.795c-.2-1.12-.236-2.512-.243-4.241Q1.999 12.737 2 12v-.054c0-2.148 0-3.83.177-5.144c.18-1.343.557-2.404 1.39-3.236s1.893-1.21 3.236-1.39c1.168-.157 2.67-.175 4.499-.177a.697.697 0 1 1 0 1.396c-1.855.002-3.234.018-4.313.163c-1.189.16-1.906.464-2.436.994S3.72 5.8 3.56 6.99C3.397 8.2 3.395 9.788 3.395 12v.784l.932-.814a2.14 2.14 0 0 1 2.922.097l3.99 3.99a1.86 1.86 0 0 0 2.385.207l.278-.195a2.79 2.79 0 0 1 3.471.209l2.633 2.37c.265-.557.423-1.288.507-2.32c.079-.972.09-2.152.091-3.63a.698.698 0 0 1 1.396 0' opacity='.5'/%3E%3Cpath fill='%23F44336' fill-rule='evenodd' d='M17.5 11c-2.121 0-3.182 0-3.841-.659S13 8.621 13 6.5s0-3.182.659-3.841S15.379 2 17.5 2s3.182 0 3.841.659S22 4.379 22 6.5s0 3.182-.659 3.841S19.621 11 17.5 11m-1.47-7.03a.75.75 0 1 0-1.06 1.06l1.47 1.47l-1.47 1.47a.75.75 0 0 0 1.06 1.06l1.47-1.47l1.47 1.47a.75.75 0 1 0 1.06-1.06L18.56 6.5l1.47-1.47a.75.75 0 0 0-1.06-1.06L17.5 5.44z' clip-rule='evenodd'/%3E%3C/svg%3E&quot;"/><div class="lazy-icon" style="background-image:url(https://api.iconify.design/eos-icons:three-dots-loading.svg?color=%231cd0fd);"></div></div></div>
 <h2 id="input-与-output">Input 与 Output</h2>
 <div class="tag-plugin blockquote" indent="undefined"><p>“our input representation is able to unambiguously represent both a single sentence and a pair of sentences (e.g., 〈 Question, Answer 〉) in one token sequence. Throughout this work, a “sentence” can be an arbitrary span of contiguous text, rather than an actual linguistic sentence. A “sequence” refers to the input token sequence to BERT, which may be a single sentence or two sentences packed together.” (<a href="zotero://select/library/items/247M8S5T">Devlin 等, 2019, p. 4</a>) (<a href="zotero://open-pdf/library/items/CINVU4YS?page=4&amp;annotation=7PUY42X5">pdf</a>)</p></div>
 <p>首先论文中的<code>sentence</code>不仅仅只能是语言学上的完整句子，还可以是任意一段连续的文本片段。<code>sequence</code>，可以是刚刚讲到的<code>sentence</code>，以一个单独出现或者成对出现的形似使用<code>WordPiece</code>（一种Tokenize方法）</p>
-<blockquote>
-<p>“First, we separate them with a special token ([SEP]). Second, we add a learned embedding to every token indicating whether it belongs to sentence A or sentence B.” (<a href="zotero://select/library/items/247M8S5T">Devlin 等, 2019, p. 4</a>) (<a href="zotero://open-pdf/library/items/CINVU4YS?page=4&amp;annotation=Q72H6UR7">pdf</a>)</p>
-</blockquote>
+<div class="tag-plugin blockquote" indent="undefined"><p>“First, we separate them with a special token ([SEP]). Second, we add a learned embedding to every token indicating whether it belongs to sentence A or sentence B.” (<a href="zotero://select/library/items/247M8S5T">Devlin 等, 2019, p. 4</a>) (<a href="zotero://open-pdf/library/items/CINVU4YS?page=4&amp;annotation=Q72H6UR7">pdf</a>)</p></div>
 <p>每个<code>sentence</code>的开头都是<code>[CLS]</code>（一个可学习的向量，是后面token的最高级抽象，也就是代表最后的输出y）
 句子对的进入则也是被打包成一个<code>sequence</code>，使用<code>[SEP]</code>来分割句子
 使用 Segment Embedding 来告诉模型，<code>token</code>属于哪个<code>sentence</code>
 而使用 Position Embedding 来告诉模型，<code>token</code> 在句子中的位置
-所以 Embedding = Tokenize Embedding + Segment Embedding + Position Embedding（均是可学习的参数）
-<img src="https://raw.githubusercontent.com/L-Virus/Pic/main/Blog/20251019212423992.png" alt="image.png" /> ^9d0547</p>
+所以 Embedding = Tokenize Embedding + Segment Embedding + Position Embedding（均是可学习的参数）</p>
+<div class="tag-plugin image"><div class="image-bg" style="aspect-ratio:1396/430;"><img class="lazy" src="https://raw.githubusercontent.com/L-Virus/Pic/main/Blog/20251019212423992.png" data-src="https://raw.githubusercontent.com/L-Virus/Pic/main/Blog/20251019212423992.png" data-fancybox="true"onerror="this.src=&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='2rem' height='2rem' viewBox='0 0 24 24'%3E%3C!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --%3E%3Cpath fill='%23F44336' d='M22 12.698c-.002 1.47-.013 2.718-.096 3.743c-.097 1.19-.296 2.184-.74 3.009a4.2 4.2 0 0 1-.73.983c-.833.833-1.893 1.21-3.237 1.39C15.884 22 14.2 22 12.053 22h-.106c-2.148 0-3.83 0-5.144-.177c-1.343-.18-2.404-.557-3.236-1.39c-.738-.738-1.12-1.656-1.322-2.795c-.2-1.12-.236-2.512-.243-4.241Q1.999 12.737 2 12v-.054c0-2.148 0-3.83.177-5.144c.18-1.343.557-2.404 1.39-3.236s1.893-1.21 3.236-1.39c1.168-.157 2.67-.175 4.499-.177a.697.697 0 1 1 0 1.396c-1.855.002-3.234.018-4.313.163c-1.189.16-1.906.464-2.436.994S3.72 5.8 3.56 6.99C3.397 8.2 3.395 9.788 3.395 12v.784l.932-.814a2.14 2.14 0 0 1 2.922.097l3.99 3.99a1.86 1.86 0 0 0 2.385.207l.278-.195a2.79 2.79 0 0 1 3.471.209l2.633 2.37c.265-.557.423-1.288.507-2.32c.079-.972.09-2.152.091-3.63a.698.698 0 0 1 1.396 0' opacity='.5'/%3E%3Cpath fill='%23F44336' fill-rule='evenodd' d='M17.5 11c-2.121 0-3.182 0-3.841-.659S13 8.621 13 6.5s0-3.182.659-3.841S15.379 2 17.5 2s3.182 0 3.841.659S22 4.379 22 6.5s0 3.182-.659 3.841S19.621 11 17.5 11m-1.47-7.03a.75.75 0 1 0-1.06 1.06l1.47 1.47l-1.47 1.47a.75.75 0 0 0 1.06 1.06l1.47-1.47l1.47 1.47a.75.75 0 1 0 1.06-1.06L18.56 6.5l1.47-1.47a.75.75 0 0 0-1.06-1.06L17.5 5.44z' clip-rule='evenodd'/%3E%3C/svg%3E&quot;"/><div class="lazy-icon" style="background-image:url(https://api.iconify.design/eos-icons:three-dots-loading.svg?color=%231cd0fd);"></div></div></div>
 <p>在 Pre-training 中的输入是<strong>无标签</strong>的单个或者一对的 <code>sentence</code>
 在 Fine-tunning 中的输入是<strong>带标签</strong>的单个或者一对的 <code>sentence</code></p>
 <h2 id="pre-training">Pre-training</h2>
-<p>在 Pre-training 的环节里有两个预测任务：[[#Masked LM]]，[[#Next Sentence Predict]]
-<span class="math display">\[
+<p>在 Pre-training 的环节里有两个预测任务：Masked LM，Next Sentence Predict</p>
+<p><span class="math display">\[
 L_{total}=L_{MLM}+L_{NSP}
-\]</span>
-### Data</p>
-<blockquote>
-<p>“For the pre-training corpus we use the BooksCorpus (800M words) (Zhu et al., 2015) and English Wikipedia (2,500M words).” (<a href="zotero://select/library/items/247M8S5T">Devlin 等, 2019, p. 5</a>) (<a href="zotero://open-pdf/library/items/CINVU4YS?page=5&amp;annotation=756UDAMA">pdf</a>)</p>
-</blockquote>
+\]</span></p>
+<h3 id="data">Data</h3>
+<div class="tag-plugin blockquote" indent="undefined"><p>“For the pre-training corpus we use the BooksCorpus (800M words) (Zhu et al., 2015) and English Wikipedia (2,500M words).” (<a href="zotero://select/library/items/247M8S5T">Devlin 等, 2019, p. 5</a>) (<a href="zotero://open-pdf/library/items/CINVU4YS?page=5&amp;annotation=756UDAMA">pdf</a>)</p></div>
 <p>训练集为 BookssCorpus，English Wikipedia</p>
-<blockquote>
-<p>“It is critical to use a document-level corpus rather than a shuffled sentence-level corpus” (<a href="zotero://select/library/items/247M8S5T">Devlin 等, 2019, p. 5</a>) (<a href="zotero://open-pdf/library/items/CINVU4YS?page=5&amp;annotation=RMRCR34E">pdf</a>)</p>
-</blockquote>
+<div class="tag-plugin blockquote" indent="undefined"><p>“It is critical to use a document-level corpus rather than a shuffled sentence-level corpus” (<a href="zotero://select/library/items/247M8S5T">Devlin 等, 2019, p. 5</a>) (<a href="zotero://open-pdf/library/items/CINVU4YS?page=5&amp;annotation=RMRCR34E">pdf</a>)</p></div>
 <p>最好使用文档级别语料库而不是打乱了的句子级别的语料库</p>
 <h3 id="masked-lmmlm">Masked LM（MLM）</h3>
-<p>^bb1096
-&gt;“In order to train a deep bidirectional representation, we simply mask some percentage of the input tokens at random, and then predict those masked tokens.” (<a href="zotero://select/library/items/247M8S5T">Devlin 等, 2019, p. 4</a>) (<a href="zotero://open-pdf/library/items/CINVU4YS?page=4&amp;annotation=EEUIPCJG">pdf</a>)</p>
-<p>为了使得模型能够训练得更深，需要训练一个Mask LM（<code>MLM</code>，也被称为完形填空任务Cloze task），作用是随机屏蔽一定比例（每个序列中屏蔽 <strong>15%</strong> 的token）的 token，然后再预测这些被屏蔽的 token（就是隐藏状态进入Linear和Softmax），学习<strong>句内关系</strong> ^d36887</p>
+<div class="tag-plugin blockquote" indent="undefined"><p>“In order to train a deep bidirectional representation, we simply mask some percentage of the input tokens at random, and then predict those masked tokens.” (<a href="zotero://select/library/items/247M8S5T">Devlin 等, 2019, p. 4</a>) (<a href="zotero://open-pdf/library/items/CINVU4YS?page=4&amp;annotation=EEUIPCJG">pdf</a>)</p></div>
+<p>为了使得模型能够训练得更深，需要训练一个Mask LM（<code>MLM</code>，也被称为完形填空任务Cloze task），作用是随机屏蔽一定比例（每个序列中屏蔽 <strong>15%</strong> 的token）的 token，然后再预测这些被屏蔽的 token（就是隐藏状态进入Linear和Softmax），学习<strong>句内关系</strong></p>
 <h4 id="目标函数">目标函数</h4>
 <p><span class="math display">\[
 L_{MLM}=-\sum_{masked tokens}=logP(原始词语|上下文)
-\]</span>
-#### 分布不一致及解决方案</p>
-<blockquote>
-<p>“Although this allows us to obtain a bidirectional pre-trained model, a downside is that we are creating a mismatch between pre-training and fine-tuning, since the [MASK] token does not appear during fine-tuning. To mitigate this, we do not always replace “masked” words with the actual [MASK] token. The training data generator chooses 15% of the token positions at random for prediction. If the i-th token is chosen, we replace the i-th token with (1) the [MASK] token 80% of the time (2) a random token 10% of the time (3) the unchanged i-th token 10% of the time. Then, Ti will be used to predict the original token with cross entropy loss.” (<a href="zotero://select/library/items/247M8S5T">Devlin 等, 2019, p. 4</a>) (<a href="zotero://open-pdf/library/items/CINVU4YS?page=4&amp;annotation=4GSSTBUY">pdf</a>)</p>
-</blockquote>
+\]</span></p>
+<h4 id="分布不一致及解决方案">分布不一致及解决方案</h4>
+<div class="tag-plugin blockquote" indent="undefined"><p>“Although this allows us to obtain a bidirectional pre-trained model, a downside is that we are creating a mismatch between pre-training and fine-tuning, since the [MASK] token does not appear during fine-tuning. To mitigate this, we do not always replace “masked” words with the actual [MASK] token. The training data generator chooses 15% of the token positions at random for prediction. If the i-th token is chosen, we replace the i-th token with (1) the [MASK] token 80% of the time (2) a random token 10% of the time (3) the unchanged i-th token 10% of the time. Then, Ti will be used to predict the original token with cross entropy loss.” (<a href="zotero://select/library/items/247M8S5T">Devlin 等, 2019, p. 4</a>) (<a href="zotero://open-pdf/library/items/CINVU4YS?page=4&amp;annotation=4GSSTBUY">pdf</a>)</p></div>
 <p>由于在 fine-tunning 中并不会出现像 pre-training 一样出现<code>[MASK]</code>，所以导致训练和推理分布的不一致性，因此在实际训练中，[[#^d36887|每个序列中屏蔽15%的token]] 中，<strong>80%</strong> 使用<code>[MASK]</code>，<strong>10%</strong> 使用随机的token（增加鲁棒性），<strong>10%</strong> 保持原 token 不变。最后模型使用交叉熵损失来预测原来的 token</p>
 <h3 id="next-sentence-predictnsp">Next Sentence Predict（NSP）</h3>
-<p>^1d9b91
-&gt;“In order to train a model that understands sentence relationships, we pre-train for a binarized next sentence prediction task that can be trivially generated from any monolingual corpus.” (<a href="zotero://select/library/items/247M8S5T">Devlin 等, 2019, p. 4</a>) (<a href="zotero://open-pdf/library/items/CINVU4YS?page=4&amp;annotation=5JE5EZTU">pdf</a>)</p>
+<div class="tag-plugin blockquote" indent="undefined"><p>“In order to train a model that understands sentence relationships, we pre-train for a binarized next sentence prediction task that can be trivially generated from any monolingual corpus.” (<a href="zotero://select/library/items/247M8S5T">Devlin 等, 2019, p. 4</a>) (<a href="zotero://open-pdf/library/items/CINVU4YS?page=4&amp;annotation=5JE5EZTU">pdf</a>)</p></div>
 <p>因为例如 Question and Answering(QA)，Natural Language Inference(NLI)，是基于对两个句子之间关系的理解而构建的，而预训练语言模型是做不到这点的，因此预训练一个<strong>二值化</strong>的<code>NSP</code>任务来捕捉<strong>句间关系</strong>；在实验设置中，50%是下一句，50%为随机抽取的</p>
 <h4 id="目标函数-1">目标函数</h4>
 <p><span class="math display">\[
 L_{NSP}=-[ylogP(IsNext)=(1-y)logP(NotNext)]
-\]</span>
-## Fine-tunning</p>
+\]</span></p>
+<h2 id="fine-tunning">Fine-tunning</h2>
 <h3 id="文本对的处理">文本对的处理</h3>
 <h4 id="之前的方法">之前的方法</h4>
-<blockquote>
-<p>“a common pattern is to independently encode text pairs before applying bidirectional cross attention” (<a href="zotero://select/library/items/247M8S5T">Devlin 等, 2019, p. 5</a>) (<a href="zotero://open-pdf/library/items/CINVU4YS?page=5&amp;annotation=Y7P79894">pdf</a>)
-1. 分别将编码两个文本（sentence A &amp; B），得到向量表示
-2. 再通过 <strong>bidirectional cross attention</strong>（互相关注对方信息）来建模交互。
-#### 文本的方法
-“uses the self-attention mechanism to unify these two stages” (<a href="zotero://select/library/items/247M8S5T">Devlin 等, 2019, p. 5</a>) (<a href="zotero://open-pdf/library/items/CINVU4YS?page=5&amp;annotation=HBMCRAAT">pdf</a>)
-- 将两句话 <strong>拼接</strong> 作为单个序列输入 <code>[CLS] A [SEP] B [SEP]</code>。
-- 使用 <strong>self-attention</strong> 直接在整个序列上计算注意力。
-- 结果：
-- <code>[A tokens]</code> 可以关注 <code>[B tokens]</code>
-- <code>[B tokens]</code> 也可以关注 <code>[A tokens]</code>
-- 相当于 <strong>一步实现了双向 cross attention</strong>，不需要分两步。</p>
-</blockquote>
+<div class="tag-plugin blockquote" indent="undefined"><p>“a common pattern is to independently encode text pairs before applying bidirectional cross attention” (<a href="zotero://select/library/items/247M8S5T">Devlin 等, 2019, p. 5</a>) (<a href="zotero://open-pdf/library/items/CINVU4YS?page=5&amp;annotation=Y7P79894">pdf</a>)</p></div>
+<ol type="1">
+<li>分别将编码两个文本（sentence A &amp; B），得到向量表示</li>
+<li>再通过 <strong>bidirectional cross attention</strong>（互相关注对方信息）来建模交互。</li>
+</ol>
+<h4 id="文本的方法">文本的方法</h4>
+<div class="tag-plugin blockquote" indent="undefined"><p>“uses the self-attention mechanism to unify these two stages” (<a href="zotero://select/library/items/247M8S5T">Devlin 等, 2019, p. 5</a>) (<a href="zotero://open-pdf/library/items/CINVU4YS?page=5&amp;annotation=HBMCRAAT">pdf</a>)</p></div>
+<ul>
+<li>将两句话 <strong>拼接</strong> 作为单个序列输入 <code>[CLS] A [SEP] B [SEP]</code>。</li>
+<li>使用 <strong>self-attention</strong> 直接在整个序列上计算注意力。</li>
+<li>结果：
+<ul>
+<li><code>[A tokens]</code> 可以关注 <code>[B tokens]</code></li>
+<li><code>[B tokens]</code> 也可以关注 <code>[A tokens]</code></li>
+</ul></li>
+<li>相当于 <strong>一步实现了双向 cross attention</strong>，不需要分两步。</li>
+</ul>
 <h2 id="tunning">Tunning</h2>
-<blockquote>
-<p>“For each task, we simply plug in the taskspecific inputs and outputs into BERT and finetune all the parameters end-to-end.” (<a href="zotero://select/library/items/247M8S5T">Devlin 等, 2019, p. 5</a>) (<a href="zotero://open-pdf/library/items/CINVU4YS?page=5&amp;annotation=ZI3FBLYG">pdf</a>)</p>
-</blockquote>
-<p>由于在 [[#Pre-training]] 中利用 [[#Masked LM（MLM）]]学到了<strong>句内关系</strong>，在 [[#Next Sentence Predict（NSP）]]中学会了<strong>句间关系</strong>，使得参数在进行 fine-tunning 的时候能够更加灵活的学习具体的任务模式</p>
+<div class="tag-plugin blockquote" indent="undefined"><p>“For each task, we simply plug in the taskspecific inputs and outputs into BERT and finetune all the parameters end-to-end.” (<a href="zotero://select/library/items/247M8S5T">Devlin 等, 2019, p. 5</a>) (<a href="zotero://open-pdf/library/items/CINVU4YS?page=5&amp;annotation=ZI3FBLYG">pdf</a>)</p></div>
+<p>由于在 Pre-training 中利用 Masked LM（MLM）学到了<strong>句内关系</strong>，在 Next Sentence Predict（NSP）中学会了<strong>句间关系</strong>，使得参数在进行 fine-tunning 的时候能够更加灵活的学习具体的任务模式</p>
 <h2 id="task">Task</h2>
 <h3 id="input">Input</h3>
 <ul>
 <li>Paraphrasing（语义相似性/复述检测）</li>
 <li>Entailment（文本蕴含/推理）</li>
 <li>Question Answering（问答）</li>
-<li>Text classification / sequence tagging（文本分类/序列标注）
-### Output</li>
+<li>Text classification / sequence tagging（文本分类/序列标注）</li>
+</ul>
+<h3 id="output">Output</h3>
+<ul>
 <li>Token-level
 <ul>
 <li>NER（Named Entity Recognition，命名实体识别）</li>
@@ -197,27 +192,22 @@ L_{NSP}=-[ylogP(IsNext)=(1-y)logP(NotNext)]
 </ul></li>
 </ul>
 <h1 id="前言">前言</h1>
-<blockquote>
-<p>“There are two existing strategies for applying pre-trained language representations to downstream tasks: feature-based and fine-tuning” (<a href="zotero://select/library/items/247M8S5T">Devlin 等, 2019, p. 1</a>) (<a href="zotero://open-pdf/library/items/CINVU4YS?page=1&amp;annotation=7ZRR8EQ4">pdf</a>)</p>
-</blockquote>
+<div class="tag-plugin blockquote" indent="undefined"><p>“There are two existing strategies for applying pre-trained language representations to downstream tasks: feature-based and fine-tuning” (<a href="zotero://select/library/items/247M8S5T">Devlin 等, 2019, p. 1</a>) (<a href="zotero://open-pdf/library/items/CINVU4YS?page=1&amp;annotation=7ZRR8EQ4">pdf</a>)</p></div>
 <p>现如今预训练语言表示主要有两种方法：<strong>基于特征</strong>，<strong>微调</strong>，使用单向语言模型来学习。</p>
-<blockquote>
-<p>[!两种预训练语言表示方法]
-<strong>基于特征</strong>的方法主要是：当一个预训练好的语言表示放进下游任务进行训练时，词向量作为特征，<strong>不会</strong>随着训练而变化，主要代表是[[Word Embedding#ELMo|ELMo]]
-<strong>微调</strong>的方法主要是：当一个预训练好的语言表示放进下游任务进行训练时，词向量作为特征，<strong>会</strong>随着训练而进行变化，主要代表是[[GPT]]
-[[BERT]]是结合<strong>基于特征</strong>和<strong>微调</strong>两种方法的预训练语言模型，前者是在 pre-training 中，后者是在 fine-tunning 中</p>
-</blockquote>
+<div class="tag-plugin colorful note" color="cyan"><div class="title">两种预训练语言表示方法</div><div class="body"><p><strong>基于特征</strong>的方法主要是：当一个预训练好的语言表示放进下游任务进行训练时，词向量作为特征，<strong>不会</strong>随着训练而变化，主要代表是 ELMo <strong>微调</strong>的方法主要是：当一个预训练好的语言表示放进下游任务进行训练时，词向量作为特征，<strong>会</strong>随着训练而进行变化，主要代表是 GPT BERT 是结合<strong>基于特征</strong>和<strong>微调</strong>两种方法的预训练语言模型，前者是在 pre-training 中，后者是在 fine-tunning 中</p></div></div>
 <h1 id="核心">核心</h1>
-<blockquote>
-<p>“BERT alleviates the previously mentioned unidirectionality constraint by using a “masked language model” (MLM) pre-training objective” (<a href="zotero://select/library/items/247M8S5T">Devlin 等, 2019, p. 1</a>) (<a href="zotero://open-pdf/library/items/CINVU4YS?page=1&amp;annotation=W6FD2J97">pdf</a>)</p>
-</blockquote>
-<p>双向的、基于Transformer编码器([[Attention Is All You Need#^1696d3|Encoder]])的、使用掩码的语言模型
+<div class="tag-plugin blockquote" indent="undefined"><p>“BERT alleviates the previously mentioned unidirectionality constraint by using a “masked language model” (MLM) pre-training objective” (<a href="zotero://select/library/items/247M8S5T">Devlin 等, 2019, p. 1</a>) (<a href="zotero://open-pdf/library/items/CINVU4YS?page=1&amp;annotation=W6FD2J97">pdf</a>)</p></div>
+<p>双向的、基于Transformer编码器(Encoder)的、使用掩码的语言模型
 模型将输入的词随机掩盖，希望模型能仅从上下文中预测到被掩盖的词，这样就融合了上下文的特征来学习</p>
 <h1 id="改进">改进</h1>
-<h2 id="首次提出双向语言表示模型">1.首次提出双向语言表示模型</h2>
-<h2 id="使用掩码语言模型来使用上下文信息">2.使用掩码语言模型来使用上下文信息</h2>
-<p>而不是简单训练两个分别从左到右和从右到左的模型的浅层串联，[[GPT#GPT-1|GPT-1]] 都还是单向的
-## 3.使用下一句话预测的任务来训练文本对表示</p>
+<ul>
+<li>首次提出双向语言表示模型</li>
+<li>使用掩码语言模型来使用上下文信息
+<ul>
+<li>而不是简单训练两个分别从左到右和从右到左的模型的浅层串联，GPT-1 都还是单向的</li>
+</ul></li>
+<li>使用下一句话预测的任务来训练文本对表示</li>
+</ul>
 <h1 id="迁移学习">迁移学习</h1>
 <p>受到在大数据集上进行迁移学习的有效性和计算机视觉中 pre-trained model 和 fine-tune 的启发
 才使得 BERT 有了两个阶段：pre-training 和 fine-tunning</p>
@@ -310,7 +300,6 @@ L_{NSP}=-[ylogP(IsNext)=(1-y)logP(NotNext)]
 <h2 id="roberta">RoBERTa</h2>
 <p>A Robustly Optimized BERT</p>
 <h3 id="改进-1">改进</h3>
-<p>^18b0da</p>
 <table>
 <colgroup>
 <col style="width: 15%" />
@@ -366,21 +355,19 @@ L_{NSP}=-[ylogP(IsNext)=(1-y)logP(NotNext)]
 </tbody>
 </table>
 <blockquote>
-<p>[!动态 Mask]
-每次训练迭代重新随机 Mask 句子中的词，而不是像 BERT 那样只 Mask 一次后固定不变。</p>
+<div class="tag-plugin colorful note" color="cyan"><div class="title">动态</div><div class="body"><p>Mask &gt;每次训练迭代重新随机 Mask 句子中的词，而不是像 BERT 那样只 Mask 一次后固定不变。</p></div></div>
 </blockquote>
 <h2 id="deberta">DeBERTa</h2>
 <p>Decoding-enhanced BERT with Disentangled Attention</p>
 <h3 id="改进-2">改进</h3>
 <h4 id="解耦及相对位置编码">1. 解耦及相对位置编码</h4>
-<p>^9dc80a</p>
-<p>Disentangled Attention 解耦 “词的内容” &amp; “词的位置”
-Relative Position 相对位置编码
-BERT 把 word embedding 和 position embedding 直接加起来 → 混在一起，使得模型无法明确区分“是什么词”和“在什么位置”[[#^9d0547|Embedding]]
-而DeBERTa 不这样，它是：
-每个 token 变成两个<strong>可学习</strong>的 embedding：<br />
-<strong>内容 embedding（content）</strong> → 这个词是什么<br />
-<strong>位置 embedding（position）</strong> → 它跟别的词相对几位
+<p>Disentangled Attention 解耦 “词的内容” &amp; “词的位置”</p>
+<p>Relative Position 相对位置编码</p>
+<p>BERT 把 word embedding 和 position embedding 直接加起来 → 混在一起，使得模型无法明确区分“是什么词”和“在什么位置”</p>
+<p>而DeBERTa 不这样，它是：</p>
+<p>每个 token 变成两个<strong>可学习</strong>的 embedding：</p>
+<p><strong>内容 embedding（content）</strong> → 这个词是什么</p>
+<p><strong>位置 embedding（position）</strong> → 它跟别的词相对几位
 <span class="math display">\[
 Embedding=content \ embedding + position \ embedding
 \]</span>
@@ -393,22 +380,22 @@ QK^T &amp;= (Q^c+Q^p)(K^c+K^p)^T \\
 \]</span>
 其中根据文献啥忘记了，最后一位 <span class="math inline">\(Q^p {(K^p)}^T\)</span> 由于是相对位置编码故没有过多有效信息所以省略。因此，
 <span class="math display">\[
-QK^T = Q^c {(K^c)}^T + Q^c {(K^p)}^T + Q^p {(K^c)^T} 
-\]</span>
-#### 2. 不变微调
-scale-invariant-Fine-Tunning（SiFT）
-在BERT中提过，在遇到小数据集的效果不好，因此 DeBERTa 采用 SiFT 来提高泛化性
-##### 1. 计算扰动
-先计算普通损失的梯度，在进行归一化（保证方向正确）并放大
-<span class="math display">\[
+QK^T = Q^c {(K^c)}^T + Q^c {(K^p)}^T + Q^p {(K^c)^T}
+\]</span></p>
+<h4 id="不变微调">2. 不变微调</h4>
+<p>scale-invariant-Fine-Tunning（SiFT）
+在BERT中提过，在遇到小数据集的效果不好，因此 DeBERTa 采用 SiFT 来提高泛化性</p>
+<h5 id="计算扰动">1. 计算扰动</h5>
+<p>先计算普通损失的梯度，在进行归一化（保证方向正确）并放大</p>
+<p><span class="math display">\[
 \displaylines{
 g=\nabla_{\theta}L(\theta)\\
 r_{adv}=\epsilon \frac{g}{\parallel g \parallel_2}
 }
-\]</span>
-其中 <span class="math inline">\(\epsilon\)</span> 为超参数，<span class="math inline">\(r_{adv}\)</span> 为扰动
-##### 2. 扰动训练
-<span class="math display">\[
+\]</span></p>
+<p>其中 <span class="math inline">\(\epsilon\)</span> 为超参数，<span class="math inline">\(r_{adv}\)</span> 为扰动</p>
+<h5 id="扰动训练">2. 扰动训练</h5>
+<p><span class="math display">\[
 \displaylines{
 L_{adv}=l(\theta+r_{adv}) \\
 \theta \leftarrow \theta - \eta \nabla_{\theta} L_{adv}
@@ -510,13 +497,13 @@ L_{adv}=l(\theta+r_{adv}) \\
 </center>
 <p>本站由 <a href="/">VirusL</a> 使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.33.1">Stellar 1.33.1</a> 主题创建。
 本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。</p>
-<span class="totalcount">共发表 11 篇Blog · </span><span class="post-count">总计 8.4k 字</span></div></footer>
+<span class="totalcount">共发表 11 篇Blog · </span><span class="post-count">总计 8.3k 字</span></div></footer>
 <div class="main-mask" onclick="sidebar.dismiss()"></div></div><aside class="l_right">
 <div class="widgets">
 
 
 
-<widget class="widget-wrapper toc" id="data-toc" collapse="false"><div class="widget-header dis-select"><span class="name">本文目录</span><a class="cap-action" onclick="sidebar.toggleTOC()" ><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg></a></div><div class="widget-body"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%A8%A1%E5%9E%8B"><span class="toc-text">模型</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#input-%E4%B8%8E-output"><span class="toc-text">Input 与 Output</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#pre-training"><span class="toc-text">Pre-training</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#masked-lmmlm"><span class="toc-text">Masked LM（MLM）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%9B%AE%E6%A0%87%E5%87%BD%E6%95%B0"><span class="toc-text">目标函数</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#next-sentence-predictnsp"><span class="toc-text">Next Sentence Predict（NSP）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%9B%AE%E6%A0%87%E5%87%BD%E6%95%B0-1"><span class="toc-text">目标函数</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%87%E6%9C%AC%E5%AF%B9%E7%9A%84%E5%A4%84%E7%90%86"><span class="toc-text">文本对的处理</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B9%8B%E5%89%8D%E7%9A%84%E6%96%B9%E6%B3%95"><span class="toc-text">之前的方法</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#tunning"><span class="toc-text">Tunning</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#task"><span class="toc-text">Task</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#input"><span class="toc-text">Input</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%A0%B8%E5%BF%83"><span class="toc-text">核心</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%94%B9%E8%BF%9B"><span class="toc-text">改进</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A6%96%E6%AC%A1%E6%8F%90%E5%87%BA%E5%8F%8C%E5%90%91%E8%AF%AD%E8%A8%80%E8%A1%A8%E7%A4%BA%E6%A8%A1%E5%9E%8B"><span class="toc-text">1.首次提出双向语言表示模型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E6%8E%A9%E7%A0%81%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B%E6%9D%A5%E4%BD%BF%E7%94%A8%E4%B8%8A%E4%B8%8B%E6%96%87%E4%BF%A1%E6%81%AF"><span class="toc-text">2.使用掩码语言模型来使用上下文信息</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%BF%81%E7%A7%BB%E5%AD%A6%E4%B9%A0"><span class="toc-text">迁移学习</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%AE%AD%E7%BB%83"><span class="toc-text">训练</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%BE%AE%E8%B0%83"><span class="toc-text">微调</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#glue-test"><span class="toc-text">GLUE Test</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8F%98%E4%BD%93"><span class="toc-text">变体</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#roberta"><span class="toc-text">RoBERTa</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%94%B9%E8%BF%9B-1"><span class="toc-text">改进</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#deberta"><span class="toc-text">DeBERTa</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%94%B9%E8%BF%9B-2"><span class="toc-text">改进</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%A7%A3%E8%80%A6%E5%8F%8A%E7%9B%B8%E5%AF%B9%E4%BD%8D%E7%BD%AE%E7%BC%96%E7%A0%81"><span class="toc-text">1. 解耦及相对位置编码</span></a></li></ol></li></ol></li></ol></li></ol></div><div class="widget-footer"><a class="top" onclick="util.scrollTop()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"><path stroke-linejoin="round" d="m9 15.5l3-3l3 3m-6-4l3-3l3 3"/><path d="M7 3.338A9.95 9.95 0 0 1 12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12c0-1.821.487-3.53 1.338-5"/></g></svg><span>回到顶部</span></a><a class="buttom" onclick="util.scrollComment()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5" d="M8 10.5h8M8 14h5.5M17 3.338A9.95 9.95 0 0 0 12 2C6.477 2 2 6.477 2 12c0 1.6.376 3.112 1.043 4.453c.178.356.237.763.134 1.148l-.595 2.226a1.3 1.3 0 0 0 1.591 1.592l2.226-.596a1.63 1.63 0 0 1 1.149.133A9.96 9.96 0 0 0 12 22c5.523 0 10-4.477 10-10c0-1.821-.487-3.53-1.338-5"/></svg><span>参与讨论</span></a></div></widget>
+<widget class="widget-wrapper toc" id="data-toc" collapse="false"><div class="widget-header dis-select"><span class="name">本文目录</span><a class="cap-action" onclick="sidebar.toggleTOC()" ><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg></a></div><div class="widget-body"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%A8%A1%E5%9E%8B"><span class="toc-text">模型</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#input-%E4%B8%8E-output"><span class="toc-text">Input 与 Output</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#pre-training"><span class="toc-text">Pre-training</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#data"><span class="toc-text">Data</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#masked-lmmlm"><span class="toc-text">Masked LM（MLM）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%9B%AE%E6%A0%87%E5%87%BD%E6%95%B0"><span class="toc-text">目标函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%86%E5%B8%83%E4%B8%8D%E4%B8%80%E8%87%B4%E5%8F%8A%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88"><span class="toc-text">分布不一致及解决方案</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#next-sentence-predictnsp"><span class="toc-text">Next Sentence Predict（NSP）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%9B%AE%E6%A0%87%E5%87%BD%E6%95%B0-1"><span class="toc-text">目标函数</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#fine-tunning"><span class="toc-text">Fine-tunning</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%87%E6%9C%AC%E5%AF%B9%E7%9A%84%E5%A4%84%E7%90%86"><span class="toc-text">文本对的处理</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B9%8B%E5%89%8D%E7%9A%84%E6%96%B9%E6%B3%95"><span class="toc-text">之前的方法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%87%E6%9C%AC%E7%9A%84%E6%96%B9%E6%B3%95"><span class="toc-text">文本的方法</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#tunning"><span class="toc-text">Tunning</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#task"><span class="toc-text">Task</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#input"><span class="toc-text">Input</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#output"><span class="toc-text">Output</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%A0%B8%E5%BF%83"><span class="toc-text">核心</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%94%B9%E8%BF%9B"><span class="toc-text">改进</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%BF%81%E7%A7%BB%E5%AD%A6%E4%B9%A0"><span class="toc-text">迁移学习</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%AE%AD%E7%BB%83"><span class="toc-text">训练</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%BE%AE%E8%B0%83"><span class="toc-text">微调</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#glue-test"><span class="toc-text">GLUE Test</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8F%98%E4%BD%93"><span class="toc-text">变体</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#roberta"><span class="toc-text">RoBERTa</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%94%B9%E8%BF%9B-1"><span class="toc-text">改进</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#deberta"><span class="toc-text">DeBERTa</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%94%B9%E8%BF%9B-2"><span class="toc-text">改进</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%A7%A3%E8%80%A6%E5%8F%8A%E7%9B%B8%E5%AF%B9%E4%BD%8D%E7%BD%AE%E7%BC%96%E7%A0%81"><span class="toc-text">1. 解耦及相对位置编码</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%8D%E5%8F%98%E5%BE%AE%E8%B0%83"><span class="toc-text">2. 不变微调</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%AE%A1%E7%AE%97%E6%89%B0%E5%8A%A8"><span class="toc-text">1. 计算扰动</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%89%B0%E5%8A%A8%E8%AE%AD%E7%BB%83"><span class="toc-text">2. 扰动训练</span></a></li></ol></li></ol></li></ol></li></ol></li></ol></div><div class="widget-footer"><a class="top" onclick="util.scrollTop()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"><path stroke-linejoin="round" d="m9 15.5l3-3l3 3m-6-4l3-3l3 3"/><path d="M7 3.338A9.95 9.95 0 0 1 12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12c0-1.821.487-3.53 1.338-5"/></g></svg><span>回到顶部</span></a><a class="buttom" onclick="util.scrollComment()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5" d="M8 10.5h8M8 14h5.5M17 3.338A9.95 9.95 0 0 0 12 2C6.477 2 2 6.477 2 12c0 1.6.376 3.112 1.043 4.453c.178.356.237.763.134 1.148l-.595 2.226a1.3 1.3 0 0 0 1.591 1.592l2.226-.596a1.63 1.63 0 0 1 1.149.133A9.96 9.96 0 0 0 12 22c5.523 0 10-4.477 10-10c0-1.821-.487-3.53-1.338-5"/></svg><span>参与讨论</span></a></div></widget>
 </div></aside><div class='float-panel'>
   <button type='button' style='display:none' class='laptop-only rightbar-toggle mobile' onclick='sidebar.rightbar()'>
     <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg>

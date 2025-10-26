@@ -154,6 +154,71 @@ Softmax是对最后一个维度进行操作，也就是词汇表维度</p>
       </tags>
   </entry>
   <entry>
+    <title>Stellar设置专栏（topic）</title>
+    <url>/2025/09/24/Stellar%E8%AE%BE%E7%BD%AE%E4%B8%93%E6%A0%8F/</url>
+    <content><![CDATA[<div class="tag-plugin quot p"><p class="content"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from BoxIcons Solid by Atisa - https://creativecommons.org/licenses/by/4.0/ --><path fill="currentColor" d="M3.691 6.292C5.094 4.771 7.217 4 10 4h1v2.819l-.804.161c-1.37.274-2.323.813-2.833 1.604A2.9 2.9 0 0 0 6.925 10H10a1 1 0 0 1 1 1v7c0 1.103-.897 2-2 2H3a1 1 0 0 1-1-1v-5l.003-2.919c-.009-.111-.199-2.741 1.688-4.789M20 20h-6a1 1 0 0 1-1-1v-5l.003-2.919c-.009-.111-.199-2.741 1.688-4.789C16.094 4.771 18.217 4 21 4h1v2.819l-.804.161c-1.37.274-2.323.813-2.833 1.604A2.9 2.9 0 0 0 17.925 10H21a1 1 0 0 1 1 1v7c0 1.103-.897 2-2 2"/></svg><span class="text">专栏文件夹的配置</span><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from BoxIcons Solid by Atisa - https://creativecommons.org/licenses/by/4.0/ --><path fill="currentColor" d="M20.309 17.708C22.196 15.66 22.006 13.03 22 13V5a1 1 0 0 0-1-1h-6c-1.103 0-2 .897-2 2v7a1 1 0 0 0 1 1h3.078a2.9 2.9 0 0 1-.429 1.396c-.508.801-1.465 1.348-2.846 1.624l-.803.16V20h1c2.783 0 4.906-.771 6.309-2.292m-11.007 0C11.19 15.66 10.999 13.03 10.993 13V5a1 1 0 0 0-1-1h-6c-1.103 0-2 .897-2 2v7a1 1 0 0 0 1 1h3.078a2.9 2.9 0 0 1-.429 1.396c-.508.801-1.465 1.348-2.846 1.624l-.803.16V20h1c2.783 0 4.906-.771 6.309-2.292"/></svg></p></div>
+<p>在 <code>blog/source/_data/</code> 文件夹中创建一个 <code>topic</code> 文件夹，在其中放入各个专栏的描述文件，文件名就是项目的 <code>id</code>：</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">name:</span> <span class="string">Stellar</span> <span class="comment"># 在面包屑导航上会显示较短的名字</span></span><br><span class="line"><span class="attr">title:</span> <span class="string">Stellar</span> <span class="bullet">-</span> <span class="string">每个人的独立博客</span> <span class="comment"># 在列表页会显示完整的专栏标题</span></span><br><span class="line"><span class="attr">description:</span> <span class="string">关于搭建独立博客相关的知识和经验分享，以及</span> <span class="string">Stellar</span> <span class="string">的高级用法、版本更新相关的注意事项。</span></span><br><span class="line"><span class="attr">order_by:</span> <span class="string">-date</span> <span class="comment"># 默认是按发布日期倒序排序</span></span><br><span class="line"><span class="attr">icon:</span> <span class="string">https://xxx</span></span><br></pre></td></tr></table></figure>
+<div class="tag-plugin image"><div class="image-bg" style="aspect-ratio:1319/646;"><img class="lazy" src="https://raw.githubusercontent.com/L-Virus/Pic/main/Blog/20250924193619450.png" data-src="https://raw.githubusercontent.com/L-Virus/Pic/main/Blog/20250924193619450.png" data-fancybox="true"onerror="this.src=&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='2rem' height='2rem' viewBox='0 0 24 24'%3E%3C!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --%3E%3Cpath fill='%23F44336' d='M22 12.698c-.002 1.47-.013 2.718-.096 3.743c-.097 1.19-.296 2.184-.74 3.009a4.2 4.2 0 0 1-.73.983c-.833.833-1.893 1.21-3.237 1.39C15.884 22 14.2 22 12.053 22h-.106c-2.148 0-3.83 0-5.144-.177c-1.343-.18-2.404-.557-3.236-1.39c-.738-.738-1.12-1.656-1.322-2.795c-.2-1.12-.236-2.512-.243-4.241Q1.999 12.737 2 12v-.054c0-2.148 0-3.83.177-5.144c.18-1.343.557-2.404 1.39-3.236s1.893-1.21 3.236-1.39c1.168-.157 2.67-.175 4.499-.177a.697.697 0 1 1 0 1.396c-1.855.002-3.234.018-4.313.163c-1.189.16-1.906.464-2.436.994S3.72 5.8 3.56 6.99C3.397 8.2 3.395 9.788 3.395 12v.784l.932-.814a2.14 2.14 0 0 1 2.922.097l3.99 3.99a1.86 1.86 0 0 0 2.385.207l.278-.195a2.79 2.79 0 0 1 3.471.209l2.633 2.37c.265-.557.423-1.288.507-2.32c.079-.972.09-2.152.091-3.63a.698.698 0 0 1 1.396 0' opacity='.5'/%3E%3Cpath fill='%23F44336' fill-rule='evenodd' d='M17.5 11c-2.121 0-3.182 0-3.841-.659S13 8.621 13 6.5s0-3.182.659-3.841S15.379 2 17.5 2s3.182 0 3.841.659S22 4.379 22 6.5s0 3.182-.659 3.841S19.621 11 17.5 11m-1.47-7.03a.75.75 0 1 0-1.06 1.06l1.47 1.47l-1.47 1.47a.75.75 0 0 0 1.06 1.06l1.47-1.47l1.47 1.47a.75.75 0 1 0 1.06-1.06L18.56 6.5l1.47-1.47a.75.75 0 0 0-1.06-1.06L17.5 5.44z' clip-rule='evenodd'/%3E%3C/svg%3E&quot;"/><div class="lazy-icon" style="background-image:url(https://api.iconify.design/eos-icons:three-dots-loading.svg?color=%231cd0fd);"></div></div></div>
+<div class="tag-plugin quot p"><p class="content"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from BoxIcons Solid by Atisa - https://creativecommons.org/licenses/by/4.0/ --><path fill="currentColor" d="M3.691 6.292C5.094 4.771 7.217 4 10 4h1v2.819l-.804.161c-1.37.274-2.323.813-2.833 1.604A2.9 2.9 0 0 0 6.925 10H10a1 1 0 0 1 1 1v7c0 1.103-.897 2-2 2H3a1 1 0 0 1-1-1v-5l.003-2.919c-.009-.111-.199-2.741 1.688-4.789M20 20h-6a1 1 0 0 1-1-1v-5l.003-2.919c-.009-.111-.199-2.741 1.688-4.789C16.094 4.771 18.217 4 21 4h1v2.819l-.804.161c-1.37.274-2.323.813-2.833 1.604A2.9 2.9 0 0 0 17.925 10H21a1 1 0 0 1 1 1v7c0 1.103-.897 2-2 2"/></svg><span class="text">文章中的引用</span><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from BoxIcons Solid by Atisa - https://creativecommons.org/licenses/by/4.0/ --><path fill="currentColor" d="M20.309 17.708C22.196 15.66 22.006 13.03 22 13V5a1 1 0 0 0-1-1h-6c-1.103 0-2 .897-2 2v7a1 1 0 0 0 1 1h3.078a2.9 2.9 0 0 1-.429 1.396c-.508.801-1.465 1.348-2.846 1.624l-.803.16V20h1c2.783 0 4.906-.771 6.309-2.292m-11.007 0C11.19 15.66 10.999 13.03 10.993 13V5a1 1 0 0 0-1-1h-6c-1.103 0-2 .897-2 2v7a1 1 0 0 0 1 1h3.078a2.9 2.9 0 0 1-.429 1.396c-.508.801-1.465 1.348-2.846 1.624l-.803.16V20h1c2.783 0 4.906-.771 6.309-2.292"/></svg></p></div>
+<p>在此专栏文章的 <code>md</code> 文件的 <code>front-matter</code> 部分指定所属的专栏 <code>id</code> （即上一步创建的文件名 <code>Stelalr设置专栏.yml</code>）</p>
+<div class="tag-plugin image"><div class="image-bg" style="aspect-ratio:717/138;"><img class="lazy" src="https://raw.githubusercontent.com/L-Virus/Pic/main/Blog/20250924193647230.png" data-src="https://raw.githubusercontent.com/L-Virus/Pic/main/Blog/20250924193647230.png" data-fancybox="true"onerror="this.src=&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='2rem' height='2rem' viewBox='0 0 24 24'%3E%3C!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --%3E%3Cpath fill='%23F44336' d='M22 12.698c-.002 1.47-.013 2.718-.096 3.743c-.097 1.19-.296 2.184-.74 3.009a4.2 4.2 0 0 1-.73.983c-.833.833-1.893 1.21-3.237 1.39C15.884 22 14.2 22 12.053 22h-.106c-2.148 0-3.83 0-5.144-.177c-1.343-.18-2.404-.557-3.236-1.39c-.738-.738-1.12-1.656-1.322-2.795c-.2-1.12-.236-2.512-.243-4.241Q1.999 12.737 2 12v-.054c0-2.148 0-3.83.177-5.144c.18-1.343.557-2.404 1.39-3.236s1.893-1.21 3.236-1.39c1.168-.157 2.67-.175 4.499-.177a.697.697 0 1 1 0 1.396c-1.855.002-3.234.018-4.313.163c-1.189.16-1.906.464-2.436.994S3.72 5.8 3.56 6.99C3.397 8.2 3.395 9.788 3.395 12v.784l.932-.814a2.14 2.14 0 0 1 2.922.097l3.99 3.99a1.86 1.86 0 0 0 2.385.207l.278-.195a2.79 2.79 0 0 1 3.471.209l2.633 2.37c.265-.557.423-1.288.507-2.32c.079-.972.09-2.152.091-3.63a.698.698 0 0 1 1.396 0' opacity='.5'/%3E%3Cpath fill='%23F44336' fill-rule='evenodd' d='M17.5 11c-2.121 0-3.182 0-3.841-.659S13 8.621 13 6.5s0-3.182.659-3.841S15.379 2 17.5 2s3.182 0 3.841.659S22 4.379 22 6.5s0 3.182-.659 3.841S19.621 11 17.5 11m-1.47-7.03a.75.75 0 1 0-1.06 1.06l1.47 1.47l-1.47 1.47a.75.75 0 0 0 1.06 1.06l1.47-1.47l1.47 1.47a.75.75 0 1 0 1.06-1.06L18.56 6.5l1.47-1.47a.75.75 0 0 0-1.06-1.06L17.5 5.44z' clip-rule='evenodd'/%3E%3C/svg%3E&quot;"/><div class="lazy-icon" style="background-image:url(https://api.iconify.design/eos-icons:three-dots-loading.svg?color=%231cd0fd);"></div></div></div>
+]]></content>
+      <tags>
+        <tag>stellar</tag>
+        <tag>Hexo</tag>
+        <tag>瞎折腾</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>U-Net：Convolutional Networks for Biomedical  Image Segmentation</title>
+    <url>/2025/10/26/U-Net%EF%BC%9AConvolutional%20Networks%20for%20Biomedical%20%20Image%20Segmentation/</url>
+    <content><![CDATA[<h1 id="前言">前言</h1>
+<div class="tag-plugin blockquote" indent="undefined"><p>“In this paper, we build upon a more elegant architecture, the so-called “fully convolutional network”” (<a href="zotero://select/library/items/QY2VXDUT">Ronneberger 等, 2015, p. 2</a>) (<a href="zotero://open-pdf/library/items/KK6KJIRN?page=2&amp;annotation=98WX22RK">pdf</a>)</p></div>
+<p>模型是建立在全卷积网络上</p>
+<hr />
+<h1 id="模型">模型</h1>
+<div class="tag-plugin image"><div class="image-bg" style="aspect-ratio:1017/805;"><img class="lazy" src="https://raw.githubusercontent.com/L-Virus/Pic/main/Blog/20251010201750705.png" data-src="https://raw.githubusercontent.com/L-Virus/Pic/main/Blog/20251010201750705.png" data-fancybox="true"onerror="this.src=&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='2rem' height='2rem' viewBox='0 0 24 24'%3E%3C!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --%3E%3Cpath fill='%23F44336' d='M22 12.698c-.002 1.47-.013 2.718-.096 3.743c-.097 1.19-.296 2.184-.74 3.009a4.2 4.2 0 0 1-.73.983c-.833.833-1.893 1.21-3.237 1.39C15.884 22 14.2 22 12.053 22h-.106c-2.148 0-3.83 0-5.144-.177c-1.343-.18-2.404-.557-3.236-1.39c-.738-.738-1.12-1.656-1.322-2.795c-.2-1.12-.236-2.512-.243-4.241Q1.999 12.737 2 12v-.054c0-2.148 0-3.83.177-5.144c.18-1.343.557-2.404 1.39-3.236s1.893-1.21 3.236-1.39c1.168-.157 2.67-.175 4.499-.177a.697.697 0 1 1 0 1.396c-1.855.002-3.234.018-4.313.163c-1.189.16-1.906.464-2.436.994S3.72 5.8 3.56 6.99C3.397 8.2 3.395 9.788 3.395 12v.784l.932-.814a2.14 2.14 0 0 1 2.922.097l3.99 3.99a1.86 1.86 0 0 0 2.385.207l.278-.195a2.79 2.79 0 0 1 3.471.209l2.633 2.37c.265-.557.423-1.288.507-2.32c.079-.972.09-2.152.091-3.63a.698.698 0 0 1 1.396 0' opacity='.5'/%3E%3Cpath fill='%23F44336' fill-rule='evenodd' d='M17.5 11c-2.121 0-3.182 0-3.841-.659S13 8.621 13 6.5s0-3.182.659-3.841S15.379 2 17.5 2s3.182 0 3.841.659S22 4.379 22 6.5s0 3.182-.659 3.841S19.621 11 17.5 11m-1.47-7.03a.75.75 0 1 0-1.06 1.06l1.47 1.47l-1.47 1.47a.75.75 0 0 0 1.06 1.06l1.47-1.47l1.47 1.47a.75.75 0 1 0 1.06-1.06L18.56 6.5l1.47-1.47a.75.75 0 0 0-1.06-1.06L17.5 5.44z' clip-rule='evenodd'/%3E%3C/svg%3E&quot;"/><div class="lazy-icon" style="background-image:url(https://api.iconify.design/eos-icons:three-dots-loading.svg?color=%231cd0fd);"></div></div></div>
+<p>一个U型的结构，左边是下采样进行提取特征，右边是上采样进行恢复特征图，中间是瓶颈层将大量局部特征整合成更高层抽象信息，减少冗余，提供非线性变换，为解码阶段提供新的特征表示，模型在每层下降的过程中会保存下降的结果与对应上升的特征图进行跳跃连接。</p>
+<p>输入为 <span class="math inline">\(572 \times 572\)</span> ，进行下采样每层经过 <span class="math inline">\(3 \times 3\)</span> 无填充的卷积、ReLU和一个大小为 <span class="math inline">\(2 \times 2\)</span>，步长为2 的maxpooling，同时增加一倍通道数
+因为在上采样过程中图像大小与在下采样中不同，使用需要裁剪特征图来跳跃连接</p>
+<div class="tag-plugin blockquote" indent="undefined"><p><span class="math inline">\(1 \times 572 \times 572\)</span> 经过两次卷积和两次ReLU后，大小为 <span class="math inline">\(64 \times 568 \times 568\)</span> (572-3+1-3+1) ；经过maxpooling 后减少特征图大小，大小为 <span class="math inline">\(64 \times 284 \times 284\)</span> ((568-2+2)/2)；直到最底层大小为 <span class="math inline">\(512 \times 32 \times 32\)</span>达到瓶颈层后经历两次卷积块后大小为 <span class="math inline">\(1024 \times 28 \times 28\)</span>在上采样阶段使用反卷积和下降的特征图做拼接，并且通道数量减半到大小为 <span class="math inline">\(64 \times 388 \times 388\)</span>最后进行 <span class="math inline">\(1 \times 1\)</span> 卷积，将通道数降到图像中类别数<strong>在后续的U-net优化中，应该使上下采样的大小相同</strong></p></div>
+<hr />
+<h1 id="模型优化">模型优化</h1>
+<h2 id="重叠切片无缝平铺镜像填充">1.重叠切片（无缝平铺）+镜像填充</h2>
+<div class="tag-plugin image"><div class="image-bg" style="aspect-ratio:1086/502;"><img class="lazy" src="https://raw.githubusercontent.com/L-Virus/Pic/main/Blog/20251010210914301.png" data-src="https://raw.githubusercontent.com/L-Virus/Pic/main/Blog/20251010210914301.png" data-fancybox="true"onerror="this.src=&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='2rem' height='2rem' viewBox='0 0 24 24'%3E%3C!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --%3E%3Cpath fill='%23F44336' d='M22 12.698c-.002 1.47-.013 2.718-.096 3.743c-.097 1.19-.296 2.184-.74 3.009a4.2 4.2 0 0 1-.73.983c-.833.833-1.893 1.21-3.237 1.39C15.884 22 14.2 22 12.053 22h-.106c-2.148 0-3.83 0-5.144-.177c-1.343-.18-2.404-.557-3.236-1.39c-.738-.738-1.12-1.656-1.322-2.795c-.2-1.12-.236-2.512-.243-4.241Q1.999 12.737 2 12v-.054c0-2.148 0-3.83.177-5.144c.18-1.343.557-2.404 1.39-3.236s1.893-1.21 3.236-1.39c1.168-.157 2.67-.175 4.499-.177a.697.697 0 1 1 0 1.396c-1.855.002-3.234.018-4.313.163c-1.189.16-1.906.464-2.436.994S3.72 5.8 3.56 6.99C3.397 8.2 3.395 9.788 3.395 12v.784l.932-.814a2.14 2.14 0 0 1 2.922.097l3.99 3.99a1.86 1.86 0 0 0 2.385.207l.278-.195a2.79 2.79 0 0 1 3.471.209l2.633 2.37c.265-.557.423-1.288.507-2.32c.079-.972.09-2.152.091-3.63a.698.698 0 0 1 1.396 0' opacity='.5'/%3E%3Cpath fill='%23F44336' fill-rule='evenodd' d='M17.5 11c-2.121 0-3.182 0-3.841-.659S13 8.621 13 6.5s0-3.182.659-3.841S15.379 2 17.5 2s3.182 0 3.841.659S22 4.379 22 6.5s0 3.182-.659 3.841S19.621 11 17.5 11m-1.47-7.03a.75.75 0 1 0-1.06 1.06l1.47 1.47l-1.47 1.47a.75.75 0 0 0 1.06 1.06l1.47-1.47l1.47 1.47a.75.75 0 1 0 1.06-1.06L18.56 6.5l1.47-1.47a.75.75 0 0 0-1.06-1.06L17.5 5.44z' clip-rule='evenodd'/%3E%3C/svg%3E&quot;"/><div class="lazy-icon" style="background-image:url(https://api.iconify.design/eos-icons:three-dots-loading.svg?color=%231cd0fd);"></div></div></div>
+<p>因为卷积网络在经过下采样和上采样后，图片中的物体边缘精度会降低，因为在U-net中使用一种名为<strong>重叠切片+镜像填充</strong>的方法解决</p>
+<h2 id="弹性形变">2.弹性形变</h2>
+<p>使用弹性形变来进行充分的数据增强，因为在医学图像中，组织的形变是最常见的变化，Dosovitskiy [Dosovitskiy, A., Springenberg, J.T., Riedmiller, M., Brox, T.: Discriminative unsupervised feature learning with convolutional neural networks. In: NIPS (2014)]
+在无监督特征学习的范围内已经证明了数据增强对学习不变性的价值。</p>
+<h2 id="加权损失">3.加权损失</h2>
+<div class="tag-plugin image"><div class="image-bg" style="aspect-ratio:1076/419;"><img class="lazy" src="https://raw.githubusercontent.com/L-Virus/Pic/main/Blog/20251010214902599.png" data-src="https://raw.githubusercontent.com/L-Virus/Pic/main/Blog/20251010214902599.png" data-fancybox="true"onerror="this.src=&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='2rem' height='2rem' viewBox='0 0 24 24'%3E%3C!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --%3E%3Cpath fill='%23F44336' d='M22 12.698c-.002 1.47-.013 2.718-.096 3.743c-.097 1.19-.296 2.184-.74 3.009a4.2 4.2 0 0 1-.73.983c-.833.833-1.893 1.21-3.237 1.39C15.884 22 14.2 22 12.053 22h-.106c-2.148 0-3.83 0-5.144-.177c-1.343-.18-2.404-.557-3.236-1.39c-.738-.738-1.12-1.656-1.322-2.795c-.2-1.12-.236-2.512-.243-4.241Q1.999 12.737 2 12v-.054c0-2.148 0-3.83.177-5.144c.18-1.343.557-2.404 1.39-3.236s1.893-1.21 3.236-1.39c1.168-.157 2.67-.175 4.499-.177a.697.697 0 1 1 0 1.396c-1.855.002-3.234.018-4.313.163c-1.189.16-1.906.464-2.436.994S3.72 5.8 3.56 6.99C3.397 8.2 3.395 9.788 3.395 12v.784l.932-.814a2.14 2.14 0 0 1 2.922.097l3.99 3.99a1.86 1.86 0 0 0 2.385.207l.278-.195a2.79 2.79 0 0 1 3.471.209l2.633 2.37c.265-.557.423-1.288.507-2.32c.079-.972.09-2.152.091-3.63a.698.698 0 0 1 1.396 0' opacity='.5'/%3E%3Cpath fill='%23F44336' fill-rule='evenodd' d='M17.5 11c-2.121 0-3.182 0-3.841-.659S13 8.621 13 6.5s0-3.182.659-3.841S15.379 2 17.5 2s3.182 0 3.841.659S22 4.379 22 6.5s0 3.182-.659 3.841S19.621 11 17.5 11m-1.47-7.03a.75.75 0 1 0-1.06 1.06l1.47 1.47l-1.47 1.47a.75.75 0 0 0 1.06 1.06l1.47-1.47l1.47 1.47a.75.75 0 1 0 1.06-1.06L18.56 6.5l1.47-1.47a.75.75 0 0 0-1.06-1.06L17.5 5.44z' clip-rule='evenodd'/%3E%3C/svg%3E&quot;"/><div class="lazy-icon" style="background-image:url(https://api.iconify.design/eos-icons:three-dots-loading.svg?color=%231cd0fd);"></div></div></div>
+<p>为了解决细胞分割中的一个挑战：<strong>分离同一类的接触物体</strong>；
+U-net使用加权损失的方法：接触细胞之间的分离背景标签在损失函数中获得较大的权重。
+<strong>这样能更好的分离出两个接触细胞之间的背景信息</strong>
+在后续的优化中，我们更通常使用<strong>Dice loss</strong> 或 <strong>Focal loss</strong>，<strong>Boundary loss / Hausdorff loss</strong></p>
+<h2 id="选择合适的池化窗口大小">4.选择合适的池化窗口大小</h2>
+<p>为了保证 tile 能被网络多层池化后尺寸仍然对齐，需要选择合适的 tile 大小（通常是 <span class="math inline">\(2^N\)</span> 的倍数 + U-Net 卷积裁剪调整）。</p>
+<h1 id="数据">数据</h1>
+<p>ISBI 2015</p>
+<h1 id="训练">训练</h1>
+<ul>
+<li>优化器：SGD</li>
+<li>batch_size：1</li>
+<li>momentum：0.99</li>
+<li>loss：softmax、cross-entropy</li>
+<li>init_weight：使用标准差为 <span class="math inline">\(\sqrt{2/N}\)</span> 的高斯分布，其中N为每层输入的像素点数</li>
+</ul>
+<h1 id="数据增强">数据增强</h1>
+<div class="tag-plugin blockquote" indent="undefined"><p>“We generate smooth deformations using random displacement vectors on a coarse 3 by 3 grid. The displacements are sampled from a Gaussian distribution with 10 pixels standard deviation. Per-pixel displacements are then computed using bicubic interpolation. Drop-out layers at the end of the contracting path perform further implicit data augmentation.” (<a href="zotero://select/library/items/QY2VXDUT">Ronneberger 等, 2015, p. 6</a>) (<a href="zotero://open-pdf/library/items/KK6KJIRN?page=6&amp;annotation=BGIJA9DX">pdf</a>)</p></div>
+<p>在粗糙的 3 x 3 网格上使用随机位移矢量生成平滑变形。位移是从具有 10 像素标准差的高斯分布中采样的。然后使用双三次插值计算每像素位移。收缩路径末端的辍学层执行进一步的隐式数据扩充。
+以及正常的旋转和变色</p>
+]]></content>
+      <tags>
+        <tag>U-net，CV</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Hello World</title>
     <url>/2025/09/23/hello-world/</url>
     <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
@@ -173,20 +238,283 @@ Softmax是对最后一个维度进行操作，也就是词汇表维度</p>
 ]]></content>
   </entry>
   <entry>
-    <title>Stellar设置专栏（topic）</title>
-    <url>/2025/09/24/Stellar%E8%AE%BE%E7%BD%AE%E4%B8%93%E6%A0%8F/</url>
-    <content><![CDATA[<div class="tag-plugin quot p"><p class="content"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from BoxIcons Solid by Atisa - https://creativecommons.org/licenses/by/4.0/ --><path fill="currentColor" d="M3.691 6.292C5.094 4.771 7.217 4 10 4h1v2.819l-.804.161c-1.37.274-2.323.813-2.833 1.604A2.9 2.9 0 0 0 6.925 10H10a1 1 0 0 1 1 1v7c0 1.103-.897 2-2 2H3a1 1 0 0 1-1-1v-5l.003-2.919c-.009-.111-.199-2.741 1.688-4.789M20 20h-6a1 1 0 0 1-1-1v-5l.003-2.919c-.009-.111-.199-2.741 1.688-4.789C16.094 4.771 18.217 4 21 4h1v2.819l-.804.161c-1.37.274-2.323.813-2.833 1.604A2.9 2.9 0 0 0 17.925 10H21a1 1 0 0 1 1 1v7c0 1.103-.897 2-2 2"/></svg><span class="text">专栏文件夹的配置</span><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from BoxIcons Solid by Atisa - https://creativecommons.org/licenses/by/4.0/ --><path fill="currentColor" d="M20.309 17.708C22.196 15.66 22.006 13.03 22 13V5a1 1 0 0 0-1-1h-6c-1.103 0-2 .897-2 2v7a1 1 0 0 0 1 1h3.078a2.9 2.9 0 0 1-.429 1.396c-.508.801-1.465 1.348-2.846 1.624l-.803.16V20h1c2.783 0 4.906-.771 6.309-2.292m-11.007 0C11.19 15.66 10.999 13.03 10.993 13V5a1 1 0 0 0-1-1h-6c-1.103 0-2 .897-2 2v7a1 1 0 0 0 1 1h3.078a2.9 2.9 0 0 1-.429 1.396c-.508.801-1.465 1.348-2.846 1.624l-.803.16V20h1c2.783 0 4.906-.771 6.309-2.292"/></svg></p></div>
-<p>在 <code>blog/source/_data/</code> 文件夹中创建一个 <code>topic</code> 文件夹，在其中放入各个专栏的描述文件，文件名就是项目的 <code>id</code>：</p>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">name:</span> <span class="string">Stellar</span> <span class="comment"># 在面包屑导航上会显示较短的名字</span></span><br><span class="line"><span class="attr">title:</span> <span class="string">Stellar</span> <span class="bullet">-</span> <span class="string">每个人的独立博客</span> <span class="comment"># 在列表页会显示完整的专栏标题</span></span><br><span class="line"><span class="attr">description:</span> <span class="string">关于搭建独立博客相关的知识和经验分享，以及</span> <span class="string">Stellar</span> <span class="string">的高级用法、版本更新相关的注意事项。</span></span><br><span class="line"><span class="attr">order_by:</span> <span class="string">-date</span> <span class="comment"># 默认是按发布日期倒序排序</span></span><br><span class="line"><span class="attr">icon:</span> <span class="string">https://xxx</span></span><br></pre></td></tr></table></figure>
-<div class="tag-plugin image"><div class="image-bg" style="aspect-ratio:1319/646;"><img class="lazy" src="https://raw.githubusercontent.com/L-Virus/Pic/main/Blog/20250924193619450.png" data-src="https://raw.githubusercontent.com/L-Virus/Pic/main/Blog/20250924193619450.png" data-fancybox="true"onerror="this.src=&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='2rem' height='2rem' viewBox='0 0 24 24'%3E%3C!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --%3E%3Cpath fill='%23F44336' d='M22 12.698c-.002 1.47-.013 2.718-.096 3.743c-.097 1.19-.296 2.184-.74 3.009a4.2 4.2 0 0 1-.73.983c-.833.833-1.893 1.21-3.237 1.39C15.884 22 14.2 22 12.053 22h-.106c-2.148 0-3.83 0-5.144-.177c-1.343-.18-2.404-.557-3.236-1.39c-.738-.738-1.12-1.656-1.322-2.795c-.2-1.12-.236-2.512-.243-4.241Q1.999 12.737 2 12v-.054c0-2.148 0-3.83.177-5.144c.18-1.343.557-2.404 1.39-3.236s1.893-1.21 3.236-1.39c1.168-.157 2.67-.175 4.499-.177a.697.697 0 1 1 0 1.396c-1.855.002-3.234.018-4.313.163c-1.189.16-1.906.464-2.436.994S3.72 5.8 3.56 6.99C3.397 8.2 3.395 9.788 3.395 12v.784l.932-.814a2.14 2.14 0 0 1 2.922.097l3.99 3.99a1.86 1.86 0 0 0 2.385.207l.278-.195a2.79 2.79 0 0 1 3.471.209l2.633 2.37c.265-.557.423-1.288.507-2.32c.079-.972.09-2.152.091-3.63a.698.698 0 0 1 1.396 0' opacity='.5'/%3E%3Cpath fill='%23F44336' fill-rule='evenodd' d='M17.5 11c-2.121 0-3.182 0-3.841-.659S13 8.621 13 6.5s0-3.182.659-3.841S15.379 2 17.5 2s3.182 0 3.841.659S22 4.379 22 6.5s0 3.182-.659 3.841S19.621 11 17.5 11m-1.47-7.03a.75.75 0 1 0-1.06 1.06l1.47 1.47l-1.47 1.47a.75.75 0 0 0 1.06 1.06l1.47-1.47l1.47 1.47a.75.75 0 1 0 1.06-1.06L18.56 6.5l1.47-1.47a.75.75 0 0 0-1.06-1.06L17.5 5.44z' clip-rule='evenodd'/%3E%3C/svg%3E&quot;"/><div class="lazy-icon" style="background-image:url(https://api.iconify.design/eos-icons:three-dots-loading.svg?color=%231cd0fd);"></div></div></div>
-<div class="tag-plugin quot p"><p class="content"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from BoxIcons Solid by Atisa - https://creativecommons.org/licenses/by/4.0/ --><path fill="currentColor" d="M3.691 6.292C5.094 4.771 7.217 4 10 4h1v2.819l-.804.161c-1.37.274-2.323.813-2.833 1.604A2.9 2.9 0 0 0 6.925 10H10a1 1 0 0 1 1 1v7c0 1.103-.897 2-2 2H3a1 1 0 0 1-1-1v-5l.003-2.919c-.009-.111-.199-2.741 1.688-4.789M20 20h-6a1 1 0 0 1-1-1v-5l.003-2.919c-.009-.111-.199-2.741 1.688-4.789C16.094 4.771 18.217 4 21 4h1v2.819l-.804.161c-1.37.274-2.323.813-2.833 1.604A2.9 2.9 0 0 0 17.925 10H21a1 1 0 0 1 1 1v7c0 1.103-.897 2-2 2"/></svg><span class="text">文章中的引用</span><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from BoxIcons Solid by Atisa - https://creativecommons.org/licenses/by/4.0/ --><path fill="currentColor" d="M20.309 17.708C22.196 15.66 22.006 13.03 22 13V5a1 1 0 0 0-1-1h-6c-1.103 0-2 .897-2 2v7a1 1 0 0 0 1 1h3.078a2.9 2.9 0 0 1-.429 1.396c-.508.801-1.465 1.348-2.846 1.624l-.803.16V20h1c2.783 0 4.906-.771 6.309-2.292m-11.007 0C11.19 15.66 10.999 13.03 10.993 13V5a1 1 0 0 0-1-1h-6c-1.103 0-2 .897-2 2v7a1 1 0 0 0 1 1h3.078a2.9 2.9 0 0 1-.429 1.396c-.508.801-1.465 1.348-2.846 1.624l-.803.16V20h1c2.783 0 4.906-.771 6.309-2.292"/></svg></p></div>
-<p>在此专栏文章的 <code>md</code> 文件的 <code>front-matter</code> 部分指定所属的专栏 <code>id</code> （即上一步创建的文件名 <code>Stelalr设置专栏.yml</code>）</p>
-<div class="tag-plugin image"><div class="image-bg" style="aspect-ratio:717/138;"><img class="lazy" src="https://raw.githubusercontent.com/L-Virus/Pic/main/Blog/20250924193647230.png" data-src="https://raw.githubusercontent.com/L-Virus/Pic/main/Blog/20250924193647230.png" data-fancybox="true"onerror="this.src=&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='2rem' height='2rem' viewBox='0 0 24 24'%3E%3C!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --%3E%3Cpath fill='%23F44336' d='M22 12.698c-.002 1.47-.013 2.718-.096 3.743c-.097 1.19-.296 2.184-.74 3.009a4.2 4.2 0 0 1-.73.983c-.833.833-1.893 1.21-3.237 1.39C15.884 22 14.2 22 12.053 22h-.106c-2.148 0-3.83 0-5.144-.177c-1.343-.18-2.404-.557-3.236-1.39c-.738-.738-1.12-1.656-1.322-2.795c-.2-1.12-.236-2.512-.243-4.241Q1.999 12.737 2 12v-.054c0-2.148 0-3.83.177-5.144c.18-1.343.557-2.404 1.39-3.236s1.893-1.21 3.236-1.39c1.168-.157 2.67-.175 4.499-.177a.697.697 0 1 1 0 1.396c-1.855.002-3.234.018-4.313.163c-1.189.16-1.906.464-2.436.994S3.72 5.8 3.56 6.99C3.397 8.2 3.395 9.788 3.395 12v.784l.932-.814a2.14 2.14 0 0 1 2.922.097l3.99 3.99a1.86 1.86 0 0 0 2.385.207l.278-.195a2.79 2.79 0 0 1 3.471.209l2.633 2.37c.265-.557.423-1.288.507-2.32c.079-.972.09-2.152.091-3.63a.698.698 0 0 1 1.396 0' opacity='.5'/%3E%3Cpath fill='%23F44336' fill-rule='evenodd' d='M17.5 11c-2.121 0-3.182 0-3.841-.659S13 8.621 13 6.5s0-3.182.659-3.841S15.379 2 17.5 2s3.182 0 3.841.659S22 4.379 22 6.5s0 3.182-.659 3.841S19.621 11 17.5 11m-1.47-7.03a.75.75 0 1 0-1.06 1.06l1.47 1.47l-1.47 1.47a.75.75 0 0 0 1.06 1.06l1.47-1.47l1.47 1.47a.75.75 0 1 0 1.06-1.06L18.56 6.5l1.47-1.47a.75.75 0 0 0-1.06-1.06L17.5 5.44z' clip-rule='evenodd'/%3E%3C/svg%3E&quot;"/><div class="lazy-icon" style="background-image:url(https://api.iconify.design/eos-icons:three-dots-loading.svg?color=%231cd0fd);"></div></div></div>
+    <title>Word Embedding</title>
+    <url>/2025/10/26/Word%20Embedding/</url>
+    <content><![CDATA[<h1 id="前言">前言</h1>
+<p>为了探究主流 Word Embedding 技术的变化，故写下这边文章。主要参考车万翔老师的《自然语言处理 基于预训练模型的方法》</p>
+<p>Word Embedding 分为两个时期，一个是 Word2Vec 出来之前的远古时期，一个是 Word2Vec 出现之后的现代时期</p>
+<h1 id="one-hot-encoding">One-hot Encoding</h1>
+<p>假设词表 <span class="math inline">\(\mathcal{V}\)</span>，则大小为 <span class="math inline">\(\mid \mathcal{V} \mid\)</span> ，则词表中第 <span class="math inline">\(i\)</span> 个词 <span class="math inline">\(W_i\)</span> 表示为向量则为，
+<span class="math display">\[
+e_{w_i}=[0,0,\dots,1,\dots,0] \in \{0,1\}^{\mid \mathcal{V} \mid}
+\]</span>
+在该向量中，第 <span class="math inline">\(i\)</span> 个词在第 <span class="math inline">\(i\)</span> 维上被设置成1，其余均为0。</p>
+<h2 id="优点">优点</h2>
+<p>针对<strong>变量少</strong>，<strong>变量相关性不大</strong>的数据来说很方便</p>
+<h2 id="问题">问题</h2>
+<h3 id="相似度">相似度</h3>
+<p>尽管两个词在语义上很相近，但是在经过One-hot Encoding 后，两个向量得到的相似度为0</p>
+<h3 id="冗余">冗余</h3>
+<p>这种 Encoding 模型会导致参数矩阵变得稀疏 <strong>Sparsity</strong> 且冗余</p>
+<h2 id="缓解办法">缓解办法</h2>
+<p>引入 <strong>WordNet</strong> 等语义词典，然后引入它们的共同语义信息作为新的额外特征，从而缓解同义词的独热表示不同的问题。</p>
+<h1 id="分布式语义假设">分布式语义假设</h1>
+<p>人们在阅读过程中遇到从未见过的词时，通常会根据上下文来推断其含义以及相关属性。
+&gt; 有点类似skip-gram的思想，自监督</p>
+<p>分布式语义假设：<strong>词的含义可由其上下文的分布进行表示</strong>
+基于这种假设，可以利用大规模的未标注文本数据，根据每个词的上下文分布对词进行表示。</p>
+<h2 id="词语共现频次表">词语共现频次表</h2>
+<p>假设 corpoc 中有三句话：
+- 我 喜欢 自然 语言 处理 。
+- 我 爱 深度 学习 。
+- 我 喜欢 机器 学习 。</p>
+<p>假设以词所在句子中的其他词语作为上下文。构建<strong>词语共现频次表</strong>
+表中的每一项代表一个词<span class="math inline">\(wi\)</span>与另一个词<span class="math inline">\(w_j\)</span>（上下文）在同一个句子中的共现频次，每个词与自身的共现频次设置为0。</p>
+<table>
+<colgroup>
+<col style="width: 9%" />
+<col style="width: 9%" />
+<col style="width: 9%" />
+<col style="width: 9%" />
+<col style="width: 9%" />
+<col style="width: 9%" />
+<col style="width: 9%" />
+<col style="width: 9%" />
+<col style="width: 9%" />
+<col style="width: 9%" />
+<col style="width: 9%" />
+</colgroup>
+<thead>
+<tr>
+<th></th>
+<th>我</th>
+<th>喜欢</th>
+<th>自然</th>
+<th>语言</th>
+<th>处理</th>
+<th>爱</th>
+<th>深度</th>
+<th>学习</th>
+<th>机器</th>
+<th>。</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>我</td>
+<td>0</td>
+<td>2</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>2</td>
+<td>1</td>
+<td>3</td>
+</tr>
+<tr>
+<td>喜欢</td>
+<td>2</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>2</td>
+</tr>
+<tr>
+<td>自然</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr>
+<td>语言</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr>
+<td>处理</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr>
+<td>爱</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr>
+<td>深度</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr>
+<td>学习</td>
+<td>2</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>机器</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr>
+<td>。</td>
+<td>3</td>
+<td>2</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>2</td>
+<td>1</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<h2 id="优势">优势</h2>
+<p>不再如同 One-hot Encoding 那样每个词向量之间不包含相似度</p>
+<h2 id="扩展">扩展</h2>
+<p>上下文的选择有很多种方式，而选择不同的上下文得到的词向量表示性质会有所不同。例如，可以使用词在句子中的一个固定窗口内的词作为其上下文，跟 CBOW 的思想很像。</p>
+<h2 id="问题-1">问题</h2>
+<ol type="1">
+<li>高频词误导计算结果</li>
+<li>共现频次无法反映词之间的高阶关系</li>
+<li>仍然存在稀疏性的问题</li>
+<li>当矩阵过大时，奇异值分解速度慢</li>
+<li>当在原来的语料库基础上新增数据，则需要重新计算奇异值分解</li>
+<li>只能表达短的单元，如词、短语，不能表达长的，例如句子、段落</li>
+</ol>
+<h2 id="缓解办法-1">缓解办法</h2>
+<h3 id="解决高频词误导计算结果">解决高频词误导计算结果</h3>
+<p>核心思想：<strong>如果一个词与很多词共现，则降低其权重；反之，如果一个词只与个别词共现，则提高其权重。</strong></p>
+<p>使用点互信息（Pointwise Mutual Information，PMI），对于词 <span class="math inline">\(w\)</span> 和 上下文 <span class="math inline">\(c\)</span>，有
+<span class="math display">\[
+PMI(w,c)=log_2\frac{P(w,c)}{P(w)P(c)}
+\]</span>
+通过这个计算，如果 <span class="math inline">\(w\)</span> 和 <span class="math inline">\(c\)</span> 的共现概率（与频次正相关）较高，但是 <span class="math inline">\(w\)</span> 或者 <span class="math inline">\(c\)</span> 出现的概率也较高（高频词），则最终的<span class="math inline">\(PMI\)</span>值会变小；反之，即便 <span class="math inline">\(w\)</span> 和 <span class="math inline">\(c\)</span> 的共现概率不高，但是 <span class="math inline">\(w\)</span> 或者 <span class="math inline">\(c\)</span> 出现的概率较低（低频词），则最终的<span class="math inline">\(PMI\)</span>值也可能会比较大。从而较好地解决高频词误导计算结果的问题。</p>
+<div class="tag-plugin blockquote" indent="undefined"><p>由于 <span class="math inline">\(log\)</span> 的分布问题，会导致一些低频率词的大小为负数，使得统计方差变大，因此在实际应用中通常采用PPMI （Positive PMI）<span class="math display">\[PPMI(w,c)=max(PMI(w,c),0)\]</span></p></div>
+<p>此外还可以使用，信息检索中常用的<strong>TF-IDF</strong></p>
+<h3 id="共现频次无法反映词之间的高阶关系">共现频次无法反映词之间的高阶关系</h3>
+<p>以奇异值分解为例，对词语共现矩阵 <span class="math inline">\(M\)</span> 做奇异值分解，
+<span class="math display">\[
+M =U\Sigma V^{T}
+\]</span></p>
+<h1 id="词嵌入表示">词嵌入表示</h1>
+<p>为了解决分布式语义假设中的诸多问题，引入这种新的词表示方法
+与分布式表示不同的是，词向量中的向量值，是随着目标任务的优化过程自动调整的，也就是说，可以将词向量中的向量值看作模型的参数</p>
+<h2 id="词袋模型">词袋模型</h2>
+<p>词袋模型（Bag of Word BOW）,核心思想就是假设文本中的词语是没有顺序的集合，将文本中的词按照向量进行表示，也就是<strong>将整个句子或文档表示为一个词频向量（统计每个词出现次数）</strong>。</p>
+<p>与One-hot Encoding不同的是，前者是一整个句子或者文档就是一个词频向量，而后者是一个词为一个向量。
+与[[#分布式语义假设]]不同的是，前者不考虑词语在句子中的顺序。</p>
+<h3 id="例子">例子</h3>
+<p>词表：[“我”，“爱”，“自然”，“语言”，“处理”]
+句子：“我 爱 自然 语言 处理 爱 自然”
+对应的BOW向量则为：<span class="math inline">\([1, 2, 2, 1, 1]\)</span></p>
+<h3 id="问题-2">问题</h3>
+<ol type="1">
+<li>没考虑到词的顺序信息</li>
+<li>无法融入上下文信息，虽然能增加二元词的词向量，但是随着词表的越大，数据稀疏越严重</li>
+</ol>
+<h1 id="word2vec">Word2Vec</h1>
+<p><strong>预测任务驱动的神经网络模型</strong></p>
+<p>输入一般是 One-hot Encoding</p>
+<h2 id="cbow">CBOW</h2>
+<p>连续词袋模型，基本思想是根据上下文对目标词进行预测</p>
+<p>CBOW模型的任务是根据一定窗口大小内的上下文 <span class="math inline">\(C_t\)</span>（若取窗口大小为5，则(<span class="math inline">\(C_t=w_{t−2},w_{t−1},w_{t+1},w_{t+2}\)</span>）对 <span class="math inline">\(t\)</span> 时刻的词 <span class="math inline">\(w_t\)</span> 进行预测，即 <span class="math inline">\(P(w_t|C_t)\)</span>
+实际上就是，隐含层执行对词向量层取平均的操作，而没有线性变换以及非线性激活的过程。
+<div class="tag-plugin image"><div class="image-bg" style="aspect-ratio:733/281;"><img class="lazy" src="https://raw.githubusercontent.com/L-Virus/Pic/main/Blog/20251017155003736.png" data-src="https://raw.githubusercontent.com/L-Virus/Pic/main/Blog/20251017155003736.png" data-fancybox="true"onerror="this.src=&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='2rem' height='2rem' viewBox='0 0 24 24'%3E%3C!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --%3E%3Cpath fill='%23F44336' d='M22 12.698c-.002 1.47-.013 2.718-.096 3.743c-.097 1.19-.296 2.184-.74 3.009a4.2 4.2 0 0 1-.73.983c-.833.833-1.893 1.21-3.237 1.39C15.884 22 14.2 22 12.053 22h-.106c-2.148 0-3.83 0-5.144-.177c-1.343-.18-2.404-.557-3.236-1.39c-.738-.738-1.12-1.656-1.322-2.795c-.2-1.12-.236-2.512-.243-4.241Q1.999 12.737 2 12v-.054c0-2.148 0-3.83.177-5.144c.18-1.343.557-2.404 1.39-3.236s1.893-1.21 3.236-1.39c1.168-.157 2.67-.175 4.499-.177a.697.697 0 1 1 0 1.396c-1.855.002-3.234.018-4.313.163c-1.189.16-1.906.464-2.436.994S3.72 5.8 3.56 6.99C3.397 8.2 3.395 9.788 3.395 12v.784l.932-.814a2.14 2.14 0 0 1 2.922.097l3.99 3.99a1.86 1.86 0 0 0 2.385.207l.278-.195a2.79 2.79 0 0 1 3.471.209l2.633 2.37c.265-.557.423-1.288.507-2.32c.079-.972.09-2.152.091-3.63a.698.698 0 0 1 1.396 0' opacity='.5'/%3E%3Cpath fill='%23F44336' fill-rule='evenodd' d='M17.5 11c-2.121 0-3.182 0-3.841-.659S13 8.621 13 6.5s0-3.182.659-3.841S15.379 2 17.5 2s3.182 0 3.841.659S22 4.379 22 6.5s0 3.182-.659 3.841S19.621 11 17.5 11m-1.47-7.03a.75.75 0 1 0-1.06 1.06l1.47 1.47l-1.47 1.47a.75.75 0 0 0 1.06 1.06l1.47-1.47l1.47 1.47a.75.75 0 1 0 1.06-1.06L18.56 6.5l1.47-1.47a.75.75 0 0 0-1.06-1.06L17.5 5.44z' clip-rule='evenodd'/%3E%3C/svg%3E&quot;"/><div class="lazy-icon" style="background-image:url(https://api.iconify.design/eos-icons:three-dots-loading.svg?color=%231cd0fd);"></div></div></div></p>
+<h2 id="skip-gram">Skip-gram</h2>
+<p>在CBOW的基础上继续做出简化，使用 <span class="math inline">\(C_t\)</span> 中的每个词作为独立的上下文对目标词进行预测。
+<div class="tag-plugin image"><div class="image-bg" style="aspect-ratio:633/232;"><img class="lazy" src="https://raw.githubusercontent.com/L-Virus/Pic/main/Blog/20251026211114381.png" data-src="https://raw.githubusercontent.com/L-Virus/Pic/main/Blog/20251026211114381.png" data-fancybox="true"onerror="this.src=&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='2rem' height='2rem' viewBox='0 0 24 24'%3E%3C!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --%3E%3Cpath fill='%23F44336' d='M22 12.698c-.002 1.47-.013 2.718-.096 3.743c-.097 1.19-.296 2.184-.74 3.009a4.2 4.2 0 0 1-.73.983c-.833.833-1.893 1.21-3.237 1.39C15.884 22 14.2 22 12.053 22h-.106c-2.148 0-3.83 0-5.144-.177c-1.343-.18-2.404-.557-3.236-1.39c-.738-.738-1.12-1.656-1.322-2.795c-.2-1.12-.236-2.512-.243-4.241Q1.999 12.737 2 12v-.054c0-2.148 0-3.83.177-5.144c.18-1.343.557-2.404 1.39-3.236s1.893-1.21 3.236-1.39c1.168-.157 2.67-.175 4.499-.177a.697.697 0 1 1 0 1.396c-1.855.002-3.234.018-4.313.163c-1.189.16-1.906.464-2.436.994S3.72 5.8 3.56 6.99C3.397 8.2 3.395 9.788 3.395 12v.784l.932-.814a2.14 2.14 0 0 1 2.922.097l3.99 3.99a1.86 1.86 0 0 0 2.385.207l.278-.195a2.79 2.79 0 0 1 3.471.209l2.633 2.37c.265-.557.423-1.288.507-2.32c.079-.972.09-2.152.091-3.63a.698.698 0 0 1 1.396 0' opacity='.5'/%3E%3Cpath fill='%23F44336' fill-rule='evenodd' d='M17.5 11c-2.121 0-3.182 0-3.841-.659S13 8.621 13 6.5s0-3.182.659-3.841S15.379 2 17.5 2s3.182 0 3.841.659S22 4.379 22 6.5s0 3.182-.659 3.841S19.621 11 17.5 11m-1.47-7.03a.75.75 0 1 0-1.06 1.06l1.47 1.47l-1.47 1.47a.75.75 0 0 0 1.06 1.06l1.47-1.47l1.47 1.47a.75.75 0 1 0 1.06-1.06L18.56 6.5l1.47-1.47a.75.75 0 0 0-1.06-1.06L17.5 5.44z' clip-rule='evenodd'/%3E%3C/svg%3E&quot;"/><div class="lazy-icon" style="background-image:url(https://api.iconify.design/eos-icons:three-dots-loading.svg?color=%231cd0fd);"></div></div></div></p>
+<h2 id="总计">总计</h2>
+<p>以上模型可以归纳为对目标词的条件预测任务，CBOW为根据上下文预测当前词，Skip-gram则是根据当前词预测上下文。</p>
+<div class="tag-plugin blockquote" indent="undefined"><p>负采样方法提供了一种新的任务视角：给定当前词与其上下文，最大化两者共现的概率。这样问题就被简化为对于（<span class="math inline">\(w,c\)</span>）的二元分类问题（共现或者非共现），规避了大词表上的归一化计算</p></div>
+<h1 id="glove">GloVe</h1>
+<p>结合词向量以及矩阵分解的思想
+基本思想是利用词向量对“词–上下文”共现矩阵进行预测（或者回归），从而实现隐式的矩阵分解</p>
+<p>首先根据窗口大小构建<strong>窗口词语频次共现矩阵</strong>，与词语共现频次表不同的是，这边要根据窗口大小，后者的窗口大小可以认为是整个句子的长度</p>
+<p>其中矩阵中每个元素为<span class="math inline">\(X_{ij}\)</span>=词 <span class="math inline">\(j\)</span> 在 词 <span class="math inline">\(i\)</span> 的上下文窗口中出现的次数
+将频次转换为概率 <span class="math inline">\(P_{ij}=\frac{X_{ij}}{\Sigma_kX_{ik}}\)</span> ，表示词<span class="math inline">\(i\)</span>在上下文看到词<span class="math inline">\(j\)</span>的概率
+进行学习词向量，使得 <span class="math inline">\(w_i^T \overset{\sim}{w_j}+b_i+\overset{\sim}{b_j}\approx log(X_{ij})\)</span></p>
+<div class="tag-plugin blockquote" indent="undefined"><p>Why使用 <span class="math inline">\(log\)</span> 的含义是对原式子进行缩放，使得，放缩动态范围（减少高频词主导），保持比例关系（共现越多，值越大）</p></div>
+<h1 id="elmo">ELMo</h1>
+<p>不管是 Word2Vec 还是 GloVe，都是属于<strong>静态词向量</strong>，即对于任何一个词，其向量表示是恒定的，不随上下文的变化而变化。
+因此为了刻画一个词在不同上下文或不同语境下的不同词义信息，引入<strong>动态</strong>构建词向量的方法，也称上下文相关的词向量</p>
+<div class="tag-plugin image"><div class="image-bg" style="aspect-ratio:832/378;"><img class="lazy" src="https://raw.githubusercontent.com/L-Virus/Pic/main/Blog/20251026211114473.png" data-src="https://raw.githubusercontent.com/L-Virus/Pic/main/Blog/20251026211114473.png" data-fancybox="true"onerror="this.src=&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='2rem' height='2rem' viewBox='0 0 24 24'%3E%3C!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --%3E%3Cpath fill='%23F44336' d='M22 12.698c-.002 1.47-.013 2.718-.096 3.743c-.097 1.19-.296 2.184-.74 3.009a4.2 4.2 0 0 1-.73.983c-.833.833-1.893 1.21-3.237 1.39C15.884 22 14.2 22 12.053 22h-.106c-2.148 0-3.83 0-5.144-.177c-1.343-.18-2.404-.557-3.236-1.39c-.738-.738-1.12-1.656-1.322-2.795c-.2-1.12-.236-2.512-.243-4.241Q1.999 12.737 2 12v-.054c0-2.148 0-3.83.177-5.144c.18-1.343.557-2.404 1.39-3.236s1.893-1.21 3.236-1.39c1.168-.157 2.67-.175 4.499-.177a.697.697 0 1 1 0 1.396c-1.855.002-3.234.018-4.313.163c-1.189.16-1.906.464-2.436.994S3.72 5.8 3.56 6.99C3.397 8.2 3.395 9.788 3.395 12v.784l.932-.814a2.14 2.14 0 0 1 2.922.097l3.99 3.99a1.86 1.86 0 0 0 2.385.207l.278-.195a2.79 2.79 0 0 1 3.471.209l2.633 2.37c.265-.557.423-1.288.507-2.32c.079-.972.09-2.152.091-3.63a.698.698 0 0 1 1.396 0' opacity='.5'/%3E%3Cpath fill='%23F44336' fill-rule='evenodd' d='M17.5 11c-2.121 0-3.182 0-3.841-.659S13 8.621 13 6.5s0-3.182.659-3.841S15.379 2 17.5 2s3.182 0 3.841.659S22 4.379 22 6.5s0 3.182-.659 3.841S19.621 11 17.5 11m-1.47-7.03a.75.75 0 1 0-1.06 1.06l1.47 1.47l-1.47 1.47a.75.75 0 0 0 1.06 1.06l1.47-1.47l1.47 1.47a.75.75 0 1 0 1.06-1.06L18.56 6.5l1.47-1.47a.75.75 0 0 0-1.06-1.06L17.5 5.44z' clip-rule='evenodd'/%3E%3C/svg%3E&quot;"/><div class="lazy-icon" style="background-image:url(https://api.iconify.design/eos-icons:three-dots-loading.svg?color=%231cd0fd);"></div></div></div>
+<h2 id="输入层">输入层</h2>
+<p>为字符级，使用1d CNN，能捕捉词形信息</p>
+<h2 id="双向lstm">双向LSTM</h2>
+<p>同时训练两个模型，正向语言模型预测下一个词 ：<span class="math inline">\(P(w_t|w_{1},\dots,w_{t-1})\)</span>，反向语言模型预测上一个词：<span class="math inline">\(P(W_t|w_{t+1},\dots,w_T)\)</span>，</p>
+<h2 id="输出层">输出层</h2>
+<p>把每层隐藏层的两个模型的隐状态拼接起来（<span class="math inline">\(h_{t,j}=[\overset{\leftarrow}{h_{t,j}};\overset{\rightarrow}{h_{t,j}}]\)</span>），再加权组合<span class="math display">\[ELMo_t=\gamma\sum{^{L}_{j=0}}s_{j}h_{t,j}\]</span>其中 <span class="math inline">\(\gamma\)</span> 为可学习的放缩参数，<span class="math inline">\(s_j\)</span> 为可学习的权重（经过Softmax后），<span class="math inline">\(h_{t,j}\)</span> 为第 <span class="math inline">\(j\)</span> 层的隐藏状</p>
+<div class="tag-plugin blockquote" indent="undefined"><p>Note整个模型的框架就是RNN</p></div>
+<h1 id="bert">BERT</h1>
+<p>根据 BERT 中的描述，主要是利用一个双向的，纯 Transformer 的架构，在 pre-training 中利用 MLM 和 NSP 两个子任务来学习语言表示，再在 Fine-tunning 阶段动态的微调这些语言表示。</p>
 ]]></content>
       <tags>
-        <tag>stellar</tag>
-        <tag>Hexo</tag>
-        <tag>瞎折腾</tag>
+        <tag>NLP</tag>
+        <tag>WordEmbedding</tag>
       </tags>
   </entry>
   <entry>

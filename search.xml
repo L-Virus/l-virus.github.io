@@ -1,227 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>Attention Is All You Need</title>
-    <url>/2025/10/15/Attention%20Is%20All%20You%20Need/</url>
-    <content><![CDATA[<h1 id="模型">模型</h1>
-<div class="tag-plugin image"><div class="image-bg" style="aspect-ratio:930/812;"><img class="lazy" src="https://raw.githubusercontent.com/L-Virus/Pic/main/Blog/20251014145549088.png" data-src="https://raw.githubusercontent.com/L-Virus/Pic/main/Blog/20251014145549088.png" data-fancybox="true"onerror="this.src=&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='2rem' height='2rem' viewBox='0 0 24 24'%3E%3C!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --%3E%3Cpath fill='%23F44336' d='M22 12.698c-.002 1.47-.013 2.718-.096 3.743c-.097 1.19-.296 2.184-.74 3.009a4.2 4.2 0 0 1-.73.983c-.833.833-1.893 1.21-3.237 1.39C15.884 22 14.2 22 12.053 22h-.106c-2.148 0-3.83 0-5.144-.177c-1.343-.18-2.404-.557-3.236-1.39c-.738-.738-1.12-1.656-1.322-2.795c-.2-1.12-.236-2.512-.243-4.241Q1.999 12.737 2 12v-.054c0-2.148 0-3.83.177-5.144c.18-1.343.557-2.404 1.39-3.236s1.893-1.21 3.236-1.39c1.168-.157 2.67-.175 4.499-.177a.697.697 0 1 1 0 1.396c-1.855.002-3.234.018-4.313.163c-1.189.16-1.906.464-2.436.994S3.72 5.8 3.56 6.99C3.397 8.2 3.395 9.788 3.395 12v.784l.932-.814a2.14 2.14 0 0 1 2.922.097l3.99 3.99a1.86 1.86 0 0 0 2.385.207l.278-.195a2.79 2.79 0 0 1 3.471.209l2.633 2.37c.265-.557.423-1.288.507-2.32c.079-.972.09-2.152.091-3.63a.698.698 0 0 1 1.396 0' opacity='.5'/%3E%3Cpath fill='%23F44336' fill-rule='evenodd' d='M17.5 11c-2.121 0-3.182 0-3.841-.659S13 8.621 13 6.5s0-3.182.659-3.841S15.379 2 17.5 2s3.182 0 3.841.659S22 4.379 22 6.5s0 3.182-.659 3.841S19.621 11 17.5 11m-1.47-7.03a.75.75 0 1 0-1.06 1.06l1.47 1.47l-1.47 1.47a.75.75 0 0 0 1.06 1.06l1.47-1.47l1.47 1.47a.75.75 0 1 0 1.06-1.06L18.56 6.5l1.47-1.47a.75.75 0 0 0-1.06-1.06L17.5 5.44z' clip-rule='evenodd'/%3E%3C/svg%3E&quot;"/><div class="lazy-icon" style="background-image:url(https://api.iconify.design/eos-icons:three-dots-loading.svg?color=%231cd0fd);"></div></div></div>
-<div class="tag-plugin image"><div class="image-bg" style="aspect-ratio:1026/546;"><img class="lazy" src="https://raw.githubusercontent.com/L-Virus/Pic/main/Blog/20251014154134637.png" data-src="https://raw.githubusercontent.com/L-Virus/Pic/main/Blog/20251014154134637.png" data-fancybox="true"onerror="this.src=&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='2rem' height='2rem' viewBox='0 0 24 24'%3E%3C!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --%3E%3Cpath fill='%23F44336' d='M22 12.698c-.002 1.47-.013 2.718-.096 3.743c-.097 1.19-.296 2.184-.74 3.009a4.2 4.2 0 0 1-.73.983c-.833.833-1.893 1.21-3.237 1.39C15.884 22 14.2 22 12.053 22h-.106c-2.148 0-3.83 0-5.144-.177c-1.343-.18-2.404-.557-3.236-1.39c-.738-.738-1.12-1.656-1.322-2.795c-.2-1.12-.236-2.512-.243-4.241Q1.999 12.737 2 12v-.054c0-2.148 0-3.83.177-5.144c.18-1.343.557-2.404 1.39-3.236s1.893-1.21 3.236-1.39c1.168-.157 2.67-.175 4.499-.177a.697.697 0 1 1 0 1.396c-1.855.002-3.234.018-4.313.163c-1.189.16-1.906.464-2.436.994S3.72 5.8 3.56 6.99C3.397 8.2 3.395 9.788 3.395 12v.784l.932-.814a2.14 2.14 0 0 1 2.922.097l3.99 3.99a1.86 1.86 0 0 0 2.385.207l.278-.195a2.79 2.79 0 0 1 3.471.209l2.633 2.37c.265-.557.423-1.288.507-2.32c.079-.972.09-2.152.091-3.63a.698.698 0 0 1 1.396 0' opacity='.5'/%3E%3Cpath fill='%23F44336' fill-rule='evenodd' d='M17.5 11c-2.121 0-3.182 0-3.841-.659S13 8.621 13 6.5s0-3.182.659-3.841S15.379 2 17.5 2s3.182 0 3.841.659S22 4.379 22 6.5s0 3.182-.659 3.841S19.621 11 17.5 11m-1.47-7.03a.75.75 0 1 0-1.06 1.06l1.47 1.47l-1.47 1.47a.75.75 0 0 0 1.06 1.06l1.47-1.47l1.47 1.47a.75.75 0 1 0 1.06-1.06L18.56 6.5l1.47-1.47a.75.75 0 0 0-1.06-1.06L17.5 5.44z' clip-rule='evenodd'/%3E%3C/svg%3E&quot;"/><div class="lazy-icon" style="background-image:url(https://api.iconify.design/eos-icons:three-dots-loading.svg?color=%231cd0fd);"></div></div></div>
-<h2 id="input与output">Input与Output</h2>
-<p>个人认为Input与Output之间画一条指向Output的线，毕竟，Output Embedding的输入只是Input Embedding输出的下一个输入，图中提到的shifted right 类似与滑动窗口往右边移动</p>
-<h2 id="positional-encoding">Positional Encoding</h2>
-<p>使用不同频率的 <span class="math inline">\(sin\)</span> 和 <span class="math inline">\(cos\)</span> 函数来作为位置编码，使用两个函数来代表奇数项和偶数项的位置，唯一的超参数为 <span class="math inline">\(d_{model}\)</span> 特征的大小</p>
-<p><span class="math display">\[\displaylines{PE_{(pos,2i)}=sin(pos/10000^{2i/d_{model}}) \\ PE_{pos,2i+1}=cos(pos/10000^{2i/d_{model}})}\]</span></p>
-<p>这样得到一个与输入embedding大小一样的位置编码矩阵，直接加在embedding中</p>
-<div class="tag-plugin colorful note" color="cyan"><div class="title">我们对输入进行分解</div><div class="body"><p><span class="math inline">\(QK^T=(E+P)(E+P)^T=EE^T+EP^T+PE^T+PP^T\)</span> <br> <span class="math inline">\(EE^T\)</span>：表示语义间关系<br> <span class="math inline">\(EP^T,PE^T,PP^T\)</span>：表示引入位置信息的影响</p></div></div>
-<h2 id="scaled-dot-product-attention">Scaled Dot-Product Attention</h2>
-<h3 id="step1">Step1</h3>
-<p>首先关于如何计算出 <span class="math inline">\(Q、K、V\)</span> 矩阵</p>
-<ol type="1">
-<li>将输入的token进行embedding变换成计算机输入的向量格式</li>
-<li>生成三个可学习的参数矩阵 <span class="math inline">\(W_q、W_k、W_v\)</span></li>
-<li>假设有4个输入为 <span class="math inline">\(a_i,i \in [1,2,3,4]\)</span> ，也就是 <span class="math inline">\(X\)</span></li>
-<li><span class="math inline">\(Q\)</span>矩阵为，<span class="math inline">\(W_q \times a_i,i \in [1,2,3,4]\)</span>，也就是 <span class="math inline">\(Q=XW_q\)</span></li>
-<li><span class="math inline">\(K\)</span>矩阵为，<span class="math inline">\(W_k \times a_i,i \in [1,2,3,4]\)</span>，也就是 <span class="math inline">\(K=XW_k\)</span></li>
-<li><span class="math inline">\(V\)</span>矩阵为，<span class="math inline">\(W_v \times a_i,i \in [1,2,3,4]\)</span>，也就是 <span class="math inline">\(V=XW_v\)</span></li>
-</ol>
-<h3 id="step-2">Step 2</h3>
-<p>计算注意力
-<span class="math display">\[Attention(Q,K,V)=Softmax(\frac{QK^{T}}{\sqrt(d_k)})V\]</span>
-其中 <span class="math inline">\(Q\)</span> 为 <span class="math inline">\(R^q\)</span> 上大小为 <span class="math inline">\(n \times d_k\)</span> ，<span class="math inline">\(K\)</span> 为 <span class="math inline">\(R^k\)</span> 上大小为 <span class="math inline">\(m \times d_k\)</span> , <span class="math inline">\(d_k\)</span> 为自定义超参，<span class="math inline">\(V\)</span> 为 <span class="math inline">\(R^v\)</span> 上大小为 <span class="math inline">\(m \times d_v\)</span> ，最终的大小为 <span class="math inline">\(n \times m\)</span>
-Softmax是对最后一个维度进行操作，也就是词汇表维度</p>
-<h2 id="cross-attention">Cross-Attention</h2>
-<p>使用编码器的输出与对应 <span class="math inline">\(W_k、W_v\)</span> 矩阵进行相乘后计算出 <span class="math inline">\(K和V\)</span>，而解码器中的输入作为 <span class="math inline">\(Q\)</span>，进行计算。实际上，<span class="math inline">\(Q\)</span> 为上一个输入之后的隐状态，K和V则表示为新的输入
-<span class="math display">\[Q=XW_Q，K=YW_K,V=YW_V\]</span></p>
-<h2 id="muti-head-attention">Muti-Head Attention</h2>
-<p><span class="math display">\[\displaylines{MutiHead(Q,K,V)=Concat(head_1,...head_h)W^o \\ Where \ head_i=Attention(QW_i^q,KW_i^k,VW_i^v)}\]</span></p>
-<blockquote>
-<p>“In this work we employ h = 8 parallel attention layers, or heads. For each of these we use dk = dv = dmodel/h = 64. Due to the reduced dimension of each head, the total computational cost is similar to that of single-head attention with full dimensionality.” (<a href="zotero://select/library/items/G6X2KQIM">Vaswani 等, 2023, p. 5</a>) (<a href="zotero://open-pdf/library/items/FUHEISF4?page=5&amp;annotation=G7AVD64S">pdf</a>)</p>
-</blockquote>
-<p>针对head数来缩小d的维度（具体是使用W的大小来设置的），这样能在最后concat的时候保持维度一致
-<span class="math inline">\(W\)</span> 的作用：1. 缩小d的维度。2.学习更多不同的参数</p>
-<p>并且使用多个头是为了学习不同的模式，所以使用不同的权重信息</p>
-<h2 id="ffn">FFN</h2>
-<p><span class="math display">\[FFN=max(0,xW_1+b_1)W_2+b_2\]</span>
-其中，<span class="math inline">\(max(0,xW_1+b_1)\)</span> 为第一次线性变化后使用ReLU进行非线性变化</p>
-<blockquote>
-<p>“The dimensionality of input and output is dmodel = 512, and the inner-layer has dimensionality dff = 2048.” (<a href="zotero://select/library/items/G6X2KQIM">Vaswani 等, 2023, p. 5</a>) (<a href="zotero://open-pdf/library/items/FUHEISF4?page=5&amp;annotation=EHGMVRWZ">pdf</a>)</p>
-</blockquote>
-<p><span class="math inline">\(W_1\)</span> 将 <span class="math inline">\(x\)</span> 的512维度扩大到2048，<span class="math inline">\(W_2\)</span> 则又转会512</p>
-<h1 id="tricks">Tricks</h1>
-<h2 id="masked-attention">1.Masked Attention</h2>
-<blockquote>
-<p>“We also modify the self-attention sub-layer in the decoder stack to prevent positions from attending to subsequent positions.” (<a href="zotero://select/library/items/G6X2KQIM">Vaswani 等, 2023, p. 3</a>) (<a href="zotero://open-pdf/library/items/FUHEISF4?page=3&amp;annotation=QHVW3RXQ">pdf</a>) mask attention</p>
-</blockquote>
-<p>因为在编码器中是使用自回归模型，模型会看到整个的输入，然而在预测也就是在解码器中，我们不需要看到全部输入，故使用掩码注意力来遮盖后面的部分</p>
-<h1 id="改进">改进</h1>
-<h2 id="针对rnn">1.针对RNN</h2>
-<blockquote>
-<p>“This inherently sequential nature precludes parallelization within training examples,” (<a href="zotero://select/library/items/G6X2KQIM">Vaswani 等, 2023, p. 2</a>) (<a href="zotero://open-pdf/library/items/FUHEISF4?page=2&amp;annotation=TT3D2AXL">pdf</a>)</p>
-</blockquote>
-<p>这种固有的顺序性质排除了训练示例中的并行化</p>
-<h2 id="norm">2.Norm</h2>
-<p>（在三维中，对谁norm，就是把谁完整的切下来）
-使用LayerNorm，而不是BathNorm</p>
-<div class="tag-plugin colorful note" color="cyan"><div class="title">Norm</div><div class="body"><p>在Transformer中输入的sequence序列长度不一，如果进行batchnorm的话会导致统计量不稳定</p></div></div>
-<h1 id="优势">优势</h1>
-<h2 id="利用依赖关系进行建模">1.利用依赖关系进行建模</h2>
-<blockquote>
-<p>“allowing modeling of dependencies without regard to their distance in the input or output sequences” (<a href="zotero://select/library/items/G6X2KQIM">Vaswani 等, 2023, p. 2</a>) (<a href="zotero://open-pdf/library/items/FUHEISF4?page=2&amp;annotation=LCTN8AVG">pdf</a>)
-“In this work we propose the Transformer, a model architecture eschewing recurrence and instead relying entirely on an attention mechanism to draw global dependencies between input and output.” (<a href="zotero://select/library/items/G6X2KQIM">Vaswani 等, 2023, p. 2</a>) (<a href="zotero://open-pdf/library/items/FUHEISF4?page=2&amp;annotation=7DS8R5LT">pdf</a>)</p>
-</blockquote>
-<p><strong>依赖注意力机制来绘制输入和输出之间的全局依赖关系，对依赖关系进行建模，而不考虑它们在输入或输出序列中的距离。</strong></p>
-<h2 id="进行并行计算">2.进行并行计算</h2>
-<h1 id="训练">训练</h1>
-<ul>
-<li><p>优化器：Adam，<span class="math inline">\(\beta_1=0.9，\beta_2=0.98，\beta_3=0.98，\epsilon=10^{-9}\)</span></p></li>
-<li><p>学习率：<span class="math display">\[l_{rate}=d_{model}^{-0.5}min(step_num^{-0.5},step_num \times warmup_steps^{-1.5})，\\其中warmup_steps=4000\]</span>
-大概意思是训练步骤的学习率线性增加，随后与步骤数的平方反比根成比例地减少学习率。</p></li>
-<li><p>正则化：</p></li>
-</ul>
-<ol type="1">
-<li>dropout（<span class="math inline">\(P_{dropout}=0.1\)</span>）：
-<ol type="1">
-<li>在每个子层中，残差连接之前使用dropout</li>
-<li>在embedding和positional encoding相加后进行dropout</li>
-</ol></li>
-<li>label smoothing：设置 <span class="math inline">\(\epsilon_{ls}=0.1\)</span> ,虽然对perplexity不利但是有利于提升准确性和BLEU</li>
-</ol>
-<div class="tag-plugin colorful note" color="cyan"><div class="title">Label&nbsp;Smoothing</div><div class="body"><p>设类别数为：<span class="math inline">\(K\)</span><br> 平滑系数为：<span class="math inline">\(\epsilon \in [0,1]\)</span><br> 平滑后的目标分布为<br> <span class="math display">\[ y_i^{LS}= \begin{cases} 1-\epsilon,\ 如果i=真实类别, \\ \frac{\epsilon}{K-1}， elses \end{cases} \]</span></p></div></div>
-]]></content>
-      <tags>
-        <tag>Transformer</tag>
-        <tag>NLP</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Conda的使用</title>
-    <url>/2025/10/26/Conda%E7%9A%84%E4%BD%BF%E7%94%A8/</url>
-    <content><![CDATA[<h1 id="一conda的管理">一、Conda的管理</h1>
-<h2 id="检查conda版本">1.1 检查Conda版本</h2>
-<div class="tag-plugin colorful note" color="green" child="codeblock"><div class="body"><figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">conda <span class="literal">--version</span></span><br></pre></td></tr></table></figure></div></div>
-<h2 id="列出虚拟环境">1.2 列出虚拟环境</h2>
-<div class="tag-plugin colorful note" color="green" child="codeblock"><div class="body"><figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">conda env list</span><br></pre></td></tr></table></figure></div></div>
-<h1 id="二管理虚拟环境">二、管理虚拟环境</h1>
-<h2 id="创建环境">2.1 创建环境</h2>
-<div class="tag-plugin colorful note" color="green" child="codeblock"><div class="body"><figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">conda create <span class="literal">-n</span> env<span class="literal">-name</span> python==<span class="number">3</span>.x</span><br></pre></td></tr></table></figure></div></div>
-<h2 id="激活环境">2.2 激活环境</h2>
-<p>基础环境为<code>base</code>
-<div class="tag-plugin grid"  style="grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));"><div class="cell" style="">
-    <div class="tag-plugin colorful note" color="green" data-child="codeblock"><div class="body"><p>windows：<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">conda activate env<span class="literal">-name</span></span><br></pre></td></tr></table></figure></p></div></div>
-    </div>
-    <div class="cell" style="">
-    <div class="tag-plugin colorful note" color="green" data-child="codeblock"><div class="body"><p>linux：</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">source</span> activate env-name</span><br></pre></td></tr></table></figure></div></div>
-    </div>
-    </div></p>
-<h2 id="退出环境">2.3 退出环境</h2>
-<div class="tag-plugin grid"  style="grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));"><div class="cell" style="">
-    <blockquote><div class="tag-plugin colorful note" color="green" data-child="codeblock"><div class="body"><p>windows：<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">conda deactivate env<span class="literal">-name</span></span><br></pre></td></tr></table></figure></p></div></div></blockquote>
-    </div>
-    <div class="cell" style="">
-    <div class="tag-plugin colorful note" color="green" data-child="codeblock"><div class="body"><p>linux：</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">source</span> deactivate env-name</span><br></pre></td></tr></table></figure></div></div>
-    </div>
-    </div>
-<h2 id="删除环境">2.4 删除环境</h2>
-<div class="tag-plugin colorful note" color="green" child="codeblock"><div class="body"><figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">conda env remove <span class="literal">-n</span> env<span class="literal">-name</span></span><br></pre></td></tr></table></figure></div></div>
-]]></content>
-      <tags>
-        <tag>Conda</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Git教程</title>
-    <url>/2025/12/27/Git%20%E6%95%99%E7%A8%8B/</url>
-    <content><![CDATA[<div class="tag-plugin colorful note" color="cyan"><div class="title">Note</div><div class="body"><p>&lt;&gt; 为必选参数，[] 为可选参数，（）为指名参数默认值，| 为分割多个互斥参数，含义为或，只能选一个</p></div></div>
-<h1 id="初始化">初始化</h1>
-<p>在代码工作区进行初始化操作，生成 .git 文件
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git init</span><br></pre></td></tr></table></figure></p>
-<h1 id="本地仓库操作">本地仓库操作</h1>
-<h2 id="查看文件状态">查看文件状态</h2>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git status</span><br></pre></td></tr></table></figure>
-<h2 id="添加到暂存区">添加到暂存区</h2>
-<p>将文件修改加入暂存区
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git add &lt;文件名&gt;</span><br></pre></td></tr></table></figure></p>
-<h2 id="提交到版本库">提交到版本库</h2>
-<p>将暂存区文件修改提交到版本库
--m 是 message 的意思，必选，文件名可选参数
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git commit -m &quot;&lt;message&gt;&quot; &lt;文件名&gt;</span><br></pre></td></tr></table></figure></p>
-<h2 id="回退到暂存区">回退到暂存区</h2>
-<p>将暂存区的文件取消暂存或者是切换到指定版本
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git reset &lt;文件名&gt;</span><br></pre></td></tr></table></figure></p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git reset --[hard|soft|keep] &lt;版本号&gt;</span><br></pre></td></tr></table></figure>
-<p>hard 是回退到之前的状态，删除现在的代码
-soft 是回退到之前的状态，保留现在的代码</p>
-<h2 id="查看日志">查看日志</h2>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git log</span><br></pre></td></tr></table></figure>
-<h2 id="删除文件">删除文件</h2>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git rm [-r] &lt;fileName&gt;</span><br></pre></td></tr></table></figure>
-<p>这时候工作区和版本库就不一致了，git status 会提示哪些文件被删除了，现在有两个选择要么删掉要么回退
-删掉：
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git commit -m &quot;&lt;message&gt;&quot;</span><br></pre></td></tr></table></figure>
-回退：
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git checkout -- &lt;filename&gt;</span><br></pre></td></tr></table></figure></p>
-<h1 id="远程仓库操作">远程仓库操作</h1>
-<h2 id="查看远程仓库">查看远程仓库</h2>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git remote</span><br></pre></td></tr></table></figure>
-<p><img src="https://raw.githubusercontent.com/L-Virus/Pic/main/Blog/20251216161749302.png" alt="image.png" />
-origin 是远程仓库的别名</p>
-<h3 id="查看详细信息">查看详细信息</h3>
-<p>代号和地址
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git remote -v</span><br></pre></td></tr></table></figure>
-<img src="https://raw.githubusercontent.com/L-Virus/Pic/main/Blog/20251216161922655.png" alt="image.png" /></p>
-<h2 id="添加远程仓库">添加远程仓库</h2>
-<p>将本地仓库与远程仓库相关联（本地先创建仓库的情况下）
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git remote add &lt;shortname&gt; &lt;url&gt;</span><br></pre></td></tr></table></figure>
-例如：
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git remote add origin https://xxxx.git</span><br></pre></td></tr></table></figure></p>
-<h2 id="克隆远程仓库">克隆远程仓库</h2>
-<p>除了代码还有完整的日志信息
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git clone &lt;url&gt;</span><br></pre></td></tr></table></figure></p>
-<h2 id="推送到远程仓库">推送到远程仓库</h2>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git push &lt;remote-name&gt; &lt;branch-name&gt;</span><br></pre></td></tr></table></figure>
-<p>例如：
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git push origin master</span><br></pre></td></tr></table></figure></p>
-<h2 id="拉取远程仓库">拉取远程仓库</h2>
-<p>从远程仓库获取最新版本并合并到本地仓库
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git pull &lt;short-name&gt; &lt;branch-name&gt;</span><br></pre></td></tr></table></figure></p>
-<h1 id="分支操作">分支操作</h1>
-<p>默认分支为 master 分支
-## 查看分支
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git branch [-r|-a]</span><br></pre></td></tr></table></figure>
-<img src="https://raw.githubusercontent.com/L-Virus/Pic/main/Blog/20251216164816122.png" alt="image.png" />
-<code>*</code> 表示当前处在的分支
-<code>-r</code> 查看所有远程分支
-<code>-a</code> 查看所有本地分支和远程分支</p>
-<h2 id="创建分支">创建分支</h2>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git branch &lt;branch-name&gt;</span><br></pre></td></tr></table></figure>
-<h2 id="切换分支">切换分支</h2>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git checkout &lt;branch-name&gt;</span><br></pre></td></tr></table></figure>
-<h2 id="合并分支">合并分支</h2>
-<p>将指定分支合并到当前分支
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git merge &lt;branch-name&gt;</span><br></pre></td></tr></table></figure></p>
-<h2 id="推送分支">推送分支</h2>
-<p>将指定分支推送到远程仓库里
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git push &lt;shortName&gt; &lt;branch-name&gt;</span><br></pre></td></tr></table></figure></p>
-<h2 id="删除分支">删除分支</h2>
-<p>删除指定分支
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git branch -d &lt;branch-name&gt;</span><br></pre></td></tr></table></figure></p>
-<h1 id="标签操作">标签操作</h1>
-<p>打了标签里的内容，发布后是不变的
-## 列出已有标签
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git tag</span><br></pre></td></tr></table></figure></p>
-<h2 id="创建标签">创建标签</h2>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git tag &lt;tag-name&gt;</span><br></pre></td></tr></table></figure>
-<h2 id="将标签推送到远程仓库">将标签推送到远程仓库</h2>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git push &lt;shortName&gt; &lt;tag-name&gt;</span><br></pre></td></tr></table></figure>
-<h2 id="检出标签">检出标签</h2>
-<p>将本地仓库的版本改为标签版本，并且创建分支
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git checkout -b &lt;branch-name&gt; &lt;tag-name&gt;</span><br></pre></td></tr></table></figure></p>
-]]></content>
-      <tags>
-        <tag>Git</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>BERT</title>
     <url>/2025/10/26/BERT/</url>
     <content><![CDATA[<h1 id="模型">模型</h1>
@@ -529,9 +308,102 @@ L_{adv}=l(\theta+r_{adv}) \\
 \]</span></p>
 ]]></content>
       <tags>
-        <tag>NLP</tag>
         <tag>BERT</tag>
+        <tag>NLP</tag>
         <tag>WordEmbedding</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Attention Is All You Need</title>
+    <url>/2025/10/15/Attention%20Is%20All%20You%20Need/</url>
+    <content><![CDATA[<h1 id="模型">模型</h1>
+<div class="tag-plugin image"><div class="image-bg" style="aspect-ratio:930/812;"><img class="lazy" src="https://raw.githubusercontent.com/L-Virus/Pic/main/Blog/20251014145549088.png" data-src="https://raw.githubusercontent.com/L-Virus/Pic/main/Blog/20251014145549088.png" data-fancybox="true"onerror="this.src=&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='2rem' height='2rem' viewBox='0 0 24 24'%3E%3C!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --%3E%3Cpath fill='%23F44336' d='M22 12.698c-.002 1.47-.013 2.718-.096 3.743c-.097 1.19-.296 2.184-.74 3.009a4.2 4.2 0 0 1-.73.983c-.833.833-1.893 1.21-3.237 1.39C15.884 22 14.2 22 12.053 22h-.106c-2.148 0-3.83 0-5.144-.177c-1.343-.18-2.404-.557-3.236-1.39c-.738-.738-1.12-1.656-1.322-2.795c-.2-1.12-.236-2.512-.243-4.241Q1.999 12.737 2 12v-.054c0-2.148 0-3.83.177-5.144c.18-1.343.557-2.404 1.39-3.236s1.893-1.21 3.236-1.39c1.168-.157 2.67-.175 4.499-.177a.697.697 0 1 1 0 1.396c-1.855.002-3.234.018-4.313.163c-1.189.16-1.906.464-2.436.994S3.72 5.8 3.56 6.99C3.397 8.2 3.395 9.788 3.395 12v.784l.932-.814a2.14 2.14 0 0 1 2.922.097l3.99 3.99a1.86 1.86 0 0 0 2.385.207l.278-.195a2.79 2.79 0 0 1 3.471.209l2.633 2.37c.265-.557.423-1.288.507-2.32c.079-.972.09-2.152.091-3.63a.698.698 0 0 1 1.396 0' opacity='.5'/%3E%3Cpath fill='%23F44336' fill-rule='evenodd' d='M17.5 11c-2.121 0-3.182 0-3.841-.659S13 8.621 13 6.5s0-3.182.659-3.841S15.379 2 17.5 2s3.182 0 3.841.659S22 4.379 22 6.5s0 3.182-.659 3.841S19.621 11 17.5 11m-1.47-7.03a.75.75 0 1 0-1.06 1.06l1.47 1.47l-1.47 1.47a.75.75 0 0 0 1.06 1.06l1.47-1.47l1.47 1.47a.75.75 0 1 0 1.06-1.06L18.56 6.5l1.47-1.47a.75.75 0 0 0-1.06-1.06L17.5 5.44z' clip-rule='evenodd'/%3E%3C/svg%3E&quot;"/><div class="lazy-icon" style="background-image:url(https://api.iconify.design/eos-icons:three-dots-loading.svg?color=%231cd0fd);"></div></div></div>
+<div class="tag-plugin image"><div class="image-bg" style="aspect-ratio:1026/546;"><img class="lazy" src="https://raw.githubusercontent.com/L-Virus/Pic/main/Blog/20251014154134637.png" data-src="https://raw.githubusercontent.com/L-Virus/Pic/main/Blog/20251014154134637.png" data-fancybox="true"onerror="this.src=&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='2rem' height='2rem' viewBox='0 0 24 24'%3E%3C!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --%3E%3Cpath fill='%23F44336' d='M22 12.698c-.002 1.47-.013 2.718-.096 3.743c-.097 1.19-.296 2.184-.74 3.009a4.2 4.2 0 0 1-.73.983c-.833.833-1.893 1.21-3.237 1.39C15.884 22 14.2 22 12.053 22h-.106c-2.148 0-3.83 0-5.144-.177c-1.343-.18-2.404-.557-3.236-1.39c-.738-.738-1.12-1.656-1.322-2.795c-.2-1.12-.236-2.512-.243-4.241Q1.999 12.737 2 12v-.054c0-2.148 0-3.83.177-5.144c.18-1.343.557-2.404 1.39-3.236s1.893-1.21 3.236-1.39c1.168-.157 2.67-.175 4.499-.177a.697.697 0 1 1 0 1.396c-1.855.002-3.234.018-4.313.163c-1.189.16-1.906.464-2.436.994S3.72 5.8 3.56 6.99C3.397 8.2 3.395 9.788 3.395 12v.784l.932-.814a2.14 2.14 0 0 1 2.922.097l3.99 3.99a1.86 1.86 0 0 0 2.385.207l.278-.195a2.79 2.79 0 0 1 3.471.209l2.633 2.37c.265-.557.423-1.288.507-2.32c.079-.972.09-2.152.091-3.63a.698.698 0 0 1 1.396 0' opacity='.5'/%3E%3Cpath fill='%23F44336' fill-rule='evenodd' d='M17.5 11c-2.121 0-3.182 0-3.841-.659S13 8.621 13 6.5s0-3.182.659-3.841S15.379 2 17.5 2s3.182 0 3.841.659S22 4.379 22 6.5s0 3.182-.659 3.841S19.621 11 17.5 11m-1.47-7.03a.75.75 0 1 0-1.06 1.06l1.47 1.47l-1.47 1.47a.75.75 0 0 0 1.06 1.06l1.47-1.47l1.47 1.47a.75.75 0 1 0 1.06-1.06L18.56 6.5l1.47-1.47a.75.75 0 0 0-1.06-1.06L17.5 5.44z' clip-rule='evenodd'/%3E%3C/svg%3E&quot;"/><div class="lazy-icon" style="background-image:url(https://api.iconify.design/eos-icons:three-dots-loading.svg?color=%231cd0fd);"></div></div></div>
+<h2 id="input与output">Input与Output</h2>
+<p>个人认为Input与Output之间画一条指向Output的线，毕竟，Output Embedding的输入只是Input Embedding输出的下一个输入，图中提到的shifted right 类似与滑动窗口往右边移动</p>
+<h2 id="positional-encoding">Positional Encoding</h2>
+<p>使用不同频率的 <span class="math inline">\(sin\)</span> 和 <span class="math inline">\(cos\)</span> 函数来作为位置编码，使用两个函数来代表奇数项和偶数项的位置，唯一的超参数为 <span class="math inline">\(d_{model}\)</span> 特征的大小</p>
+<p><span class="math display">\[\displaylines{PE_{(pos,2i)}=sin(pos/10000^{2i/d_{model}}) \\ PE_{pos,2i+1}=cos(pos/10000^{2i/d_{model}})}\]</span></p>
+<p>这样得到一个与输入embedding大小一样的位置编码矩阵，直接加在embedding中</p>
+<div class="tag-plugin colorful note" color="cyan"><div class="title">我们对输入进行分解</div><div class="body"><p><span class="math inline">\(QK^T=(E+P)(E+P)^T=EE^T+EP^T+PE^T+PP^T\)</span> <br> <span class="math inline">\(EE^T\)</span>：表示语义间关系<br> <span class="math inline">\(EP^T,PE^T,PP^T\)</span>：表示引入位置信息的影响</p></div></div>
+<h2 id="scaled-dot-product-attention">Scaled Dot-Product Attention</h2>
+<h3 id="step1">Step1</h3>
+<p>首先关于如何计算出 <span class="math inline">\(Q、K、V\)</span> 矩阵</p>
+<ol type="1">
+<li>将输入的token进行embedding变换成计算机输入的向量格式</li>
+<li>生成三个可学习的参数矩阵 <span class="math inline">\(W_q、W_k、W_v\)</span></li>
+<li>假设有4个输入为 <span class="math inline">\(a_i,i \in [1,2,3,4]\)</span> ，也就是 <span class="math inline">\(X\)</span></li>
+<li><span class="math inline">\(Q\)</span>矩阵为，<span class="math inline">\(W_q \times a_i,i \in [1,2,3,4]\)</span>，也就是 <span class="math inline">\(Q=XW_q\)</span></li>
+<li><span class="math inline">\(K\)</span>矩阵为，<span class="math inline">\(W_k \times a_i,i \in [1,2,3,4]\)</span>，也就是 <span class="math inline">\(K=XW_k\)</span></li>
+<li><span class="math inline">\(V\)</span>矩阵为，<span class="math inline">\(W_v \times a_i,i \in [1,2,3,4]\)</span>，也就是 <span class="math inline">\(V=XW_v\)</span></li>
+</ol>
+<h3 id="step-2">Step 2</h3>
+<p>计算注意力
+<span class="math display">\[Attention(Q,K,V)=Softmax(\frac{QK^{T}}{\sqrt(d_k)})V\]</span>
+其中 <span class="math inline">\(Q\)</span> 为 <span class="math inline">\(R^q\)</span> 上大小为 <span class="math inline">\(n \times d_k\)</span> ，<span class="math inline">\(K\)</span> 为 <span class="math inline">\(R^k\)</span> 上大小为 <span class="math inline">\(m \times d_k\)</span> , <span class="math inline">\(d_k\)</span> 为自定义超参，<span class="math inline">\(V\)</span> 为 <span class="math inline">\(R^v\)</span> 上大小为 <span class="math inline">\(m \times d_v\)</span> ，最终的大小为 <span class="math inline">\(n \times m\)</span>
+Softmax是对最后一个维度进行操作，也就是词汇表维度</p>
+<h2 id="cross-attention">Cross-Attention</h2>
+<p>使用编码器的输出与对应 <span class="math inline">\(W_k、W_v\)</span> 矩阵进行相乘后计算出 <span class="math inline">\(K和V\)</span>，而解码器中的输入作为 <span class="math inline">\(Q\)</span>，进行计算。实际上，<span class="math inline">\(Q\)</span> 为上一个输入之后的隐状态，K和V则表示为新的输入
+<span class="math display">\[Q=XW_Q，K=YW_K,V=YW_V\]</span></p>
+<h2 id="muti-head-attention">Muti-Head Attention</h2>
+<p><span class="math display">\[\displaylines{MutiHead(Q,K,V)=Concat(head_1,...head_h)W^o \\ Where \ head_i=Attention(QW_i^q,KW_i^k,VW_i^v)}\]</span></p>
+<blockquote>
+<p>“In this work we employ h = 8 parallel attention layers, or heads. For each of these we use dk = dv = dmodel/h = 64. Due to the reduced dimension of each head, the total computational cost is similar to that of single-head attention with full dimensionality.” (<a href="zotero://select/library/items/G6X2KQIM">Vaswani 等, 2023, p. 5</a>) (<a href="zotero://open-pdf/library/items/FUHEISF4?page=5&amp;annotation=G7AVD64S">pdf</a>)</p>
+</blockquote>
+<p>针对head数来缩小d的维度（具体是使用W的大小来设置的），这样能在最后concat的时候保持维度一致
+<span class="math inline">\(W\)</span> 的作用：1. 缩小d的维度。2.学习更多不同的参数</p>
+<p>并且使用多个头是为了学习不同的模式，所以使用不同的权重信息</p>
+<h2 id="ffn">FFN</h2>
+<p><span class="math display">\[FFN=max(0,xW_1+b_1)W_2+b_2\]</span>
+其中，<span class="math inline">\(max(0,xW_1+b_1)\)</span> 为第一次线性变化后使用ReLU进行非线性变化</p>
+<blockquote>
+<p>“The dimensionality of input and output is dmodel = 512, and the inner-layer has dimensionality dff = 2048.” (<a href="zotero://select/library/items/G6X2KQIM">Vaswani 等, 2023, p. 5</a>) (<a href="zotero://open-pdf/library/items/FUHEISF4?page=5&amp;annotation=EHGMVRWZ">pdf</a>)</p>
+</blockquote>
+<p><span class="math inline">\(W_1\)</span> 将 <span class="math inline">\(x\)</span> 的512维度扩大到2048，<span class="math inline">\(W_2\)</span> 则又转会512</p>
+<h1 id="tricks">Tricks</h1>
+<h2 id="masked-attention">1.Masked Attention</h2>
+<blockquote>
+<p>“We also modify the self-attention sub-layer in the decoder stack to prevent positions from attending to subsequent positions.” (<a href="zotero://select/library/items/G6X2KQIM">Vaswani 等, 2023, p. 3</a>) (<a href="zotero://open-pdf/library/items/FUHEISF4?page=3&amp;annotation=QHVW3RXQ">pdf</a>) mask attention</p>
+</blockquote>
+<p>因为在编码器中是使用自回归模型，模型会看到整个的输入，然而在预测也就是在解码器中，我们不需要看到全部输入，故使用掩码注意力来遮盖后面的部分</p>
+<h1 id="改进">改进</h1>
+<h2 id="针对rnn">1.针对RNN</h2>
+<blockquote>
+<p>“This inherently sequential nature precludes parallelization within training examples,” (<a href="zotero://select/library/items/G6X2KQIM">Vaswani 等, 2023, p. 2</a>) (<a href="zotero://open-pdf/library/items/FUHEISF4?page=2&amp;annotation=TT3D2AXL">pdf</a>)</p>
+</blockquote>
+<p>这种固有的顺序性质排除了训练示例中的并行化</p>
+<h2 id="norm">2.Norm</h2>
+<p>（在三维中，对谁norm，就是把谁完整的切下来）
+使用LayerNorm，而不是BathNorm</p>
+<div class="tag-plugin colorful note" color="cyan"><div class="title">Norm</div><div class="body"><p>在Transformer中输入的sequence序列长度不一，如果进行batchnorm的话会导致统计量不稳定</p></div></div>
+<h1 id="优势">优势</h1>
+<h2 id="利用依赖关系进行建模">1.利用依赖关系进行建模</h2>
+<blockquote>
+<p>“allowing modeling of dependencies without regard to their distance in the input or output sequences” (<a href="zotero://select/library/items/G6X2KQIM">Vaswani 等, 2023, p. 2</a>) (<a href="zotero://open-pdf/library/items/FUHEISF4?page=2&amp;annotation=LCTN8AVG">pdf</a>)
+“In this work we propose the Transformer, a model architecture eschewing recurrence and instead relying entirely on an attention mechanism to draw global dependencies between input and output.” (<a href="zotero://select/library/items/G6X2KQIM">Vaswani 等, 2023, p. 2</a>) (<a href="zotero://open-pdf/library/items/FUHEISF4?page=2&amp;annotation=7DS8R5LT">pdf</a>)</p>
+</blockquote>
+<p><strong>依赖注意力机制来绘制输入和输出之间的全局依赖关系，对依赖关系进行建模，而不考虑它们在输入或输出序列中的距离。</strong></p>
+<h2 id="进行并行计算">2.进行并行计算</h2>
+<h1 id="训练">训练</h1>
+<ul>
+<li><p>优化器：Adam，<span class="math inline">\(\beta_1=0.9，\beta_2=0.98，\beta_3=0.98，\epsilon=10^{-9}\)</span></p></li>
+<li><p>学习率：<span class="math display">\[l_{rate}=d_{model}^{-0.5}min(step_num^{-0.5},step_num \times warmup_steps^{-1.5})，\\其中warmup_steps=4000\]</span>
+大概意思是训练步骤的学习率线性增加，随后与步骤数的平方反比根成比例地减少学习率。</p></li>
+<li><p>正则化：</p></li>
+</ul>
+<ol type="1">
+<li>dropout（<span class="math inline">\(P_{dropout}=0.1\)</span>）：
+<ol type="1">
+<li>在每个子层中，残差连接之前使用dropout</li>
+<li>在embedding和positional encoding相加后进行dropout</li>
+</ol></li>
+<li>label smoothing：设置 <span class="math inline">\(\epsilon_{ls}=0.1\)</span> ,虽然对perplexity不利但是有利于提升准确性和BLEU</li>
+</ol>
+<div class="tag-plugin colorful note" color="cyan"><div class="title">Label&nbsp;Smoothing</div><div class="body"><p>设类别数为：<span class="math inline">\(K\)</span><br> 平滑系数为：<span class="math inline">\(\epsilon \in [0,1]\)</span><br> 平滑后的目标分布为<br> <span class="math display">\[ y_i^{LS}= \begin{cases} 1-\epsilon,\ 如果i=真实类别, \\ \frac{\epsilon}{K-1}， elses \end{cases} \]</span></p></div></div>
+]]></content>
+      <tags>
+        <tag>NLP</tag>
+        <tag>Transformer</tag>
       </tags>
   </entry>
   <entry>
@@ -554,6 +426,151 @@ L_{adv}=l(\theta+r_{adv}) \\
 <p>修改 .ssh/config 文件（不存在则新建，Windows 一般在 C:.ssh)文件夹下面新建一个文件 config，注意没有任何后缀名，就叫 config）：
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 必须是 github.com</span></span><br><span class="line">Host github.com</span><br><span class="line">   HostName github.com</span><br><span class="line">   User git</span><br><span class="line">   <span class="comment"># 走 HTTP 代理</span></span><br><span class="line">   ProxyCommand connect -H 127.0.0.1:7890 %h %p</span><br></pre></td></tr></table></figure></p>
 </blockquote>
+]]></content>
+      <tags>
+        <tag>Git</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Conda的使用</title>
+    <url>/2025/10/26/Conda%E7%9A%84%E4%BD%BF%E7%94%A8/</url>
+    <content><![CDATA[<h1 id="一conda的管理">一、Conda的管理</h1>
+<h2 id="检查conda版本">1.1 检查Conda版本</h2>
+<div class="tag-plugin colorful note" color="green" child="codeblock"><div class="body"><figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">conda <span class="literal">--version</span></span><br></pre></td></tr></table></figure></div></div>
+<h2 id="列出虚拟环境">1.2 列出虚拟环境</h2>
+<div class="tag-plugin colorful note" color="green" child="codeblock"><div class="body"><figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">conda env list</span><br></pre></td></tr></table></figure></div></div>
+<h1 id="二管理虚拟环境">二、管理虚拟环境</h1>
+<h2 id="创建环境">2.1 创建环境</h2>
+<div class="tag-plugin colorful note" color="green" child="codeblock"><div class="body"><figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">conda create <span class="literal">-n</span> env<span class="literal">-name</span> python==<span class="number">3</span>.x</span><br></pre></td></tr></table></figure></div></div>
+<h2 id="激活环境">2.2 激活环境</h2>
+<p>基础环境为<code>base</code>
+<div class="tag-plugin grid"  style="grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));"><div class="cell" style="">
+    <div class="tag-plugin colorful note" color="green" data-child="codeblock"><div class="body"><p>windows：<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">conda activate env<span class="literal">-name</span></span><br></pre></td></tr></table></figure></p></div></div>
+    </div>
+    <div class="cell" style="">
+    <div class="tag-plugin colorful note" color="green" data-child="codeblock"><div class="body"><p>linux：</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">source</span> activate env-name</span><br></pre></td></tr></table></figure></div></div>
+    </div>
+    </div></p>
+<h2 id="退出环境">2.3 退出环境</h2>
+<div class="tag-plugin grid"  style="grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));"><div class="cell" style="">
+    <blockquote><div class="tag-plugin colorful note" color="green" data-child="codeblock"><div class="body"><p>windows：<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">conda deactivate env<span class="literal">-name</span></span><br></pre></td></tr></table></figure></p></div></div></blockquote>
+    </div>
+    <div class="cell" style="">
+    <div class="tag-plugin colorful note" color="green" data-child="codeblock"><div class="body"><p>linux：</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">source</span> deactivate env-name</span><br></pre></td></tr></table></figure></div></div>
+    </div>
+    </div>
+<h2 id="删除环境">2.4 删除环境</h2>
+<div class="tag-plugin colorful note" color="green" child="codeblock"><div class="body"><figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">conda env remove <span class="literal">-n</span> env<span class="literal">-name</span></span><br></pre></td></tr></table></figure></div></div>
+]]></content>
+      <tags>
+        <tag>Conda</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Stellar设置专栏（topic）</title>
+    <url>/2025/09/24/Stellar%E8%AE%BE%E7%BD%AE%E4%B8%93%E6%A0%8F/</url>
+    <content><![CDATA[<div class="tag-plugin quot p"><p class="content"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from BoxIcons Solid by Atisa - https://creativecommons.org/licenses/by/4.0/ --><path fill="currentColor" d="M3.691 6.292C5.094 4.771 7.217 4 10 4h1v2.819l-.804.161c-1.37.274-2.323.813-2.833 1.604A2.9 2.9 0 0 0 6.925 10H10a1 1 0 0 1 1 1v7c0 1.103-.897 2-2 2H3a1 1 0 0 1-1-1v-5l.003-2.919c-.009-.111-.199-2.741 1.688-4.789M20 20h-6a1 1 0 0 1-1-1v-5l.003-2.919c-.009-.111-.199-2.741 1.688-4.789C16.094 4.771 18.217 4 21 4h1v2.819l-.804.161c-1.37.274-2.323.813-2.833 1.604A2.9 2.9 0 0 0 17.925 10H21a1 1 0 0 1 1 1v7c0 1.103-.897 2-2 2"/></svg><span class="text">专栏文件夹的配置</span><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from BoxIcons Solid by Atisa - https://creativecommons.org/licenses/by/4.0/ --><path fill="currentColor" d="M20.309 17.708C22.196 15.66 22.006 13.03 22 13V5a1 1 0 0 0-1-1h-6c-1.103 0-2 .897-2 2v7a1 1 0 0 0 1 1h3.078a2.9 2.9 0 0 1-.429 1.396c-.508.801-1.465 1.348-2.846 1.624l-.803.16V20h1c2.783 0 4.906-.771 6.309-2.292m-11.007 0C11.19 15.66 10.999 13.03 10.993 13V5a1 1 0 0 0-1-1h-6c-1.103 0-2 .897-2 2v7a1 1 0 0 0 1 1h3.078a2.9 2.9 0 0 1-.429 1.396c-.508.801-1.465 1.348-2.846 1.624l-.803.16V20h1c2.783 0 4.906-.771 6.309-2.292"/></svg></p></div>
+<p>在 <code>blog/source/_data/</code> 文件夹中创建一个 <code>topic</code> 文件夹，在其中放入各个专栏的描述文件，文件名就是项目的 <code>id</code>：</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">name:</span> <span class="string">Stellar</span> <span class="comment"># 在面包屑导航上会显示较短的名字</span></span><br><span class="line"><span class="attr">title:</span> <span class="string">Stellar</span> <span class="bullet">-</span> <span class="string">每个人的独立博客</span> <span class="comment"># 在列表页会显示完整的专栏标题</span></span><br><span class="line"><span class="attr">description:</span> <span class="string">关于搭建独立博客相关的知识和经验分享，以及</span> <span class="string">Stellar</span> <span class="string">的高级用法、版本更新相关的注意事项。</span></span><br><span class="line"><span class="attr">order_by:</span> <span class="string">-date</span> <span class="comment"># 默认是按发布日期倒序排序</span></span><br><span class="line"><span class="attr">icon:</span> <span class="string">https://xxx</span></span><br></pre></td></tr></table></figure>
+<div class="tag-plugin image"><div class="image-bg" style="aspect-ratio:1319/646;"><img class="lazy" src="https://raw.githubusercontent.com/L-Virus/Pic/main/Blog/20250924193619450.png" data-src="https://raw.githubusercontent.com/L-Virus/Pic/main/Blog/20250924193619450.png" data-fancybox="true"onerror="this.src=&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='2rem' height='2rem' viewBox='0 0 24 24'%3E%3C!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --%3E%3Cpath fill='%23F44336' d='M22 12.698c-.002 1.47-.013 2.718-.096 3.743c-.097 1.19-.296 2.184-.74 3.009a4.2 4.2 0 0 1-.73.983c-.833.833-1.893 1.21-3.237 1.39C15.884 22 14.2 22 12.053 22h-.106c-2.148 0-3.83 0-5.144-.177c-1.343-.18-2.404-.557-3.236-1.39c-.738-.738-1.12-1.656-1.322-2.795c-.2-1.12-.236-2.512-.243-4.241Q1.999 12.737 2 12v-.054c0-2.148 0-3.83.177-5.144c.18-1.343.557-2.404 1.39-3.236s1.893-1.21 3.236-1.39c1.168-.157 2.67-.175 4.499-.177a.697.697 0 1 1 0 1.396c-1.855.002-3.234.018-4.313.163c-1.189.16-1.906.464-2.436.994S3.72 5.8 3.56 6.99C3.397 8.2 3.395 9.788 3.395 12v.784l.932-.814a2.14 2.14 0 0 1 2.922.097l3.99 3.99a1.86 1.86 0 0 0 2.385.207l.278-.195a2.79 2.79 0 0 1 3.471.209l2.633 2.37c.265-.557.423-1.288.507-2.32c.079-.972.09-2.152.091-3.63a.698.698 0 0 1 1.396 0' opacity='.5'/%3E%3Cpath fill='%23F44336' fill-rule='evenodd' d='M17.5 11c-2.121 0-3.182 0-3.841-.659S13 8.621 13 6.5s0-3.182.659-3.841S15.379 2 17.5 2s3.182 0 3.841.659S22 4.379 22 6.5s0 3.182-.659 3.841S19.621 11 17.5 11m-1.47-7.03a.75.75 0 1 0-1.06 1.06l1.47 1.47l-1.47 1.47a.75.75 0 0 0 1.06 1.06l1.47-1.47l1.47 1.47a.75.75 0 1 0 1.06-1.06L18.56 6.5l1.47-1.47a.75.75 0 0 0-1.06-1.06L17.5 5.44z' clip-rule='evenodd'/%3E%3C/svg%3E&quot;"/><div class="lazy-icon" style="background-image:url(https://api.iconify.design/eos-icons:three-dots-loading.svg?color=%231cd0fd);"></div></div></div>
+<div class="tag-plugin quot p"><p class="content"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from BoxIcons Solid by Atisa - https://creativecommons.org/licenses/by/4.0/ --><path fill="currentColor" d="M3.691 6.292C5.094 4.771 7.217 4 10 4h1v2.819l-.804.161c-1.37.274-2.323.813-2.833 1.604A2.9 2.9 0 0 0 6.925 10H10a1 1 0 0 1 1 1v7c0 1.103-.897 2-2 2H3a1 1 0 0 1-1-1v-5l.003-2.919c-.009-.111-.199-2.741 1.688-4.789M20 20h-6a1 1 0 0 1-1-1v-5l.003-2.919c-.009-.111-.199-2.741 1.688-4.789C16.094 4.771 18.217 4 21 4h1v2.819l-.804.161c-1.37.274-2.323.813-2.833 1.604A2.9 2.9 0 0 0 17.925 10H21a1 1 0 0 1 1 1v7c0 1.103-.897 2-2 2"/></svg><span class="text">文章中的引用</span><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from BoxIcons Solid by Atisa - https://creativecommons.org/licenses/by/4.0/ --><path fill="currentColor" d="M20.309 17.708C22.196 15.66 22.006 13.03 22 13V5a1 1 0 0 0-1-1h-6c-1.103 0-2 .897-2 2v7a1 1 0 0 0 1 1h3.078a2.9 2.9 0 0 1-.429 1.396c-.508.801-1.465 1.348-2.846 1.624l-.803.16V20h1c2.783 0 4.906-.771 6.309-2.292m-11.007 0C11.19 15.66 10.999 13.03 10.993 13V5a1 1 0 0 0-1-1h-6c-1.103 0-2 .897-2 2v7a1 1 0 0 0 1 1h3.078a2.9 2.9 0 0 1-.429 1.396c-.508.801-1.465 1.348-2.846 1.624l-.803.16V20h1c2.783 0 4.906-.771 6.309-2.292"/></svg></p></div>
+<p>在此专栏文章的 <code>md</code> 文件的 <code>front-matter</code> 部分指定所属的专栏 <code>id</code> （即上一步创建的文件名 <code>Stelalr设置专栏.yml</code>）</p>
+<div class="tag-plugin image"><div class="image-bg" style="aspect-ratio:717/138;"><img class="lazy" src="https://raw.githubusercontent.com/L-Virus/Pic/main/Blog/20250924193647230.png" data-src="https://raw.githubusercontent.com/L-Virus/Pic/main/Blog/20250924193647230.png" data-fancybox="true"onerror="this.src=&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='2rem' height='2rem' viewBox='0 0 24 24'%3E%3C!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --%3E%3Cpath fill='%23F44336' d='M22 12.698c-.002 1.47-.013 2.718-.096 3.743c-.097 1.19-.296 2.184-.74 3.009a4.2 4.2 0 0 1-.73.983c-.833.833-1.893 1.21-3.237 1.39C15.884 22 14.2 22 12.053 22h-.106c-2.148 0-3.83 0-5.144-.177c-1.343-.18-2.404-.557-3.236-1.39c-.738-.738-1.12-1.656-1.322-2.795c-.2-1.12-.236-2.512-.243-4.241Q1.999 12.737 2 12v-.054c0-2.148 0-3.83.177-5.144c.18-1.343.557-2.404 1.39-3.236s1.893-1.21 3.236-1.39c1.168-.157 2.67-.175 4.499-.177a.697.697 0 1 1 0 1.396c-1.855.002-3.234.018-4.313.163c-1.189.16-1.906.464-2.436.994S3.72 5.8 3.56 6.99C3.397 8.2 3.395 9.788 3.395 12v.784l.932-.814a2.14 2.14 0 0 1 2.922.097l3.99 3.99a1.86 1.86 0 0 0 2.385.207l.278-.195a2.79 2.79 0 0 1 3.471.209l2.633 2.37c.265-.557.423-1.288.507-2.32c.079-.972.09-2.152.091-3.63a.698.698 0 0 1 1.396 0' opacity='.5'/%3E%3Cpath fill='%23F44336' fill-rule='evenodd' d='M17.5 11c-2.121 0-3.182 0-3.841-.659S13 8.621 13 6.5s0-3.182.659-3.841S15.379 2 17.5 2s3.182 0 3.841.659S22 4.379 22 6.5s0 3.182-.659 3.841S19.621 11 17.5 11m-1.47-7.03a.75.75 0 1 0-1.06 1.06l1.47 1.47l-1.47 1.47a.75.75 0 0 0 1.06 1.06l1.47-1.47l1.47 1.47a.75.75 0 1 0 1.06-1.06L18.56 6.5l1.47-1.47a.75.75 0 0 0-1.06-1.06L17.5 5.44z' clip-rule='evenodd'/%3E%3C/svg%3E&quot;"/><div class="lazy-icon" style="background-image:url(https://api.iconify.design/eos-icons:three-dots-loading.svg?color=%231cd0fd);"></div></div></div>
+]]></content>
+      <tags>
+        <tag>stellar</tag>
+        <tag>Hexo</tag>
+        <tag>瞎折腾</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Git教程</title>
+    <url>/2025/12/27/Git%20%E6%95%99%E7%A8%8B/</url>
+    <content><![CDATA[<div class="tag-plugin colorful note" color="cyan"><div class="title">Note</div><div class="body"><p>&lt;&gt; 为必选参数，[] 为可选参数，（）为指名参数默认值，| 为分割多个互斥参数，含义为或，只能选一个</p></div></div>
+<h1 id="初始化">初始化</h1>
+<p>在代码工作区进行初始化操作，生成 .git 文件
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git init</span><br></pre></td></tr></table></figure></p>
+<h1 id="本地仓库操作">本地仓库操作</h1>
+<h2 id="查看文件状态">查看文件状态</h2>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git status</span><br></pre></td></tr></table></figure>
+<h2 id="添加到暂存区">添加到暂存区</h2>
+<p>将文件修改加入暂存区
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git add &lt;文件名&gt;</span><br></pre></td></tr></table></figure></p>
+<h2 id="提交到版本库">提交到版本库</h2>
+<p>将暂存区文件修改提交到版本库
+-m 是 message 的意思，必选，文件名可选参数
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git commit -m &quot;&lt;message&gt;&quot; &lt;文件名&gt;</span><br></pre></td></tr></table></figure></p>
+<h2 id="回退到暂存区">回退到暂存区</h2>
+<p>将暂存区的文件取消暂存或者是切换到指定版本
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git reset &lt;文件名&gt;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git reset --[hard|soft|keep] &lt;版本号&gt;</span><br></pre></td></tr></table></figure>
+<p>hard 是回退到之前的状态，删除现在的代码
+soft 是回退到之前的状态，保留现在的代码</p>
+<h2 id="查看日志">查看日志</h2>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git log</span><br></pre></td></tr></table></figure>
+<h2 id="删除文件">删除文件</h2>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git rm [-r] &lt;fileName&gt;</span><br></pre></td></tr></table></figure>
+<p>这时候工作区和版本库就不一致了，git status 会提示哪些文件被删除了，现在有两个选择要么删掉要么回退
+删掉：
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git commit -m &quot;&lt;message&gt;&quot;</span><br></pre></td></tr></table></figure>
+回退：
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git checkout -- &lt;filename&gt;</span><br></pre></td></tr></table></figure></p>
+<h1 id="远程仓库操作">远程仓库操作</h1>
+<h2 id="查看远程仓库">查看远程仓库</h2>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git remote</span><br></pre></td></tr></table></figure>
+<p><img src="https://raw.githubusercontent.com/L-Virus/Pic/main/Blog/20251216161749302.png" alt="image.png" />
+origin 是远程仓库的别名</p>
+<h3 id="查看详细信息">查看详细信息</h3>
+<p>代号和地址
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git remote -v</span><br></pre></td></tr></table></figure>
+<img src="https://raw.githubusercontent.com/L-Virus/Pic/main/Blog/20251216161922655.png" alt="image.png" /></p>
+<h2 id="添加远程仓库">添加远程仓库</h2>
+<p>将本地仓库与远程仓库相关联（本地先创建仓库的情况下）
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git remote add &lt;shortname&gt; &lt;url&gt;</span><br></pre></td></tr></table></figure>
+例如：
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git remote add origin https://xxxx.git</span><br></pre></td></tr></table></figure></p>
+<h2 id="克隆远程仓库">克隆远程仓库</h2>
+<p>除了代码还有完整的日志信息
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git clone &lt;url&gt;</span><br></pre></td></tr></table></figure></p>
+<h2 id="推送到远程仓库">推送到远程仓库</h2>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git push &lt;remote-name&gt; &lt;branch-name&gt;</span><br></pre></td></tr></table></figure>
+<p>例如：
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git push origin master</span><br></pre></td></tr></table></figure></p>
+<h2 id="拉取远程仓库">拉取远程仓库</h2>
+<p>从远程仓库获取最新版本并合并到本地仓库
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git pull &lt;short-name&gt; &lt;branch-name&gt;</span><br></pre></td></tr></table></figure></p>
+<h1 id="分支操作">分支操作</h1>
+<p>默认分支为 master 分支
+## 查看分支
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git branch [-r|-a]</span><br></pre></td></tr></table></figure>
+<img src="https://raw.githubusercontent.com/L-Virus/Pic/main/Blog/20251216164816122.png" alt="image.png" />
+<code>*</code> 表示当前处在的分支
+<code>-r</code> 查看所有远程分支
+<code>-a</code> 查看所有本地分支和远程分支</p>
+<h2 id="创建分支">创建分支</h2>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git branch &lt;branch-name&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="切换分支">切换分支</h2>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git checkout &lt;branch-name&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="合并分支">合并分支</h2>
+<p>将指定分支合并到当前分支
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git merge &lt;branch-name&gt;</span><br></pre></td></tr></table></figure></p>
+<h2 id="推送分支">推送分支</h2>
+<p>将指定分支推送到远程仓库里
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git push &lt;shortName&gt; &lt;branch-name&gt;</span><br></pre></td></tr></table></figure></p>
+<h2 id="删除分支">删除分支</h2>
+<p>删除指定分支
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git branch -d &lt;branch-name&gt;</span><br></pre></td></tr></table></figure></p>
+<h1 id="标签操作">标签操作</h1>
+<p>打了标签里的内容，发布后是不变的
+## 列出已有标签
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git tag</span><br></pre></td></tr></table></figure></p>
+<h2 id="创建标签">创建标签</h2>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git tag &lt;tag-name&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="将标签推送到远程仓库">将标签推送到远程仓库</h2>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git push &lt;shortName&gt; &lt;tag-name&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="检出标签">检出标签</h2>
+<p>将本地仓库的版本改为标签版本，并且创建分支
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git checkout -b &lt;branch-name&gt; &lt;tag-name&gt;</span><br></pre></td></tr></table></figure></p>
 ]]></content>
       <tags>
         <tag>Git</tag>
@@ -607,42 +624,6 @@ U-net使用加权损失的方法：接触细胞之间的分离背景标签在损
         <tag>U-net</tag>
         <tag>CV</tag>
       </tags>
-  </entry>
-  <entry>
-    <title>Stellar设置专栏（topic）</title>
-    <url>/2025/09/24/Stellar%E8%AE%BE%E7%BD%AE%E4%B8%93%E6%A0%8F/</url>
-    <content><![CDATA[<div class="tag-plugin quot p"><p class="content"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from BoxIcons Solid by Atisa - https://creativecommons.org/licenses/by/4.0/ --><path fill="currentColor" d="M3.691 6.292C5.094 4.771 7.217 4 10 4h1v2.819l-.804.161c-1.37.274-2.323.813-2.833 1.604A2.9 2.9 0 0 0 6.925 10H10a1 1 0 0 1 1 1v7c0 1.103-.897 2-2 2H3a1 1 0 0 1-1-1v-5l.003-2.919c-.009-.111-.199-2.741 1.688-4.789M20 20h-6a1 1 0 0 1-1-1v-5l.003-2.919c-.009-.111-.199-2.741 1.688-4.789C16.094 4.771 18.217 4 21 4h1v2.819l-.804.161c-1.37.274-2.323.813-2.833 1.604A2.9 2.9 0 0 0 17.925 10H21a1 1 0 0 1 1 1v7c0 1.103-.897 2-2 2"/></svg><span class="text">专栏文件夹的配置</span><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from BoxIcons Solid by Atisa - https://creativecommons.org/licenses/by/4.0/ --><path fill="currentColor" d="M20.309 17.708C22.196 15.66 22.006 13.03 22 13V5a1 1 0 0 0-1-1h-6c-1.103 0-2 .897-2 2v7a1 1 0 0 0 1 1h3.078a2.9 2.9 0 0 1-.429 1.396c-.508.801-1.465 1.348-2.846 1.624l-.803.16V20h1c2.783 0 4.906-.771 6.309-2.292m-11.007 0C11.19 15.66 10.999 13.03 10.993 13V5a1 1 0 0 0-1-1h-6c-1.103 0-2 .897-2 2v7a1 1 0 0 0 1 1h3.078a2.9 2.9 0 0 1-.429 1.396c-.508.801-1.465 1.348-2.846 1.624l-.803.16V20h1c2.783 0 4.906-.771 6.309-2.292"/></svg></p></div>
-<p>在 <code>blog/source/_data/</code> 文件夹中创建一个 <code>topic</code> 文件夹，在其中放入各个专栏的描述文件，文件名就是项目的 <code>id</code>：</p>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">name:</span> <span class="string">Stellar</span> <span class="comment"># 在面包屑导航上会显示较短的名字</span></span><br><span class="line"><span class="attr">title:</span> <span class="string">Stellar</span> <span class="bullet">-</span> <span class="string">每个人的独立博客</span> <span class="comment"># 在列表页会显示完整的专栏标题</span></span><br><span class="line"><span class="attr">description:</span> <span class="string">关于搭建独立博客相关的知识和经验分享，以及</span> <span class="string">Stellar</span> <span class="string">的高级用法、版本更新相关的注意事项。</span></span><br><span class="line"><span class="attr">order_by:</span> <span class="string">-date</span> <span class="comment"># 默认是按发布日期倒序排序</span></span><br><span class="line"><span class="attr">icon:</span> <span class="string">https://xxx</span></span><br></pre></td></tr></table></figure>
-<div class="tag-plugin image"><div class="image-bg" style="aspect-ratio:1319/646;"><img class="lazy" src="https://raw.githubusercontent.com/L-Virus/Pic/main/Blog/20250924193619450.png" data-src="https://raw.githubusercontent.com/L-Virus/Pic/main/Blog/20250924193619450.png" data-fancybox="true"onerror="this.src=&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='2rem' height='2rem' viewBox='0 0 24 24'%3E%3C!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --%3E%3Cpath fill='%23F44336' d='M22 12.698c-.002 1.47-.013 2.718-.096 3.743c-.097 1.19-.296 2.184-.74 3.009a4.2 4.2 0 0 1-.73.983c-.833.833-1.893 1.21-3.237 1.39C15.884 22 14.2 22 12.053 22h-.106c-2.148 0-3.83 0-5.144-.177c-1.343-.18-2.404-.557-3.236-1.39c-.738-.738-1.12-1.656-1.322-2.795c-.2-1.12-.236-2.512-.243-4.241Q1.999 12.737 2 12v-.054c0-2.148 0-3.83.177-5.144c.18-1.343.557-2.404 1.39-3.236s1.893-1.21 3.236-1.39c1.168-.157 2.67-.175 4.499-.177a.697.697 0 1 1 0 1.396c-1.855.002-3.234.018-4.313.163c-1.189.16-1.906.464-2.436.994S3.72 5.8 3.56 6.99C3.397 8.2 3.395 9.788 3.395 12v.784l.932-.814a2.14 2.14 0 0 1 2.922.097l3.99 3.99a1.86 1.86 0 0 0 2.385.207l.278-.195a2.79 2.79 0 0 1 3.471.209l2.633 2.37c.265-.557.423-1.288.507-2.32c.079-.972.09-2.152.091-3.63a.698.698 0 0 1 1.396 0' opacity='.5'/%3E%3Cpath fill='%23F44336' fill-rule='evenodd' d='M17.5 11c-2.121 0-3.182 0-3.841-.659S13 8.621 13 6.5s0-3.182.659-3.841S15.379 2 17.5 2s3.182 0 3.841.659S22 4.379 22 6.5s0 3.182-.659 3.841S19.621 11 17.5 11m-1.47-7.03a.75.75 0 1 0-1.06 1.06l1.47 1.47l-1.47 1.47a.75.75 0 0 0 1.06 1.06l1.47-1.47l1.47 1.47a.75.75 0 1 0 1.06-1.06L18.56 6.5l1.47-1.47a.75.75 0 0 0-1.06-1.06L17.5 5.44z' clip-rule='evenodd'/%3E%3C/svg%3E&quot;"/><div class="lazy-icon" style="background-image:url(https://api.iconify.design/eos-icons:three-dots-loading.svg?color=%231cd0fd);"></div></div></div>
-<div class="tag-plugin quot p"><p class="content"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from BoxIcons Solid by Atisa - https://creativecommons.org/licenses/by/4.0/ --><path fill="currentColor" d="M3.691 6.292C5.094 4.771 7.217 4 10 4h1v2.819l-.804.161c-1.37.274-2.323.813-2.833 1.604A2.9 2.9 0 0 0 6.925 10H10a1 1 0 0 1 1 1v7c0 1.103-.897 2-2 2H3a1 1 0 0 1-1-1v-5l.003-2.919c-.009-.111-.199-2.741 1.688-4.789M20 20h-6a1 1 0 0 1-1-1v-5l.003-2.919c-.009-.111-.199-2.741 1.688-4.789C16.094 4.771 18.217 4 21 4h1v2.819l-.804.161c-1.37.274-2.323.813-2.833 1.604A2.9 2.9 0 0 0 17.925 10H21a1 1 0 0 1 1 1v7c0 1.103-.897 2-2 2"/></svg><span class="text">文章中的引用</span><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from BoxIcons Solid by Atisa - https://creativecommons.org/licenses/by/4.0/ --><path fill="currentColor" d="M20.309 17.708C22.196 15.66 22.006 13.03 22 13V5a1 1 0 0 0-1-1h-6c-1.103 0-2 .897-2 2v7a1 1 0 0 0 1 1h3.078a2.9 2.9 0 0 1-.429 1.396c-.508.801-1.465 1.348-2.846 1.624l-.803.16V20h1c2.783 0 4.906-.771 6.309-2.292m-11.007 0C11.19 15.66 10.999 13.03 10.993 13V5a1 1 0 0 0-1-1h-6c-1.103 0-2 .897-2 2v7a1 1 0 0 0 1 1h3.078a2.9 2.9 0 0 1-.429 1.396c-.508.801-1.465 1.348-2.846 1.624l-.803.16V20h1c2.783 0 4.906-.771 6.309-2.292"/></svg></p></div>
-<p>在此专栏文章的 <code>md</code> 文件的 <code>front-matter</code> 部分指定所属的专栏 <code>id</code> （即上一步创建的文件名 <code>Stelalr设置专栏.yml</code>）</p>
-<div class="tag-plugin image"><div class="image-bg" style="aspect-ratio:717/138;"><img class="lazy" src="https://raw.githubusercontent.com/L-Virus/Pic/main/Blog/20250924193647230.png" data-src="https://raw.githubusercontent.com/L-Virus/Pic/main/Blog/20250924193647230.png" data-fancybox="true"onerror="this.src=&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='2rem' height='2rem' viewBox='0 0 24 24'%3E%3C!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --%3E%3Cpath fill='%23F44336' d='M22 12.698c-.002 1.47-.013 2.718-.096 3.743c-.097 1.19-.296 2.184-.74 3.009a4.2 4.2 0 0 1-.73.983c-.833.833-1.893 1.21-3.237 1.39C15.884 22 14.2 22 12.053 22h-.106c-2.148 0-3.83 0-5.144-.177c-1.343-.18-2.404-.557-3.236-1.39c-.738-.738-1.12-1.656-1.322-2.795c-.2-1.12-.236-2.512-.243-4.241Q1.999 12.737 2 12v-.054c0-2.148 0-3.83.177-5.144c.18-1.343.557-2.404 1.39-3.236s1.893-1.21 3.236-1.39c1.168-.157 2.67-.175 4.499-.177a.697.697 0 1 1 0 1.396c-1.855.002-3.234.018-4.313.163c-1.189.16-1.906.464-2.436.994S3.72 5.8 3.56 6.99C3.397 8.2 3.395 9.788 3.395 12v.784l.932-.814a2.14 2.14 0 0 1 2.922.097l3.99 3.99a1.86 1.86 0 0 0 2.385.207l.278-.195a2.79 2.79 0 0 1 3.471.209l2.633 2.37c.265-.557.423-1.288.507-2.32c.079-.972.09-2.152.091-3.63a.698.698 0 0 1 1.396 0' opacity='.5'/%3E%3Cpath fill='%23F44336' fill-rule='evenodd' d='M17.5 11c-2.121 0-3.182 0-3.841-.659S13 8.621 13 6.5s0-3.182.659-3.841S15.379 2 17.5 2s3.182 0 3.841.659S22 4.379 22 6.5s0 3.182-.659 3.841S19.621 11 17.5 11m-1.47-7.03a.75.75 0 1 0-1.06 1.06l1.47 1.47l-1.47 1.47a.75.75 0 0 0 1.06 1.06l1.47-1.47l1.47 1.47a.75.75 0 1 0 1.06-1.06L18.56 6.5l1.47-1.47a.75.75 0 0 0-1.06-1.06L17.5 5.44z' clip-rule='evenodd'/%3E%3C/svg%3E&quot;"/><div class="lazy-icon" style="background-image:url(https://api.iconify.design/eos-icons:three-dots-loading.svg?color=%231cd0fd);"></div></div></div>
-]]></content>
-      <tags>
-        <tag>stellar</tag>
-        <tag>Hexo</tag>
-        <tag>瞎折腾</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Hello World</title>
-    <url>/2025/09/23/hello-world/</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="quick-start">Quick Start</h2>
-<h3 id="create-a-new-post">Create a new post</h3>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="run-server">Run server</h3>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="generate-static-files">Generate static files</h3>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="deploy-to-remote-sites">Deploy to remote sites</h3>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-]]></content>
   </entry>
   <entry>
     <title>Word Embedding</title>
@@ -929,9 +910,29 @@ M =U\Sigma V^{T}
       </tags>
   </entry>
   <entry>
+    <title>Hello World</title>
+    <url>/2025/09/23/hello-world/</url>
+    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<h2 id="quick-start">Quick Start</h2>
+<h3 id="create-a-new-post">Create a new post</h3>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="run-server">Run server</h3>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="generate-static-files">Generate static files</h3>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="deploy-to-remote-sites">Deploy to remote sites</h3>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+]]></content>
+  </entry>
+  <entry>
     <title>uv 配置</title>
     <url>/2025/12/27/uv%E9%85%8D%E7%BD%AE/</url>
-    <content><![CDATA[<h1 id="安装uv">安装uv</h1>
+    <content><![CDATA[<p>uv 的设计理念跟conda不太一样，uv 的环境管理是项目级别的，而 conda 是集中系统级别的</p>
+<h1 id="安装uv">安装uv</h1>
 <h2 id="windows">Windows</h2>
 <p>首先是设置安装位置</p>
 <div class="tag-plugin colorful note" color="green" child="codeblock"><div class="body"><figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="variable">$env:UV_INSTALL_DIR</span> = <span class="string">&quot;D:\uv\pyuv&quot;</span></span><br></pre></td></tr></table></figure></div></div>

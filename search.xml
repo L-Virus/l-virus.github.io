@@ -1,6 +1,214 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>几种线性回归模型及特征筛选对抗多重共线性</title>
+    <url>/2026/07/02/ML/%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B%E5%8F%8A%E7%89%B9%E5%BE%81%E7%AD%9B%E9%80%89%E5%AF%B9%E6%8A%97%E5%A4%9A%E9%87%8D%E5%85%B1%E7%BA%BF%E6%80%A7/</url>
+    <content><![CDATA[<p>本文基于2025学年-2026学年第二学期的两门课《商业数据分析》与《金融大数据统计方法与实证》中的<strong>线性回归模型</strong>内容进行总结。</p>
+<p>主要包括<strong>线性回归</strong>（全模型回归），<strong>正则化惩罚回归</strong>（Ridge，Lasso，ElasticNet），<strong>逐步回归</strong>（AIC、BIC），针对的是<strong>分类</strong>任务</p>
+<h1 id="一线性回归模型">一、线性回归模型</h1>
+<h2 id="一元线性回归">1.1 一元线性回归</h2>
+<p>对于任意一个样本（<span class="math inline">\(x_i,y_i\)</span>），学习一个函数 <span class="math inline">\(f(x)=wx+b\)</span>，使得 <span class="math inline">\(f(x_i) \approx y_i\)</span></p>
+<p>传统线性模型是基于 OLS 计算求解，也就是普通最小二乘法（Ordinary Least Squares）</p>
+<p><span class="math inline">\((w^{*},\ b^{*})=arg\min \limits_{(w,b)}\sum^m_i(y_i-x_i-b)^2\)</span></p>
+<p>通过对 <span class="math inline">\(w\)</span> 和 <span class="math inline">\(b\)</span> 求导令倒数为0，得到闭式解</p>
+<p><span class="math inline">\(w=\frac{\sum^m_iy_i(x_i-\overline x)}{\sum^m_ix^2_i-\frac{1}{m}(\sum^m_{i=1}x_i)^2}\)</span>， <span class="math inline">\(b=\frac{1}{m}\sum^m_{i=1}(y_i-wx_i)\)</span></p>
+<h2 id="多元线性回归">1.2 多元线性回归</h2>
+<p>对于包含 <span class="math inline">\(d\)</span> 个属性的样本 <span class="math inline">\(x_i=(x_{i1}, x_{i2},\dots,x_{id})\)</span>，学习 <span class="math inline">\(f(x_i)=w^Tx_i+b\)</span>，使得<span class="math inline">\(f(x_i)\approx y_i\)</span></p>
+<p>将<span class="math inline">\(w\)</span> 和 <span class="math inline">\(b\)</span> 合并成向量 <span class="math inline">\(\hat{w}=(w;b)\)</span>， 数据集表示为矩阵 <span class="math inline">\(X\)</span>，输出为向量 <span class="math inline">\(y=(y_1,\dots,y_2)\)</span></p>
+<p>同样使用最小二乘法求解，最小化<span class="math inline">\((y-X\hat w)^T(y-X\hat w)\)</span>，当<span class="math inline">\(X^TX\)</span> 满秩时，有闭式解 <span class="math inline">\(\hat w^*=(X^TX)^{-1}X^Ty\)</span></p>
+<p>当非满秩时，采用正则化处理</p>
+<h1 id="二广义线性回归">二、广义线性回归</h1>
+<p>线性回归可以通过<strong>连接函数</strong>（link function）扩展到非线性输出的场景（例如分类），形成广义线性回归</p>
+<p>一般形式：<span class="math inline">\(y=g^{-1}(w^Tx+b)\)</span></p>
+<p>其中<span class="math inline">\(g(·)\)</span>为连接函数（单调可微），作用是将线性模型的输出映射到目标变量的取值空间。</p>
+<h2 id="逻辑回归">2.1 逻辑回归</h2>
+<p>针对一个二分类任务，我们需要将线性回归模型的结果输出到一个离散空间<span class="math inline">\(\{0,1\}\)</span>中，核心问题是选择合适的连接函数</p>
+<p>以<strong>逻辑回归</strong>为例，其连接函数为对数几率，也就是<strong>正例和反例的相对可能性的对数</strong>，也称<strong>对数几率回归</strong>
+<span class="math display">\[
+ln\frac{y}{1-y}=w^Tx+b
+\]</span>
+求解<span class="math inline">\(y\)</span>得到<span class="math inline">\(y=\frac{1}{1+e^{-z}}\)</span>，其中<span class="math inline">\(z=w^T+b\)</span>，也就是说<span class="math inline">\(y=\frac{1}{1+e^{-(w^Tx+b)}}\)</span></p>
+<p>从包含 <span class="math inline">\(z\)</span> 的式子来看就是一个单调可微的<strong>Sigmoid</strong>函数</p>
+<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="https://raw.githubusercontent.com/L-Virus/Pic/main/Blog/20260702130654711.png" data-src="https://raw.githubusercontent.com/L-Virus/Pic/main/Blog/20260702130654711.png" data-fancybox="true"onerror="this.src=&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='2rem' height='2rem' viewBox='0 0 24 24'%3E%3C!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --%3E%3Cpath fill='%23F44336' d='M22 12.698c-.002 1.47-.013 2.718-.096 3.743c-.097 1.19-.296 2.184-.74 3.009a4.2 4.2 0 0 1-.73.983c-.833.833-1.893 1.21-3.237 1.39C15.884 22 14.2 22 12.053 22h-.106c-2.148 0-3.83 0-5.144-.177c-1.343-.18-2.404-.557-3.236-1.39c-.738-.738-1.12-1.656-1.322-2.795c-.2-1.12-.236-2.512-.243-4.241Q1.999 12.737 2 12v-.054c0-2.148 0-3.83.177-5.144c.18-1.343.557-2.404 1.39-3.236s1.893-1.21 3.236-1.39c1.168-.157 2.67-.175 4.499-.177a.697.697 0 1 1 0 1.396c-1.855.002-3.234.018-4.313.163c-1.189.16-1.906.464-2.436.994S3.72 5.8 3.56 6.99C3.397 8.2 3.395 9.788 3.395 12v.784l.932-.814a2.14 2.14 0 0 1 2.922.097l3.99 3.99a1.86 1.86 0 0 0 2.385.207l.278-.195a2.79 2.79 0 0 1 3.471.209l2.633 2.37c.265-.557.423-1.288.507-2.32c.079-.972.09-2.152.091-3.63a.698.698 0 0 1 1.396 0' opacity='.5'/%3E%3Cpath fill='%23F44336' fill-rule='evenodd' d='M17.5 11c-2.121 0-3.182 0-3.841-.659S13 8.621 13 6.5s0-3.182.659-3.841S15.379 2 17.5 2s3.182 0 3.841.659S22 4.379 22 6.5s0 3.182-.659 3.841S19.621 11 17.5 11m-1.47-7.03a.75.75 0 1 0-1.06 1.06l1.47 1.47l-1.47 1.47a.75.75 0 0 0 1.06 1.06l1.47-1.47l1.47 1.47a.75.75 0 1 0 1.06-1.06L18.56 6.5l1.47-1.47a.75.75 0 0 0-1.06-1.06L17.5 5.44z' clip-rule='evenodd'/%3E%3C/svg%3E&quot;"/><div class="lazy-icon" style="background-image:url(https://api.iconify.design/eos-icons:three-dots-loading.svg?color=%231cd0fd);"></div></div></div>
+<p>注意求解出来的为概率，还需借助<strong>阈值</strong>来判断该样本是正还是负例</p>
+<h1 id="三多重共线性">三、多重共线性</h1>
+<p>线性回归模型中其中一个重要假设前提就是，数据没有共线性，但事实上多重共线性是存在的</p>
+<p>如何解决多重共线性？</p>
+<p>传统手工的方法是，计算VIF值，VIF值越大，多重共线性越严重，一般认为大于10时就是严重的，严格是5。也有利用容差值=1/VIF来计算，大于0.1则没有，严格是大于0.2</p>
+<p>当然也有，计算相关系数，和显著性</p>
+<p>最后利用模型来自主筛选包含了一下两种类型的模型，正则化惩罚的线性回归，基于信息准则的逐步回归模型</p>
+<h1 id="四正则化惩罚的线性回归">四、正则化惩罚的线性回归</h1>
+<p>正则化惩罚主要有三种，基于L2惩罚的Ridge回归，基于L1惩罚的Lasso回归，基于L1和L2惩罚的Elastic Net回归</p>
+<h2 id="ridge回归">4.1 Ridge回归</h2>
+<p>为了解决过拟合和多重共线性</p>
+<p>岭回归的优化目标是：
+<span class="math display">\[
+\hat w_{ridge}=arg\min \limits_{w}(\frac{1}{n}\sum^n_{i=1}(y_i-\hat y_i)^2+\lambda \lVert w \rVert_2^2)
+\]</span>
+其中<span class="math inline">\(\lambda\)</span>为超参数，核心就是后面的<strong>L2范数</strong>，这个项的作用就是<strong>惩罚过大的权重</strong></p>
+<p><span class="math inline">\(\lambda\)</span> 是正则化强度超参数，当<span class="math inline">\(\lambda\)</span>为0时，退化为普通的线性回归，当<span class="math inline">\(\lambda\)</span>逐渐增大后，模型为了让整体优化变小，只能不断降低权重<span class="math inline">\(w\)</span>，当<span class="math inline">\(\lambda\)</span>为无穷时，<span class="math inline">\(w\)</span>将无限接近于0，会导致整个模型过于简单，容易过拟合</p>
+<p>核心思想：在拟合训练数据和保持权重较小的trade-off</p>
+<h2 id="lasso">4.2 Lasso</h2>
+<p>Least Absolute Shrinkage and Selection Operator</p>
+<p>通过引入<strong>L1 正则化</strong>，使得某些回归系数趋近于零，甚至直接变为零，从而实现变量选择的功能</p>
+<p>Lasso的优化目标是：
+<span class="math display">\[
+\hat w_{lasso}=arg\min \limits_{w}(\sum^{n}_{i=1}(y_i-\hat y_i)^2+\lambda \lvert w \rvert)
+\]</span>
+其中<span class="math inline">\(\lambda\)</span>为超参数</p>
+<p>核心思想：通过强行压缩<span class="math inline">\(w\)</span>为0，进行变量选择</p>
+<h2 id="elastic-net">4.3 Elastic Net</h2>
+<p>根据<strong>Ridge</strong>的<strong>L2范数</strong>收缩<span class="math inline">\(w\)</span>，和 <strong>Lasso</strong>的<strong>L1范数</strong>压缩<span class="math inline">\(w\)</span>到0</p>
+<p>如果单独使用上述两种模型，可能会出现全部变量都保留失去筛选的能力，筛选了部分变量但是其他都丢弃了。</p>
+<p>因此Elastic Net 的提出是为了既能变量筛选又能保持模型稳定</p>
+<p>Elastic Net的优化目标：
+<span class="math display">\[
+\hat{w}_{elastic}=arg\min\limits_{w}(\frac{1}{n}\sum^n_{i=1}(y_i-\hat y_i)^2+\lambda(\alpha\sum_{j=1}^p\lvert w_j \rvert+(1-\alpha)\sum^p_{j=1}w_j^2))
+\]</span>
+其中<span class="math inline">\(\lambda\)</span>和<span class="math inline">\(\alpha\)</span>都为超参数，<span class="math inline">\(\lambda\)</span>控制正则化强度，<span class="math inline">\(\alpha\)</span>控制两种范数惩罚的比例，<span class="math inline">\(p\)</span>是变量个数</p>
+<p>引入了<strong>L1</strong>和<strong>L2</strong>两种范数</p>
+<h1 id="五逐步回归">五、逐步回归</h1>
+<p>逐步回归是一种变量选择的方法，通过从大量的变量中提取对label有显著影响的变量，缓解一定的多重共线性</p>
+<p>基于信息准则的逐步回归包括，前向、后向、双向，以及AIC与BIC（以这两种为例子）</p>
+<h2 id="方向选择">5.1 方向选择</h2>
+<h4 id="前向选择">（1）前向选择</h4>
+<p>初始：仅包含截距项</p>
+<p>过程：1. 在所有未被选入的变量中，选择一个对因变量有显著影响的变量</p>
+<pre><code>    2. 评估加入变量后的模型性能
+    2. 重复前面两步，直到没有自变量显著提高模型性能</code></pre>
+<h4 id="后向剔除">（2）后向剔除</h4>
+<p>初始：包含所有变量</p>
+<p>过程：1. 评估所有变量，将最不显著的变量剔除</p>
+<ol start="2" type="1">
+<li>重新评估性能</li>
+<li>重复前面两步，直到所有变量均显著</li>
+</ol>
+<h4 id="双向">（3）双向</h4>
+<ol type="1">
+<li>类似向前选择，逐步添加自变量。</li>
+<li>在每一步添加后，评估现有自变量的显著性，剔除不显著的变量。</li>
+<li>重复添加和剔除，直到模型收敛。</li>
+</ol>
+<h2 id="设置准则">5.2 设置准则</h2>
+<p>可以设置显著性水平也可以利用信息准则，AIC 和 BIC 都是越小越好</p>
+<h3 id="aic信息准则">5.2.1 AIC信息准则</h3>
+<p>赤池信息量准则（Akaike information criterion，AIC）
+<span class="math display">\[
+AIC=2k-2ln(L)
+\]</span>
+其中，<span class="math inline">\(k\)</span>是参数的数量，<span class="math inline">\(L\)</span>是似然函数</p>
+<h3 id="bic信息准则">5.2.2 BIC信息准则</h3>
+<p><span class="math display">\[
+BIC=kln(n)-2ln(L)
+\]</span></p>
+<p>其中，<span class="math inline">\(k\)</span>是模型参数个数，<span class="math inline">\(n\)</span>是样本数量</p>
+<p>惩罚力度比AIC强，即考虑到了模型复杂度，也考虑到了拟合结果</p>
+<h1 id="六实验见解">六、实验见解</h1>
+<p>基于目前实验探索的阶段，提出一些见解，如有错解，请联系修改！</p>
+<p>在划分数据集为训练、验证和测试后，利用某个指标对各个模型进行训练，针对每个模型的阈值利用验证集和某个指标进行测试，最后将测试集送入模型进行测试，输出对应概率，利用测试出来的最佳阈值来进行测试模型最终的性能。</p>
+]]></content>
+      <tags>
+        <tag>ML</tag>
+        <tag>线性模型</tag>
+        <tag>线性回归</tag>
+        <tag>正则化</tag>
+        <tag>逐步回归</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Git教程</title>
+    <url>/2025/12/27/Git/Git%20%E6%95%99%E7%A8%8B/</url>
+    <content><![CDATA[<div class="tag-plugin colorful note" color="cyan"><div class="title">Note</div><div class="body"><p>&lt;&gt; 为必选参数，[] 为可选参数，（）为指名参数默认值，| 为分割多个互斥参数，含义为或，只能选一个</p></div></div>
+<h1 id="初始化">初始化</h1>
+<p>在代码工作区进行初始化操作，生成 .git 文件
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git init</span><br></pre></td></tr></table></figure></p>
+<h1 id="本地仓库操作">本地仓库操作</h1>
+<h2 id="查看文件状态">查看文件状态</h2>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git status</span><br></pre></td></tr></table></figure>
+<h2 id="添加到暂存区">添加到暂存区</h2>
+<p>将文件修改加入暂存区
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git add &lt;文件名&gt;</span><br></pre></td></tr></table></figure></p>
+<h2 id="提交到版本库">提交到版本库</h2>
+<p>将暂存区文件修改提交到版本库
+-m 是 message 的意思，必选，文件名可选参数
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git commit -m &quot;&lt;message&gt;&quot; &lt;文件名&gt;</span><br></pre></td></tr></table></figure></p>
+<h2 id="回退到暂存区">回退到暂存区</h2>
+<p>将暂存区的文件取消暂存或者是切换到指定版本
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git reset &lt;文件名&gt;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git reset --[hard|soft|keep] &lt;版本号&gt;</span><br></pre></td></tr></table></figure>
+<p>hard 是回退到之前的状态，删除现在的代码
+soft 是回退到之前的状态，保留现在的代码</p>
+<h2 id="查看日志">查看日志</h2>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git log</span><br></pre></td></tr></table></figure>
+<h2 id="删除文件">删除文件</h2>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git rm [-r] &lt;fileName&gt;</span><br></pre></td></tr></table></figure>
+<p>这时候工作区和版本库就不一致了，git status 会提示哪些文件被删除了，现在有两个选择要么删掉要么回退
+删掉：
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git commit -m &quot;&lt;message&gt;&quot;</span><br></pre></td></tr></table></figure>
+回退：
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git checkout -- &lt;filename&gt;</span><br></pre></td></tr></table></figure></p>
+<h1 id="远程仓库操作">远程仓库操作</h1>
+<h2 id="查看远程仓库">查看远程仓库</h2>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git remote</span><br></pre></td></tr></table></figure>
+<p><img src="https://raw.githubusercontent.com/L-Virus/Pic/main/Blog/20251216161749302.png" alt="image.png" />
+origin 是远程仓库的别名</p>
+<h3 id="查看详细信息">查看详细信息</h3>
+<p>代号和地址
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git remote -v</span><br></pre></td></tr></table></figure>
+<img src="https://raw.githubusercontent.com/L-Virus/Pic/main/Blog/20251216161922655.png" alt="image.png" /></p>
+<h2 id="添加远程仓库">添加远程仓库</h2>
+<p>将本地仓库与远程仓库相关联（本地先创建仓库的情况下）
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git remote add &lt;shortname&gt; &lt;url&gt;</span><br></pre></td></tr></table></figure>
+例如：
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git remote add origin https://xxxx.git</span><br></pre></td></tr></table></figure></p>
+<h2 id="克隆远程仓库">克隆远程仓库</h2>
+<p>除了代码还有完整的日志信息
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git clone &lt;url&gt;</span><br></pre></td></tr></table></figure></p>
+<h2 id="推送到远程仓库">推送到远程仓库</h2>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git push &lt;remote-name&gt; &lt;branch-name&gt;</span><br></pre></td></tr></table></figure>
+<p>例如：
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git push origin master</span><br></pre></td></tr></table></figure></p>
+<h2 id="拉取远程仓库">拉取远程仓库</h2>
+<p>从远程仓库获取最新版本并合并到本地仓库
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git pull &lt;short-name&gt; &lt;branch-name&gt;</span><br></pre></td></tr></table></figure></p>
+<h1 id="分支操作">分支操作</h1>
+<p>默认分支为 master 分支
+## 查看分支
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git branch [-r|-a]</span><br></pre></td></tr></table></figure>
+<img src="https://raw.githubusercontent.com/L-Virus/Pic/main/Blog/20251216164816122.png" alt="image.png" />
+<code>*</code> 表示当前处在的分支
+<code>-r</code> 查看所有远程分支
+<code>-a</code> 查看所有本地分支和远程分支</p>
+<h2 id="创建分支">创建分支</h2>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git branch &lt;branch-name&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="切换分支">切换分支</h2>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git checkout &lt;branch-name&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="合并分支">合并分支</h2>
+<p>将指定分支合并到当前分支
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git merge &lt;branch-name&gt;</span><br></pre></td></tr></table></figure></p>
+<h2 id="推送分支">推送分支</h2>
+<p>将指定分支推送到远程仓库里
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git push &lt;shortName&gt; &lt;branch-name&gt;</span><br></pre></td></tr></table></figure></p>
+<h2 id="删除分支">删除分支</h2>
+<p>删除指定分支
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git branch -d &lt;branch-name&gt;</span><br></pre></td></tr></table></figure></p>
+<h1 id="标签操作">标签操作</h1>
+<p>打了标签里的内容，发布后是不变的
+## 列出已有标签
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git tag</span><br></pre></td></tr></table></figure></p>
+<h2 id="创建标签">创建标签</h2>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git tag &lt;tag-name&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="将标签推送到远程仓库">将标签推送到远程仓库</h2>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git push &lt;shortName&gt; &lt;tag-name&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="检出标签">检出标签</h2>
+<p>将本地仓库的版本改为标签版本，并且创建分支
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git checkout -b &lt;branch-name&gt; &lt;tag-name&gt;</span><br></pre></td></tr></table></figure></p>
+]]></content>
+      <tags>
+        <tag>Git</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Conda的使用</title>
     <url>/2025/10/26/Conda/Conda%E7%9A%84%E4%BD%BF%E7%94%A8/</url>
     <content><![CDATA[<h1 id="一conda的管理">一、Conda的管理</h1>
@@ -36,6 +244,25 @@
       </tags>
   </entry>
   <entry>
+    <title>Hello World</title>
+    <url>/2025/09/23/hello-world/</url>
+    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<h2 id="quick-start">Quick Start</h2>
+<h3 id="create-a-new-post">Create a new post</h3>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="run-server">Run server</h3>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="generate-static-files">Generate static files</h3>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="deploy-to-remote-sites">Deploy to remote sites</h3>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+]]></content>
+  </entry>
+  <entry>
     <title>Git配置proxy</title>
     <url>/2025/09/24/Git/Git%E9%85%8D%E7%BD%AEproxy/</url>
     <content><![CDATA[<h1 id="查看git配置">查看git配置</h1>
@@ -61,23 +288,21 @@
       </tags>
   </entry>
   <entry>
-    <title>Hello World</title>
-    <url>/2025/09/23/hello-world/</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="quick-start">Quick Start</h2>
-<h3 id="create-a-new-post">Create a new post</h3>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="run-server">Run server</h3>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="generate-static-files">Generate static files</h3>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="deploy-to-remote-sites">Deploy to remote sites</h3>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+    <title>Stellar设置专栏（topic）</title>
+    <url>/2025/09/24/Stellar/Stellar%E8%AE%BE%E7%BD%AE%E4%B8%93%E6%A0%8F/</url>
+    <content><![CDATA[<div class="tag-plugin quot p"><p class="content"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from BoxIcons Solid by Atisa - https://creativecommons.org/licenses/by/4.0/ --><path fill="currentColor" d="M3.691 6.292C5.094 4.771 7.217 4 10 4h1v2.819l-.804.161c-1.37.274-2.323.813-2.833 1.604A2.9 2.9 0 0 0 6.925 10H10a1 1 0 0 1 1 1v7c0 1.103-.897 2-2 2H3a1 1 0 0 1-1-1v-5l.003-2.919c-.009-.111-.199-2.741 1.688-4.789M20 20h-6a1 1 0 0 1-1-1v-5l.003-2.919c-.009-.111-.199-2.741 1.688-4.789C16.094 4.771 18.217 4 21 4h1v2.819l-.804.161c-1.37.274-2.323.813-2.833 1.604A2.9 2.9 0 0 0 17.925 10H21a1 1 0 0 1 1 1v7c0 1.103-.897 2-2 2"/></svg><span class="text">专栏文件夹的配置</span><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from BoxIcons Solid by Atisa - https://creativecommons.org/licenses/by/4.0/ --><path fill="currentColor" d="M20.309 17.708C22.196 15.66 22.006 13.03 22 13V5a1 1 0 0 0-1-1h-6c-1.103 0-2 .897-2 2v7a1 1 0 0 0 1 1h3.078a2.9 2.9 0 0 1-.429 1.396c-.508.801-1.465 1.348-2.846 1.624l-.803.16V20h1c2.783 0 4.906-.771 6.309-2.292m-11.007 0C11.19 15.66 10.999 13.03 10.993 13V5a1 1 0 0 0-1-1h-6c-1.103 0-2 .897-2 2v7a1 1 0 0 0 1 1h3.078a2.9 2.9 0 0 1-.429 1.396c-.508.801-1.465 1.348-2.846 1.624l-.803.16V20h1c2.783 0 4.906-.771 6.309-2.292"/></svg></p></div>
+<p>在 <code>blog/source/_data/</code> 文件夹中创建一个 <code>topic</code> 文件夹，在其中放入各个专栏的描述文件，文件名就是项目的 <code>id</code>：</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">name:</span> <span class="string">Stellar</span> <span class="comment"># 在面包屑导航上会显示较短的名字</span></span><br><span class="line"><span class="attr">title:</span> <span class="string">Stellar</span> <span class="bullet">-</span> <span class="string">每个人的独立博客</span> <span class="comment"># 在列表页会显示完整的专栏标题</span></span><br><span class="line"><span class="attr">description:</span> <span class="string">关于搭建独立博客相关的知识和经验分享，以及</span> <span class="string">Stellar</span> <span class="string">的高级用法、版本更新相关的注意事项。</span></span><br><span class="line"><span class="attr">order_by:</span> <span class="string">-date</span> <span class="comment"># 默认是按发布日期倒序排序</span></span><br><span class="line"><span class="attr">icon:</span> <span class="string">https://xxx</span></span><br></pre></td></tr></table></figure>
+<div class="tag-plugin image"><div class="image-bg" style="aspect-ratio:1319/646;"><img class="lazy" src="https://raw.githubusercontent.com/L-Virus/Pic/main/Blog/20250924193619450.png" data-src="https://raw.githubusercontent.com/L-Virus/Pic/main/Blog/20250924193619450.png" data-fancybox="true"onerror="this.src=&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='2rem' height='2rem' viewBox='0 0 24 24'%3E%3C!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --%3E%3Cpath fill='%23F44336' d='M22 12.698c-.002 1.47-.013 2.718-.096 3.743c-.097 1.19-.296 2.184-.74 3.009a4.2 4.2 0 0 1-.73.983c-.833.833-1.893 1.21-3.237 1.39C15.884 22 14.2 22 12.053 22h-.106c-2.148 0-3.83 0-5.144-.177c-1.343-.18-2.404-.557-3.236-1.39c-.738-.738-1.12-1.656-1.322-2.795c-.2-1.12-.236-2.512-.243-4.241Q1.999 12.737 2 12v-.054c0-2.148 0-3.83.177-5.144c.18-1.343.557-2.404 1.39-3.236s1.893-1.21 3.236-1.39c1.168-.157 2.67-.175 4.499-.177a.697.697 0 1 1 0 1.396c-1.855.002-3.234.018-4.313.163c-1.189.16-1.906.464-2.436.994S3.72 5.8 3.56 6.99C3.397 8.2 3.395 9.788 3.395 12v.784l.932-.814a2.14 2.14 0 0 1 2.922.097l3.99 3.99a1.86 1.86 0 0 0 2.385.207l.278-.195a2.79 2.79 0 0 1 3.471.209l2.633 2.37c.265-.557.423-1.288.507-2.32c.079-.972.09-2.152.091-3.63a.698.698 0 0 1 1.396 0' opacity='.5'/%3E%3Cpath fill='%23F44336' fill-rule='evenodd' d='M17.5 11c-2.121 0-3.182 0-3.841-.659S13 8.621 13 6.5s0-3.182.659-3.841S15.379 2 17.5 2s3.182 0 3.841.659S22 4.379 22 6.5s0 3.182-.659 3.841S19.621 11 17.5 11m-1.47-7.03a.75.75 0 1 0-1.06 1.06l1.47 1.47l-1.47 1.47a.75.75 0 0 0 1.06 1.06l1.47-1.47l1.47 1.47a.75.75 0 1 0 1.06-1.06L18.56 6.5l1.47-1.47a.75.75 0 0 0-1.06-1.06L17.5 5.44z' clip-rule='evenodd'/%3E%3C/svg%3E&quot;"/><div class="lazy-icon" style="background-image:url(https://api.iconify.design/eos-icons:three-dots-loading.svg?color=%231cd0fd);"></div></div></div>
+<div class="tag-plugin quot p"><p class="content"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from BoxIcons Solid by Atisa - https://creativecommons.org/licenses/by/4.0/ --><path fill="currentColor" d="M3.691 6.292C5.094 4.771 7.217 4 10 4h1v2.819l-.804.161c-1.37.274-2.323.813-2.833 1.604A2.9 2.9 0 0 0 6.925 10H10a1 1 0 0 1 1 1v7c0 1.103-.897 2-2 2H3a1 1 0 0 1-1-1v-5l.003-2.919c-.009-.111-.199-2.741 1.688-4.789M20 20h-6a1 1 0 0 1-1-1v-5l.003-2.919c-.009-.111-.199-2.741 1.688-4.789C16.094 4.771 18.217 4 21 4h1v2.819l-.804.161c-1.37.274-2.323.813-2.833 1.604A2.9 2.9 0 0 0 17.925 10H21a1 1 0 0 1 1 1v7c0 1.103-.897 2-2 2"/></svg><span class="text">文章中的引用</span><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from BoxIcons Solid by Atisa - https://creativecommons.org/licenses/by/4.0/ --><path fill="currentColor" d="M20.309 17.708C22.196 15.66 22.006 13.03 22 13V5a1 1 0 0 0-1-1h-6c-1.103 0-2 .897-2 2v7a1 1 0 0 0 1 1h3.078a2.9 2.9 0 0 1-.429 1.396c-.508.801-1.465 1.348-2.846 1.624l-.803.16V20h1c2.783 0 4.906-.771 6.309-2.292m-11.007 0C11.19 15.66 10.999 13.03 10.993 13V5a1 1 0 0 0-1-1h-6c-1.103 0-2 .897-2 2v7a1 1 0 0 0 1 1h3.078a2.9 2.9 0 0 1-.429 1.396c-.508.801-1.465 1.348-2.846 1.624l-.803.16V20h1c2.783 0 4.906-.771 6.309-2.292"/></svg></p></div>
+<p>在此专栏文章的 <code>md</code> 文件的 <code>front-matter</code> 部分指定所属的专栏 <code>id</code> （即上一步创建的文件名 <code>Stelalr设置专栏.yml</code>）</p>
+<div class="tag-plugin image"><div class="image-bg" style="aspect-ratio:717/138;"><img class="lazy" src="https://raw.githubusercontent.com/L-Virus/Pic/main/Blog/20250924193647230.png" data-src="https://raw.githubusercontent.com/L-Virus/Pic/main/Blog/20250924193647230.png" data-fancybox="true"onerror="this.src=&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='2rem' height='2rem' viewBox='0 0 24 24'%3E%3C!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --%3E%3Cpath fill='%23F44336' d='M22 12.698c-.002 1.47-.013 2.718-.096 3.743c-.097 1.19-.296 2.184-.74 3.009a4.2 4.2 0 0 1-.73.983c-.833.833-1.893 1.21-3.237 1.39C15.884 22 14.2 22 12.053 22h-.106c-2.148 0-3.83 0-5.144-.177c-1.343-.18-2.404-.557-3.236-1.39c-.738-.738-1.12-1.656-1.322-2.795c-.2-1.12-.236-2.512-.243-4.241Q1.999 12.737 2 12v-.054c0-2.148 0-3.83.177-5.144c.18-1.343.557-2.404 1.39-3.236s1.893-1.21 3.236-1.39c1.168-.157 2.67-.175 4.499-.177a.697.697 0 1 1 0 1.396c-1.855.002-3.234.018-4.313.163c-1.189.16-1.906.464-2.436.994S3.72 5.8 3.56 6.99C3.397 8.2 3.395 9.788 3.395 12v.784l.932-.814a2.14 2.14 0 0 1 2.922.097l3.99 3.99a1.86 1.86 0 0 0 2.385.207l.278-.195a2.79 2.79 0 0 1 3.471.209l2.633 2.37c.265-.557.423-1.288.507-2.32c.079-.972.09-2.152.091-3.63a.698.698 0 0 1 1.396 0' opacity='.5'/%3E%3Cpath fill='%23F44336' fill-rule='evenodd' d='M17.5 11c-2.121 0-3.182 0-3.841-.659S13 8.621 13 6.5s0-3.182.659-3.841S15.379 2 17.5 2s3.182 0 3.841.659S22 4.379 22 6.5s0 3.182-.659 3.841S19.621 11 17.5 11m-1.47-7.03a.75.75 0 1 0-1.06 1.06l1.47 1.47l-1.47 1.47a.75.75 0 0 0 1.06 1.06l1.47-1.47l1.47 1.47a.75.75 0 1 0 1.06-1.06L18.56 6.5l1.47-1.47a.75.75 0 0 0-1.06-1.06L17.5 5.44z' clip-rule='evenodd'/%3E%3C/svg%3E&quot;"/><div class="lazy-icon" style="background-image:url(https://api.iconify.design/eos-icons:three-dots-loading.svg?color=%231cd0fd);"></div></div></div>
 ]]></content>
+      <tags>
+        <tag>stellar</tag>
+        <tag>Hexo</tag>
+        <tag>瞎折腾</tag>
+      </tags>
   </entry>
   <entry>
     <title>使用Pycharm进行远程ssh（以Featurize为例）</title>
@@ -270,6 +495,66 @@
       </tags>
   </entry>
   <entry>
+    <title>在Stellar中设置Pandoc</title>
+    <url>/2025/10/15/Stellar/%E5%9C%A8Stellar%E4%B8%AD%E8%AE%BE%E7%BD%AEPandoc/</url>
+    <content><![CDATA[<div class="tag-plugin quot p"><p class="content"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from BoxIcons Solid by Atisa - https://creativecommons.org/licenses/by/4.0/ --><path fill="currentColor" d="M3.691 6.292C5.094 4.771 7.217 4 10 4h1v2.819l-.804.161c-1.37.274-2.323.813-2.833 1.604A2.9 2.9 0 0 0 6.925 10H10a1 1 0 0 1 1 1v7c0 1.103-.897 2-2 2H3a1 1 0 0 1-1-1v-5l.003-2.919c-.009-.111-.199-2.741 1.688-4.789M20 20h-6a1 1 0 0 1-1-1v-5l.003-2.919c-.009-.111-.199-2.741 1.688-4.789C16.094 4.771 18.217 4 21 4h1v2.819l-.804.161c-1.37.274-2.323.813-2.833 1.604A2.9 2.9 0 0 0 17.925 10H21a1 1 0 0 1 1 1v7c0 1.103-.897 2-2 2"/></svg><span class="text">前言</span><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from BoxIcons Solid by Atisa - https://creativecommons.org/licenses/by/4.0/ --><path fill="currentColor" d="M20.309 17.708C22.196 15.66 22.006 13.03 22 13V5a1 1 0 0 0-1-1h-6c-1.103 0-2 .897-2 2v7a1 1 0 0 0 1 1h3.078a2.9 2.9 0 0 1-.429 1.396c-.508.801-1.465 1.348-2.846 1.624l-.803.16V20h1c2.783 0 4.906-.771 6.309-2.292m-11.007 0C11.19 15.66 10.999 13.03 10.993 13V5a1 1 0 0 0-1-1h-6c-1.103 0-2 .897-2 2v7a1 1 0 0 0 1 1h3.078a2.9 2.9 0 0 1-.429 1.396c-.508.801-1.465 1.348-2.846 1.624l-.803.16V20h1c2.783 0 4.906-.771 6.309-2.292"/></svg></p></div>
+<p>在Stellar中默认的公式渲染器功能不太强大，折腾了两小时发现使用Hexo-renderer-pandoc能够很好的解决默认公式渲染器的问题</p>
+<div class="tag-plugin quot p"><p class="content"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from BoxIcons Solid by Atisa - https://creativecommons.org/licenses/by/4.0/ --><path fill="currentColor" d="M3.691 6.292C5.094 4.771 7.217 4 10 4h1v2.819l-.804.161c-1.37.274-2.323.813-2.833 1.604A2.9 2.9 0 0 0 6.925 10H10a1 1 0 0 1 1 1v7c0 1.103-.897 2-2 2H3a1 1 0 0 1-1-1v-5l.003-2.919c-.009-.111-.199-2.741 1.688-4.789M20 20h-6a1 1 0 0 1-1-1v-5l.003-2.919c-.009-.111-.199-2.741 1.688-4.789C16.094 4.771 18.217 4 21 4h1v2.819l-.804.161c-1.37.274-2.323.813-2.833 1.604A2.9 2.9 0 0 0 17.925 10H21a1 1 0 0 1 1 1v7c0 1.103-.897 2-2 2"/></svg><span class="text">下载pandoc</span><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from BoxIcons Solid by Atisa - https://creativecommons.org/licenses/by/4.0/ --><path fill="currentColor" d="M20.309 17.708C22.196 15.66 22.006 13.03 22 13V5a1 1 0 0 0-1-1h-6c-1.103 0-2 .897-2 2v7a1 1 0 0 0 1 1h3.078a2.9 2.9 0 0 1-.429 1.396c-.508.801-1.465 1.348-2.846 1.624l-.803.16V20h1c2.783 0 4.906-.771 6.309-2.292m-11.007 0C11.19 15.66 10.999 13.03 10.993 13V5a1 1 0 0 0-1-1h-6c-1.103 0-2 .897-2 2v7a1 1 0 0 0 1 1h3.078a2.9 2.9 0 0 1-.429 1.396c-.508.801-1.465 1.348-2.846 1.624l-.803.16V20h1c2.783 0 4.906-.771 6.309-2.292"/></svg></p></div>
+<p>首先先到<a href="https://github.com/jgm/pandoc/releases/tag/3.8.2">Pandoc</a>的github官方仓库中下载最新的msi（如果你的Windows）</p>
+<p>按照教程安装好，记住<strong>安装位置</strong></p>
+<div class="tag-plugin quot p"><p class="content"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from BoxIcons Solid by Atisa - https://creativecommons.org/licenses/by/4.0/ --><path fill="currentColor" d="M3.691 6.292C5.094 4.771 7.217 4 10 4h1v2.819l-.804.161c-1.37.274-2.323.813-2.833 1.604A2.9 2.9 0 0 0 6.925 10H10a1 1 0 0 1 1 1v7c0 1.103-.897 2-2 2H3a1 1 0 0 1-1-1v-5l.003-2.919c-.009-.111-.199-2.741 1.688-4.789M20 20h-6a1 1 0 0 1-1-1v-5l.003-2.919c-.009-.111-.199-2.741 1.688-4.789C16.094 4.771 18.217 4 21 4h1v2.819l-.804.161c-1.37.274-2.323.813-2.833 1.604A2.9 2.9 0 0 0 17.925 10H21a1 1 0 0 1 1 1v7c0 1.103-.897 2-2 2"/></svg><span class="text">下载hexo-renderer-pandoc</span><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from BoxIcons Solid by Atisa - https://creativecommons.org/licenses/by/4.0/ --><path fill="currentColor" d="M20.309 17.708C22.196 15.66 22.006 13.03 22 13V5a1 1 0 0 0-1-1h-6c-1.103 0-2 .897-2 2v7a1 1 0 0 0 1 1h3.078a2.9 2.9 0 0 1-.429 1.396c-.508.801-1.465 1.348-2.846 1.624l-.803.16V20h1c2.783 0 4.906-.771 6.309-2.292m-11.007 0C11.19 15.66 10.999 13.03 10.993 13V5a1 1 0 0 0-1-1h-6c-1.103 0-2 .897-2 2v7a1 1 0 0 0 1 1h3.078a2.9 2.9 0 0 1-.429 1.396c-.508.801-1.465 1.348-2.846 1.624l-.803.16V20h1c2.783 0 4.906-.771 6.309-2.292"/></svg></p></div>
+<p>也是一样进入<a href="https://github.com/hexojs/hexo-renderer-pandoc">hexo-renderer-pandoc</a>的仓库中</p>
+<p>其实进不进都无所谓的，仓库里的README也可以自己参考</p>
+<h2 id="删除旧配置">1、删除旧配置</h2>
+<div class="tag-plugin colorful note" color="green" child="codeblock"><div class="body"><figure class="highlight nginx"><table><tr><td class="code"><pre><span class="line"><span class="attribute">npm</span> un hexo-renderer-marked</span><br></pre></td></tr></table></figure></div></div>
+<h2 id="下载hexo-renderer-pandoc">2、下载hexo-renderer-pandoc</h2>
+<div class="tag-plugin colorful note" color="green" child="codeblock"><div class="body"><figure class="highlight nginx"><table><tr><td class="code"><pre><span class="line"><span class="attribute">npm</span> install hexo-renderer-pandoc</span><br></pre></td></tr></table></figure></div></div>
+<div class="tag-plugin quot p"><p class="content"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from BoxIcons Solid by Atisa - https://creativecommons.org/licenses/by/4.0/ --><path fill="currentColor" d="M3.691 6.292C5.094 4.771 7.217 4 10 4h1v2.819l-.804.161c-1.37.274-2.323.813-2.833 1.604A2.9 2.9 0 0 0 6.925 10H10a1 1 0 0 1 1 1v7c0 1.103-.897 2-2 2H3a1 1 0 0 1-1-1v-5l.003-2.919c-.009-.111-.199-2.741 1.688-4.789M20 20h-6a1 1 0 0 1-1-1v-5l.003-2.919c-.009-.111-.199-2.741 1.688-4.789C16.094 4.771 18.217 4 21 4h1v2.819l-.804.161c-1.37.274-2.323.813-2.833 1.604A2.9 2.9 0 0 0 17.925 10H21a1 1 0 0 1 1 1v7c0 1.103-.897 2-2 2"/></svg><span class="text">_config中的设置</span><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from BoxIcons Solid by Atisa - https://creativecommons.org/licenses/by/4.0/ --><path fill="currentColor" d="M20.309 17.708C22.196 15.66 22.006 13.03 22 13V5a1 1 0 0 0-1-1h-6c-1.103 0-2 .897-2 2v7a1 1 0 0 0 1 1h3.078a2.9 2.9 0 0 1-.429 1.396c-.508.801-1.465 1.348-2.846 1.624l-.803.16V20h1c2.783 0 4.906-.771 6.309-2.292m-11.007 0C11.19 15.66 10.999 13.03 10.993 13V5a1 1 0 0 0-1-1h-6c-1.103 0-2 .897-2 2v7a1 1 0 0 0 1 1h3.078a2.9 2.9 0 0 1-.429 1.396c-.508.801-1.465 1.348-2.846 1.624l-.803.16V20h1c2.783 0 4.906-.771 6.309-2.292"/></svg></p></div>
+<p>又到大家喜欢的抄配置环节了</p>
+<div class="tag-plugin colorful note" color="green" child="codeblock"><div class="body"><figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Pandoc</span></span><br><span class="line"><span class="attr">pandoc:</span></span><br><span class="line">  <span class="attr">pandocPath:</span> <span class="string">&quot;D:/Pandoc/pandoc.exe&quot;</span></span><br><span class="line">  <span class="attr">args:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">&quot;--mathjax&quot;</span>               <span class="comment"># 启用 MathJax 渲染公式</span></span><br><span class="line">  <span class="comment"># - &quot;--filter=pandoc-crossref&quot; # 这个要求再装一个包来使用交叉引用</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">&quot;--wrap=preserve&quot;</span>         <span class="comment"># 防止代码换行破坏公式</span></span><br><span class="line">  <span class="comment"># - &quot;--standalone&quot;		  # 会让整个页面变形</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">&quot;--metadata&quot;</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">&quot;link-citations=true&quot;</span></span><br><span class="line">  <span class="attr">extensions:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">&quot;+tex_math_dollars&quot;</span>           <span class="comment"># 允许 $...$ 行内公式</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">&quot;+raw_tex&quot;</span>                    <span class="comment"># 保留原始 LaTeX 代码</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Markdown</span></span><br><span class="line"><span class="attr">markdown:</span></span><br><span class="line">  <span class="string">render:pandoc</span></span><br></pre></td></tr></table></figure></div></div>
+]]></content>
+      <tags>
+        <tag>Hexo</tag>
+        <tag>瞎折腾</tag>
+        <tag>Stellar</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>uv 配置</title>
+    <url>/2025/12/27/uv/uv%E9%85%8D%E7%BD%AE/</url>
+    <content><![CDATA[<p>uv 的设计理念跟conda不太一样，uv 的环境管理是项目级别的，而 conda 是集中系统级别的</p>
+<h1 id="安装uv">安装uv</h1>
+<h2 id="windows">Windows</h2>
+<p>首先是设置安装位置</p>
+<div class="tag-plugin colorful note" color="green" child="codeblock"><div class="body"><figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="variable">$env:UV_INSTALL_DIR</span> = <span class="string">&quot;D:\uv\pyuv&quot;</span></span><br></pre></td></tr></table></figure></div></div>
+<p>接着是安装</p>
+<div class="tag-plugin colorful note" color="green" child="codeblock"><div class="body"><figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="built_in">irm</span> https://astral.sh/uv/install.ps1 | <span class="built_in">iex</span></span><br></pre></td></tr></table></figure></div></div>
+<p>注意 ExecutionPolicy</p>
+<p>按照提示将运行路径加入环境变量中</p>
+<div class="tag-plugin image"><div class="image-bg" style="aspect-ratio:919/325;"><img class="lazy" src="https://raw.githubusercontent.com/L-Virus/Pic/main/Blog/20251227145930143.png" data-src="https://raw.githubusercontent.com/L-Virus/Pic/main/Blog/20251227145930143.png" data-fancybox="true"onerror="this.src=&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='2rem' height='2rem' viewBox='0 0 24 24'%3E%3C!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --%3E%3Cpath fill='%23F44336' d='M22 12.698c-.002 1.47-.013 2.718-.096 3.743c-.097 1.19-.296 2.184-.74 3.009a4.2 4.2 0 0 1-.73.983c-.833.833-1.893 1.21-3.237 1.39C15.884 22 14.2 22 12.053 22h-.106c-2.148 0-3.83 0-5.144-.177c-1.343-.18-2.404-.557-3.236-1.39c-.738-.738-1.12-1.656-1.322-2.795c-.2-1.12-.236-2.512-.243-4.241Q1.999 12.737 2 12v-.054c0-2.148 0-3.83.177-5.144c.18-1.343.557-2.404 1.39-3.236s1.893-1.21 3.236-1.39c1.168-.157 2.67-.175 4.499-.177a.697.697 0 1 1 0 1.396c-1.855.002-3.234.018-4.313.163c-1.189.16-1.906.464-2.436.994S3.72 5.8 3.56 6.99C3.397 8.2 3.395 9.788 3.395 12v.784l.932-.814a2.14 2.14 0 0 1 2.922.097l3.99 3.99a1.86 1.86 0 0 0 2.385.207l.278-.195a2.79 2.79 0 0 1 3.471.209l2.633 2.37c.265-.557.423-1.288.507-2.32c.079-.972.09-2.152.091-3.63a.698.698 0 0 1 1.396 0' opacity='.5'/%3E%3Cpath fill='%23F44336' fill-rule='evenodd' d='M17.5 11c-2.121 0-3.182 0-3.841-.659S13 8.621 13 6.5s0-3.182.659-3.841S15.379 2 17.5 2s3.182 0 3.841.659S22 4.379 22 6.5s0 3.182-.659 3.841S19.621 11 17.5 11m-1.47-7.03a.75.75 0 1 0-1.06 1.06l1.47 1.47l-1.47 1.47a.75.75 0 0 0 1.06 1.06l1.47-1.47l1.47 1.47a.75.75 0 1 0 1.06-1.06L18.56 6.5l1.47-1.47a.75.75 0 0 0-1.06-1.06L17.5 5.44z' clip-rule='evenodd'/%3E%3C/svg%3E&quot;"/><div class="lazy-icon" style="background-image:url(https://api.iconify.design/eos-icons:three-dots-loading.svg?color=%231cd0fd);"></div></div></div>
+<h1 id="创建虚拟环境">创建虚拟环境</h1>
+<h2 id="修改当前python版本">修改当前python版本</h2>
+<div class="tag-plugin colorful note" color="green" child="codeblock"><div class="body"><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">uv python pin 3.xx</span><br></pre></td></tr></table></figure></div></div>
+<h2 id="创建虚拟环境指定版本">创建虚拟环境（指定版本）</h2>
+<p>初始化</p>
+<p>执行了<code>uv init</code> 之后，会在当前目录下创建几个文件，同时也会在当前目录下执行git init创建出一个新的git仓库来</p>
+<div class="tag-plugin colorful note" color="green" child="codeblock"><div class="body"><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">uv init </span><br></pre></td></tr></table></figure></div></div>
+<h1 id="配置文件">配置文件</h1>
+<h2 id="用户级别">用户级别</h2>
+<p>在 <code>%APPDATA%\uv\uv.toml</code> 下添加</p>
+<div class="tag-plugin colorful note" color="green" child="codeblock"><div class="body"><figure class="highlight toml"><table><tr><td class="code"><pre><span class="line"><span class="section">[[index]]</span></span><br><span class="line"><span class="attr">url</span> = <span class="string">&quot;https://pypi.tuna.tsinghua.edu.cn/simple&quot;</span></span><br><span class="line"><span class="attr">default</span> = <span class="literal">true</span></span><br></pre></td></tr></table></figure></div></div>
+<h2 id="项目级别">项目级别</h2>
+<p>在 <code>pyproject.toml</code> 中添加</p>
+<div class="tag-plugin colorful note" color="green" child="codeblock"><div class="body"><figure class="highlight toml"><table><tr><td class="code"><pre><span class="line"><span class="section">[[index]]</span></span><br><span class="line"><span class="attr">url</span> = <span class="string">&quot;https://pypi.tuna.tsinghua.edu.cn/simple&quot;</span></span><br><span class="line"><span class="attr">default</span> = <span class="literal">true</span></span><br></pre></td></tr></table></figure></div></div>
+<h2 id="临时">临时</h2>
+<div class="tag-plugin colorful note" color="green" child="codeblock"><div class="body"><figure class="highlight toml"><table><tr><td class="code"><pre><span class="line">uv add --default-index https://pypi.tuna.tsinghua.edu.cn/simple requests</span><br></pre></td></tr></table></figure></div></div>
+]]></content>
+      <tags>
+        <tag>瞎折腾</tag>
+        <tag>uv</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>利用 uv 搭建虚拟环境及其配置</title>
     <url>/2026/05/11/uv/uv%E6%90%AD%E5%BB%BA%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83%E5%8F%8A%E5%85%B6%E9%85%8D%E7%BD%AE/</url>
     <content><![CDATA[<p>文本基于学校集群服务器进行深度学习环境配置</p>
@@ -455,179 +740,9 @@
 <div class="tag-plugin colorful note" color="accent"><div class="title">大大的提醒</div><div class="body"><p>这个只能下 PyPi 里的包，像 CV 中的 accimage 就下不了，所以用不了</p></div></div>
 ]]></content>
       <tags>
+        <tag>瞎折腾</tag>
         <tag>服务器</tag>
         <tag>uv</tag>
-        <tag>瞎折腾</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Git教程</title>
-    <url>/2025/12/27/Git/Git%20%E6%95%99%E7%A8%8B/</url>
-    <content><![CDATA[<div class="tag-plugin colorful note" color="cyan"><div class="title">Note</div><div class="body"><p>&lt;&gt; 为必选参数，[] 为可选参数，（）为指名参数默认值，| 为分割多个互斥参数，含义为或，只能选一个</p></div></div>
-<h1 id="初始化">初始化</h1>
-<p>在代码工作区进行初始化操作，生成 .git 文件
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git init</span><br></pre></td></tr></table></figure></p>
-<h1 id="本地仓库操作">本地仓库操作</h1>
-<h2 id="查看文件状态">查看文件状态</h2>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git status</span><br></pre></td></tr></table></figure>
-<h2 id="添加到暂存区">添加到暂存区</h2>
-<p>将文件修改加入暂存区
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git add &lt;文件名&gt;</span><br></pre></td></tr></table></figure></p>
-<h2 id="提交到版本库">提交到版本库</h2>
-<p>将暂存区文件修改提交到版本库
--m 是 message 的意思，必选，文件名可选参数
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git commit -m &quot;&lt;message&gt;&quot; &lt;文件名&gt;</span><br></pre></td></tr></table></figure></p>
-<h2 id="回退到暂存区">回退到暂存区</h2>
-<p>将暂存区的文件取消暂存或者是切换到指定版本
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git reset &lt;文件名&gt;</span><br></pre></td></tr></table></figure></p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git reset --[hard|soft|keep] &lt;版本号&gt;</span><br></pre></td></tr></table></figure>
-<p>hard 是回退到之前的状态，删除现在的代码
-soft 是回退到之前的状态，保留现在的代码</p>
-<h2 id="查看日志">查看日志</h2>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git log</span><br></pre></td></tr></table></figure>
-<h2 id="删除文件">删除文件</h2>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git rm [-r] &lt;fileName&gt;</span><br></pre></td></tr></table></figure>
-<p>这时候工作区和版本库就不一致了，git status 会提示哪些文件被删除了，现在有两个选择要么删掉要么回退
-删掉：
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git commit -m &quot;&lt;message&gt;&quot;</span><br></pre></td></tr></table></figure>
-回退：
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git checkout -- &lt;filename&gt;</span><br></pre></td></tr></table></figure></p>
-<h1 id="远程仓库操作">远程仓库操作</h1>
-<h2 id="查看远程仓库">查看远程仓库</h2>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git remote</span><br></pre></td></tr></table></figure>
-<p><img src="https://raw.githubusercontent.com/L-Virus/Pic/main/Blog/20251216161749302.png" alt="image.png" />
-origin 是远程仓库的别名</p>
-<h3 id="查看详细信息">查看详细信息</h3>
-<p>代号和地址
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git remote -v</span><br></pre></td></tr></table></figure>
-<img src="https://raw.githubusercontent.com/L-Virus/Pic/main/Blog/20251216161922655.png" alt="image.png" /></p>
-<h2 id="添加远程仓库">添加远程仓库</h2>
-<p>将本地仓库与远程仓库相关联（本地先创建仓库的情况下）
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git remote add &lt;shortname&gt; &lt;url&gt;</span><br></pre></td></tr></table></figure>
-例如：
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git remote add origin https://xxxx.git</span><br></pre></td></tr></table></figure></p>
-<h2 id="克隆远程仓库">克隆远程仓库</h2>
-<p>除了代码还有完整的日志信息
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git clone &lt;url&gt;</span><br></pre></td></tr></table></figure></p>
-<h2 id="推送到远程仓库">推送到远程仓库</h2>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git push &lt;remote-name&gt; &lt;branch-name&gt;</span><br></pre></td></tr></table></figure>
-<p>例如：
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git push origin master</span><br></pre></td></tr></table></figure></p>
-<h2 id="拉取远程仓库">拉取远程仓库</h2>
-<p>从远程仓库获取最新版本并合并到本地仓库
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git pull &lt;short-name&gt; &lt;branch-name&gt;</span><br></pre></td></tr></table></figure></p>
-<h1 id="分支操作">分支操作</h1>
-<p>默认分支为 master 分支
-## 查看分支
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git branch [-r|-a]</span><br></pre></td></tr></table></figure>
-<img src="https://raw.githubusercontent.com/L-Virus/Pic/main/Blog/20251216164816122.png" alt="image.png" />
-<code>*</code> 表示当前处在的分支
-<code>-r</code> 查看所有远程分支
-<code>-a</code> 查看所有本地分支和远程分支</p>
-<h2 id="创建分支">创建分支</h2>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git branch &lt;branch-name&gt;</span><br></pre></td></tr></table></figure>
-<h2 id="切换分支">切换分支</h2>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git checkout &lt;branch-name&gt;</span><br></pre></td></tr></table></figure>
-<h2 id="合并分支">合并分支</h2>
-<p>将指定分支合并到当前分支
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git merge &lt;branch-name&gt;</span><br></pre></td></tr></table></figure></p>
-<h2 id="推送分支">推送分支</h2>
-<p>将指定分支推送到远程仓库里
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git push &lt;shortName&gt; &lt;branch-name&gt;</span><br></pre></td></tr></table></figure></p>
-<h2 id="删除分支">删除分支</h2>
-<p>删除指定分支
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git branch -d &lt;branch-name&gt;</span><br></pre></td></tr></table></figure></p>
-<h1 id="标签操作">标签操作</h1>
-<p>打了标签里的内容，发布后是不变的
-## 列出已有标签
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git tag</span><br></pre></td></tr></table></figure></p>
-<h2 id="创建标签">创建标签</h2>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git tag &lt;tag-name&gt;</span><br></pre></td></tr></table></figure>
-<h2 id="将标签推送到远程仓库">将标签推送到远程仓库</h2>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git push &lt;shortName&gt; &lt;tag-name&gt;</span><br></pre></td></tr></table></figure>
-<h2 id="检出标签">检出标签</h2>
-<p>将本地仓库的版本改为标签版本，并且创建分支
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git checkout -b &lt;branch-name&gt; &lt;tag-name&gt;</span><br></pre></td></tr></table></figure></p>
-]]></content>
-      <tags>
-        <tag>Git</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Stellar设置专栏（topic）</title>
-    <url>/2025/09/24/Stellar/Stellar%E8%AE%BE%E7%BD%AE%E4%B8%93%E6%A0%8F/</url>
-    <content><![CDATA[<div class="tag-plugin quot p"><p class="content"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from BoxIcons Solid by Atisa - https://creativecommons.org/licenses/by/4.0/ --><path fill="currentColor" d="M3.691 6.292C5.094 4.771 7.217 4 10 4h1v2.819l-.804.161c-1.37.274-2.323.813-2.833 1.604A2.9 2.9 0 0 0 6.925 10H10a1 1 0 0 1 1 1v7c0 1.103-.897 2-2 2H3a1 1 0 0 1-1-1v-5l.003-2.919c-.009-.111-.199-2.741 1.688-4.789M20 20h-6a1 1 0 0 1-1-1v-5l.003-2.919c-.009-.111-.199-2.741 1.688-4.789C16.094 4.771 18.217 4 21 4h1v2.819l-.804.161c-1.37.274-2.323.813-2.833 1.604A2.9 2.9 0 0 0 17.925 10H21a1 1 0 0 1 1 1v7c0 1.103-.897 2-2 2"/></svg><span class="text">专栏文件夹的配置</span><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from BoxIcons Solid by Atisa - https://creativecommons.org/licenses/by/4.0/ --><path fill="currentColor" d="M20.309 17.708C22.196 15.66 22.006 13.03 22 13V5a1 1 0 0 0-1-1h-6c-1.103 0-2 .897-2 2v7a1 1 0 0 0 1 1h3.078a2.9 2.9 0 0 1-.429 1.396c-.508.801-1.465 1.348-2.846 1.624l-.803.16V20h1c2.783 0 4.906-.771 6.309-2.292m-11.007 0C11.19 15.66 10.999 13.03 10.993 13V5a1 1 0 0 0-1-1h-6c-1.103 0-2 .897-2 2v7a1 1 0 0 0 1 1h3.078a2.9 2.9 0 0 1-.429 1.396c-.508.801-1.465 1.348-2.846 1.624l-.803.16V20h1c2.783 0 4.906-.771 6.309-2.292"/></svg></p></div>
-<p>在 <code>blog/source/_data/</code> 文件夹中创建一个 <code>topic</code> 文件夹，在其中放入各个专栏的描述文件，文件名就是项目的 <code>id</code>：</p>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">name:</span> <span class="string">Stellar</span> <span class="comment"># 在面包屑导航上会显示较短的名字</span></span><br><span class="line"><span class="attr">title:</span> <span class="string">Stellar</span> <span class="bullet">-</span> <span class="string">每个人的独立博客</span> <span class="comment"># 在列表页会显示完整的专栏标题</span></span><br><span class="line"><span class="attr">description:</span> <span class="string">关于搭建独立博客相关的知识和经验分享，以及</span> <span class="string">Stellar</span> <span class="string">的高级用法、版本更新相关的注意事项。</span></span><br><span class="line"><span class="attr">order_by:</span> <span class="string">-date</span> <span class="comment"># 默认是按发布日期倒序排序</span></span><br><span class="line"><span class="attr">icon:</span> <span class="string">https://xxx</span></span><br></pre></td></tr></table></figure>
-<div class="tag-plugin image"><div class="image-bg" style="aspect-ratio:1319/646;"><img class="lazy" src="https://raw.githubusercontent.com/L-Virus/Pic/main/Blog/20250924193619450.png" data-src="https://raw.githubusercontent.com/L-Virus/Pic/main/Blog/20250924193619450.png" data-fancybox="true"onerror="this.src=&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='2rem' height='2rem' viewBox='0 0 24 24'%3E%3C!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --%3E%3Cpath fill='%23F44336' d='M22 12.698c-.002 1.47-.013 2.718-.096 3.743c-.097 1.19-.296 2.184-.74 3.009a4.2 4.2 0 0 1-.73.983c-.833.833-1.893 1.21-3.237 1.39C15.884 22 14.2 22 12.053 22h-.106c-2.148 0-3.83 0-5.144-.177c-1.343-.18-2.404-.557-3.236-1.39c-.738-.738-1.12-1.656-1.322-2.795c-.2-1.12-.236-2.512-.243-4.241Q1.999 12.737 2 12v-.054c0-2.148 0-3.83.177-5.144c.18-1.343.557-2.404 1.39-3.236s1.893-1.21 3.236-1.39c1.168-.157 2.67-.175 4.499-.177a.697.697 0 1 1 0 1.396c-1.855.002-3.234.018-4.313.163c-1.189.16-1.906.464-2.436.994S3.72 5.8 3.56 6.99C3.397 8.2 3.395 9.788 3.395 12v.784l.932-.814a2.14 2.14 0 0 1 2.922.097l3.99 3.99a1.86 1.86 0 0 0 2.385.207l.278-.195a2.79 2.79 0 0 1 3.471.209l2.633 2.37c.265-.557.423-1.288.507-2.32c.079-.972.09-2.152.091-3.63a.698.698 0 0 1 1.396 0' opacity='.5'/%3E%3Cpath fill='%23F44336' fill-rule='evenodd' d='M17.5 11c-2.121 0-3.182 0-3.841-.659S13 8.621 13 6.5s0-3.182.659-3.841S15.379 2 17.5 2s3.182 0 3.841.659S22 4.379 22 6.5s0 3.182-.659 3.841S19.621 11 17.5 11m-1.47-7.03a.75.75 0 1 0-1.06 1.06l1.47 1.47l-1.47 1.47a.75.75 0 0 0 1.06 1.06l1.47-1.47l1.47 1.47a.75.75 0 1 0 1.06-1.06L18.56 6.5l1.47-1.47a.75.75 0 0 0-1.06-1.06L17.5 5.44z' clip-rule='evenodd'/%3E%3C/svg%3E&quot;"/><div class="lazy-icon" style="background-image:url(https://api.iconify.design/eos-icons:three-dots-loading.svg?color=%231cd0fd);"></div></div></div>
-<div class="tag-plugin quot p"><p class="content"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from BoxIcons Solid by Atisa - https://creativecommons.org/licenses/by/4.0/ --><path fill="currentColor" d="M3.691 6.292C5.094 4.771 7.217 4 10 4h1v2.819l-.804.161c-1.37.274-2.323.813-2.833 1.604A2.9 2.9 0 0 0 6.925 10H10a1 1 0 0 1 1 1v7c0 1.103-.897 2-2 2H3a1 1 0 0 1-1-1v-5l.003-2.919c-.009-.111-.199-2.741 1.688-4.789M20 20h-6a1 1 0 0 1-1-1v-5l.003-2.919c-.009-.111-.199-2.741 1.688-4.789C16.094 4.771 18.217 4 21 4h1v2.819l-.804.161c-1.37.274-2.323.813-2.833 1.604A2.9 2.9 0 0 0 17.925 10H21a1 1 0 0 1 1 1v7c0 1.103-.897 2-2 2"/></svg><span class="text">文章中的引用</span><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from BoxIcons Solid by Atisa - https://creativecommons.org/licenses/by/4.0/ --><path fill="currentColor" d="M20.309 17.708C22.196 15.66 22.006 13.03 22 13V5a1 1 0 0 0-1-1h-6c-1.103 0-2 .897-2 2v7a1 1 0 0 0 1 1h3.078a2.9 2.9 0 0 1-.429 1.396c-.508.801-1.465 1.348-2.846 1.624l-.803.16V20h1c2.783 0 4.906-.771 6.309-2.292m-11.007 0C11.19 15.66 10.999 13.03 10.993 13V5a1 1 0 0 0-1-1h-6c-1.103 0-2 .897-2 2v7a1 1 0 0 0 1 1h3.078a2.9 2.9 0 0 1-.429 1.396c-.508.801-1.465 1.348-2.846 1.624l-.803.16V20h1c2.783 0 4.906-.771 6.309-2.292"/></svg></p></div>
-<p>在此专栏文章的 <code>md</code> 文件的 <code>front-matter</code> 部分指定所属的专栏 <code>id</code> （即上一步创建的文件名 <code>Stelalr设置专栏.yml</code>）</p>
-<div class="tag-plugin image"><div class="image-bg" style="aspect-ratio:717/138;"><img class="lazy" src="https://raw.githubusercontent.com/L-Virus/Pic/main/Blog/20250924193647230.png" data-src="https://raw.githubusercontent.com/L-Virus/Pic/main/Blog/20250924193647230.png" data-fancybox="true"onerror="this.src=&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='2rem' height='2rem' viewBox='0 0 24 24'%3E%3C!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --%3E%3Cpath fill='%23F44336' d='M22 12.698c-.002 1.47-.013 2.718-.096 3.743c-.097 1.19-.296 2.184-.74 3.009a4.2 4.2 0 0 1-.73.983c-.833.833-1.893 1.21-3.237 1.39C15.884 22 14.2 22 12.053 22h-.106c-2.148 0-3.83 0-5.144-.177c-1.343-.18-2.404-.557-3.236-1.39c-.738-.738-1.12-1.656-1.322-2.795c-.2-1.12-.236-2.512-.243-4.241Q1.999 12.737 2 12v-.054c0-2.148 0-3.83.177-5.144c.18-1.343.557-2.404 1.39-3.236s1.893-1.21 3.236-1.39c1.168-.157 2.67-.175 4.499-.177a.697.697 0 1 1 0 1.396c-1.855.002-3.234.018-4.313.163c-1.189.16-1.906.464-2.436.994S3.72 5.8 3.56 6.99C3.397 8.2 3.395 9.788 3.395 12v.784l.932-.814a2.14 2.14 0 0 1 2.922.097l3.99 3.99a1.86 1.86 0 0 0 2.385.207l.278-.195a2.79 2.79 0 0 1 3.471.209l2.633 2.37c.265-.557.423-1.288.507-2.32c.079-.972.09-2.152.091-3.63a.698.698 0 0 1 1.396 0' opacity='.5'/%3E%3Cpath fill='%23F44336' fill-rule='evenodd' d='M17.5 11c-2.121 0-3.182 0-3.841-.659S13 8.621 13 6.5s0-3.182.659-3.841S15.379 2 17.5 2s3.182 0 3.841.659S22 4.379 22 6.5s0 3.182-.659 3.841S19.621 11 17.5 11m-1.47-7.03a.75.75 0 1 0-1.06 1.06l1.47 1.47l-1.47 1.47a.75.75 0 0 0 1.06 1.06l1.47-1.47l1.47 1.47a.75.75 0 1 0 1.06-1.06L18.56 6.5l1.47-1.47a.75.75 0 0 0-1.06-1.06L17.5 5.44z' clip-rule='evenodd'/%3E%3C/svg%3E&quot;"/><div class="lazy-icon" style="background-image:url(https://api.iconify.design/eos-icons:three-dots-loading.svg?color=%231cd0fd);"></div></div></div>
-]]></content>
-      <tags>
-        <tag>瞎折腾</tag>
-        <tag>stellar</tag>
-        <tag>Hexo</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>在Stellar中设置Pandoc</title>
-    <url>/2025/10/15/Stellar/%E5%9C%A8Stellar%E4%B8%AD%E8%AE%BE%E7%BD%AEPandoc/</url>
-    <content><![CDATA[<div class="tag-plugin quot p"><p class="content"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from BoxIcons Solid by Atisa - https://creativecommons.org/licenses/by/4.0/ --><path fill="currentColor" d="M3.691 6.292C5.094 4.771 7.217 4 10 4h1v2.819l-.804.161c-1.37.274-2.323.813-2.833 1.604A2.9 2.9 0 0 0 6.925 10H10a1 1 0 0 1 1 1v7c0 1.103-.897 2-2 2H3a1 1 0 0 1-1-1v-5l.003-2.919c-.009-.111-.199-2.741 1.688-4.789M20 20h-6a1 1 0 0 1-1-1v-5l.003-2.919c-.009-.111-.199-2.741 1.688-4.789C16.094 4.771 18.217 4 21 4h1v2.819l-.804.161c-1.37.274-2.323.813-2.833 1.604A2.9 2.9 0 0 0 17.925 10H21a1 1 0 0 1 1 1v7c0 1.103-.897 2-2 2"/></svg><span class="text">前言</span><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from BoxIcons Solid by Atisa - https://creativecommons.org/licenses/by/4.0/ --><path fill="currentColor" d="M20.309 17.708C22.196 15.66 22.006 13.03 22 13V5a1 1 0 0 0-1-1h-6c-1.103 0-2 .897-2 2v7a1 1 0 0 0 1 1h3.078a2.9 2.9 0 0 1-.429 1.396c-.508.801-1.465 1.348-2.846 1.624l-.803.16V20h1c2.783 0 4.906-.771 6.309-2.292m-11.007 0C11.19 15.66 10.999 13.03 10.993 13V5a1 1 0 0 0-1-1h-6c-1.103 0-2 .897-2 2v7a1 1 0 0 0 1 1h3.078a2.9 2.9 0 0 1-.429 1.396c-.508.801-1.465 1.348-2.846 1.624l-.803.16V20h1c2.783 0 4.906-.771 6.309-2.292"/></svg></p></div>
-<p>在Stellar中默认的公式渲染器功能不太强大，折腾了两小时发现使用Hexo-renderer-pandoc能够很好的解决默认公式渲染器的问题</p>
-<div class="tag-plugin quot p"><p class="content"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from BoxIcons Solid by Atisa - https://creativecommons.org/licenses/by/4.0/ --><path fill="currentColor" d="M3.691 6.292C5.094 4.771 7.217 4 10 4h1v2.819l-.804.161c-1.37.274-2.323.813-2.833 1.604A2.9 2.9 0 0 0 6.925 10H10a1 1 0 0 1 1 1v7c0 1.103-.897 2-2 2H3a1 1 0 0 1-1-1v-5l.003-2.919c-.009-.111-.199-2.741 1.688-4.789M20 20h-6a1 1 0 0 1-1-1v-5l.003-2.919c-.009-.111-.199-2.741 1.688-4.789C16.094 4.771 18.217 4 21 4h1v2.819l-.804.161c-1.37.274-2.323.813-2.833 1.604A2.9 2.9 0 0 0 17.925 10H21a1 1 0 0 1 1 1v7c0 1.103-.897 2-2 2"/></svg><span class="text">下载pandoc</span><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from BoxIcons Solid by Atisa - https://creativecommons.org/licenses/by/4.0/ --><path fill="currentColor" d="M20.309 17.708C22.196 15.66 22.006 13.03 22 13V5a1 1 0 0 0-1-1h-6c-1.103 0-2 .897-2 2v7a1 1 0 0 0 1 1h3.078a2.9 2.9 0 0 1-.429 1.396c-.508.801-1.465 1.348-2.846 1.624l-.803.16V20h1c2.783 0 4.906-.771 6.309-2.292m-11.007 0C11.19 15.66 10.999 13.03 10.993 13V5a1 1 0 0 0-1-1h-6c-1.103 0-2 .897-2 2v7a1 1 0 0 0 1 1h3.078a2.9 2.9 0 0 1-.429 1.396c-.508.801-1.465 1.348-2.846 1.624l-.803.16V20h1c2.783 0 4.906-.771 6.309-2.292"/></svg></p></div>
-<p>首先先到<a href="https://github.com/jgm/pandoc/releases/tag/3.8.2">Pandoc</a>的github官方仓库中下载最新的msi（如果你的Windows）</p>
-<p>按照教程安装好，记住<strong>安装位置</strong></p>
-<div class="tag-plugin quot p"><p class="content"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from BoxIcons Solid by Atisa - https://creativecommons.org/licenses/by/4.0/ --><path fill="currentColor" d="M3.691 6.292C5.094 4.771 7.217 4 10 4h1v2.819l-.804.161c-1.37.274-2.323.813-2.833 1.604A2.9 2.9 0 0 0 6.925 10H10a1 1 0 0 1 1 1v7c0 1.103-.897 2-2 2H3a1 1 0 0 1-1-1v-5l.003-2.919c-.009-.111-.199-2.741 1.688-4.789M20 20h-6a1 1 0 0 1-1-1v-5l.003-2.919c-.009-.111-.199-2.741 1.688-4.789C16.094 4.771 18.217 4 21 4h1v2.819l-.804.161c-1.37.274-2.323.813-2.833 1.604A2.9 2.9 0 0 0 17.925 10H21a1 1 0 0 1 1 1v7c0 1.103-.897 2-2 2"/></svg><span class="text">下载hexo-renderer-pandoc</span><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from BoxIcons Solid by Atisa - https://creativecommons.org/licenses/by/4.0/ --><path fill="currentColor" d="M20.309 17.708C22.196 15.66 22.006 13.03 22 13V5a1 1 0 0 0-1-1h-6c-1.103 0-2 .897-2 2v7a1 1 0 0 0 1 1h3.078a2.9 2.9 0 0 1-.429 1.396c-.508.801-1.465 1.348-2.846 1.624l-.803.16V20h1c2.783 0 4.906-.771 6.309-2.292m-11.007 0C11.19 15.66 10.999 13.03 10.993 13V5a1 1 0 0 0-1-1h-6c-1.103 0-2 .897-2 2v7a1 1 0 0 0 1 1h3.078a2.9 2.9 0 0 1-.429 1.396c-.508.801-1.465 1.348-2.846 1.624l-.803.16V20h1c2.783 0 4.906-.771 6.309-2.292"/></svg></p></div>
-<p>也是一样进入<a href="https://github.com/hexojs/hexo-renderer-pandoc">hexo-renderer-pandoc</a>的仓库中</p>
-<p>其实进不进都无所谓的，仓库里的README也可以自己参考</p>
-<h2 id="删除旧配置">1、删除旧配置</h2>
-<div class="tag-plugin colorful note" color="green" child="codeblock"><div class="body"><figure class="highlight nginx"><table><tr><td class="code"><pre><span class="line"><span class="attribute">npm</span> un hexo-renderer-marked</span><br></pre></td></tr></table></figure></div></div>
-<h2 id="下载hexo-renderer-pandoc">2、下载hexo-renderer-pandoc</h2>
-<div class="tag-plugin colorful note" color="green" child="codeblock"><div class="body"><figure class="highlight nginx"><table><tr><td class="code"><pre><span class="line"><span class="attribute">npm</span> install hexo-renderer-pandoc</span><br></pre></td></tr></table></figure></div></div>
-<div class="tag-plugin quot p"><p class="content"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from BoxIcons Solid by Atisa - https://creativecommons.org/licenses/by/4.0/ --><path fill="currentColor" d="M3.691 6.292C5.094 4.771 7.217 4 10 4h1v2.819l-.804.161c-1.37.274-2.323.813-2.833 1.604A2.9 2.9 0 0 0 6.925 10H10a1 1 0 0 1 1 1v7c0 1.103-.897 2-2 2H3a1 1 0 0 1-1-1v-5l.003-2.919c-.009-.111-.199-2.741 1.688-4.789M20 20h-6a1 1 0 0 1-1-1v-5l.003-2.919c-.009-.111-.199-2.741 1.688-4.789C16.094 4.771 18.217 4 21 4h1v2.819l-.804.161c-1.37.274-2.323.813-2.833 1.604A2.9 2.9 0 0 0 17.925 10H21a1 1 0 0 1 1 1v7c0 1.103-.897 2-2 2"/></svg><span class="text">_config中的设置</span><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from BoxIcons Solid by Atisa - https://creativecommons.org/licenses/by/4.0/ --><path fill="currentColor" d="M20.309 17.708C22.196 15.66 22.006 13.03 22 13V5a1 1 0 0 0-1-1h-6c-1.103 0-2 .897-2 2v7a1 1 0 0 0 1 1h3.078a2.9 2.9 0 0 1-.429 1.396c-.508.801-1.465 1.348-2.846 1.624l-.803.16V20h1c2.783 0 4.906-.771 6.309-2.292m-11.007 0C11.19 15.66 10.999 13.03 10.993 13V5a1 1 0 0 0-1-1h-6c-1.103 0-2 .897-2 2v7a1 1 0 0 0 1 1h3.078a2.9 2.9 0 0 1-.429 1.396c-.508.801-1.465 1.348-2.846 1.624l-.803.16V20h1c2.783 0 4.906-.771 6.309-2.292"/></svg></p></div>
-<p>又到大家喜欢的抄配置环节了</p>
-<div class="tag-plugin colorful note" color="green" child="codeblock"><div class="body"><figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Pandoc</span></span><br><span class="line"><span class="attr">pandoc:</span></span><br><span class="line">  <span class="attr">pandocPath:</span> <span class="string">&quot;D:/Pandoc/pandoc.exe&quot;</span></span><br><span class="line">  <span class="attr">args:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">&quot;--mathjax&quot;</span>               <span class="comment"># 启用 MathJax 渲染公式</span></span><br><span class="line">  <span class="comment"># - &quot;--filter=pandoc-crossref&quot; # 这个要求再装一个包来使用交叉引用</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">&quot;--wrap=preserve&quot;</span>         <span class="comment"># 防止代码换行破坏公式</span></span><br><span class="line">  <span class="comment"># - &quot;--standalone&quot;		  # 会让整个页面变形</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">&quot;--metadata&quot;</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">&quot;link-citations=true&quot;</span></span><br><span class="line">  <span class="attr">extensions:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">&quot;+tex_math_dollars&quot;</span>           <span class="comment"># 允许 $...$ 行内公式</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">&quot;+raw_tex&quot;</span>                    <span class="comment"># 保留原始 LaTeX 代码</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Markdown</span></span><br><span class="line"><span class="attr">markdown:</span></span><br><span class="line">  <span class="string">render:pandoc</span></span><br></pre></td></tr></table></figure></div></div>
-]]></content>
-      <tags>
-        <tag>瞎折腾</tag>
-        <tag>Hexo</tag>
-        <tag>Stellar</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>uv 配置</title>
-    <url>/2025/12/27/uv/uv%E9%85%8D%E7%BD%AE/</url>
-    <content><![CDATA[<p>uv 的设计理念跟conda不太一样，uv 的环境管理是项目级别的，而 conda 是集中系统级别的</p>
-<h1 id="安装uv">安装uv</h1>
-<h2 id="windows">Windows</h2>
-<p>首先是设置安装位置</p>
-<div class="tag-plugin colorful note" color="green" child="codeblock"><div class="body"><figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="variable">$env:UV_INSTALL_DIR</span> = <span class="string">&quot;D:\uv\pyuv&quot;</span></span><br></pre></td></tr></table></figure></div></div>
-<p>接着是安装</p>
-<div class="tag-plugin colorful note" color="green" child="codeblock"><div class="body"><figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="built_in">irm</span> https://astral.sh/uv/install.ps1 | <span class="built_in">iex</span></span><br></pre></td></tr></table></figure></div></div>
-<p>注意 ExecutionPolicy</p>
-<p>按照提示将运行路径加入环境变量中</p>
-<div class="tag-plugin image"><div class="image-bg" style="aspect-ratio:919/325;"><img class="lazy" src="https://raw.githubusercontent.com/L-Virus/Pic/main/Blog/20251227145930143.png" data-src="https://raw.githubusercontent.com/L-Virus/Pic/main/Blog/20251227145930143.png" data-fancybox="true"onerror="this.src=&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='2rem' height='2rem' viewBox='0 0 24 24'%3E%3C!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --%3E%3Cpath fill='%23F44336' d='M22 12.698c-.002 1.47-.013 2.718-.096 3.743c-.097 1.19-.296 2.184-.74 3.009a4.2 4.2 0 0 1-.73.983c-.833.833-1.893 1.21-3.237 1.39C15.884 22 14.2 22 12.053 22h-.106c-2.148 0-3.83 0-5.144-.177c-1.343-.18-2.404-.557-3.236-1.39c-.738-.738-1.12-1.656-1.322-2.795c-.2-1.12-.236-2.512-.243-4.241Q1.999 12.737 2 12v-.054c0-2.148 0-3.83.177-5.144c.18-1.343.557-2.404 1.39-3.236s1.893-1.21 3.236-1.39c1.168-.157 2.67-.175 4.499-.177a.697.697 0 1 1 0 1.396c-1.855.002-3.234.018-4.313.163c-1.189.16-1.906.464-2.436.994S3.72 5.8 3.56 6.99C3.397 8.2 3.395 9.788 3.395 12v.784l.932-.814a2.14 2.14 0 0 1 2.922.097l3.99 3.99a1.86 1.86 0 0 0 2.385.207l.278-.195a2.79 2.79 0 0 1 3.471.209l2.633 2.37c.265-.557.423-1.288.507-2.32c.079-.972.09-2.152.091-3.63a.698.698 0 0 1 1.396 0' opacity='.5'/%3E%3Cpath fill='%23F44336' fill-rule='evenodd' d='M17.5 11c-2.121 0-3.182 0-3.841-.659S13 8.621 13 6.5s0-3.182.659-3.841S15.379 2 17.5 2s3.182 0 3.841.659S22 4.379 22 6.5s0 3.182-.659 3.841S19.621 11 17.5 11m-1.47-7.03a.75.75 0 1 0-1.06 1.06l1.47 1.47l-1.47 1.47a.75.75 0 0 0 1.06 1.06l1.47-1.47l1.47 1.47a.75.75 0 1 0 1.06-1.06L18.56 6.5l1.47-1.47a.75.75 0 0 0-1.06-1.06L17.5 5.44z' clip-rule='evenodd'/%3E%3C/svg%3E&quot;"/><div class="lazy-icon" style="background-image:url(https://api.iconify.design/eos-icons:three-dots-loading.svg?color=%231cd0fd);"></div></div></div>
-<h1 id="创建虚拟环境">创建虚拟环境</h1>
-<h2 id="修改当前python版本">修改当前python版本</h2>
-<div class="tag-plugin colorful note" color="green" child="codeblock"><div class="body"><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">uv python pin 3.xx</span><br></pre></td></tr></table></figure></div></div>
-<h2 id="创建虚拟环境指定版本">创建虚拟环境（指定版本）</h2>
-<p>初始化</p>
-<p>执行了<code>uv init</code> 之后，会在当前目录下创建几个文件，同时也会在当前目录下执行git init创建出一个新的git仓库来</p>
-<div class="tag-plugin colorful note" color="green" child="codeblock"><div class="body"><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">uv init </span><br></pre></td></tr></table></figure></div></div>
-<h1 id="配置文件">配置文件</h1>
-<h2 id="用户级别">用户级别</h2>
-<p>在 <code>%APPDATA%\uv\uv.toml</code> 下添加</p>
-<div class="tag-plugin colorful note" color="green" child="codeblock"><div class="body"><figure class="highlight toml"><table><tr><td class="code"><pre><span class="line"><span class="section">[[index]]</span></span><br><span class="line"><span class="attr">url</span> = <span class="string">&quot;https://pypi.tuna.tsinghua.edu.cn/simple&quot;</span></span><br><span class="line"><span class="attr">default</span> = <span class="literal">true</span></span><br></pre></td></tr></table></figure></div></div>
-<h2 id="项目级别">项目级别</h2>
-<p>在 <code>pyproject.toml</code> 中添加</p>
-<div class="tag-plugin colorful note" color="green" child="codeblock"><div class="body"><figure class="highlight toml"><table><tr><td class="code"><pre><span class="line"><span class="section">[[index]]</span></span><br><span class="line"><span class="attr">url</span> = <span class="string">&quot;https://pypi.tuna.tsinghua.edu.cn/simple&quot;</span></span><br><span class="line"><span class="attr">default</span> = <span class="literal">true</span></span><br></pre></td></tr></table></figure></div></div>
-<h2 id="临时">临时</h2>
-<div class="tag-plugin colorful note" color="green" child="codeblock"><div class="body"><figure class="highlight toml"><table><tr><td class="code"><pre><span class="line">uv add --default-index https://pypi.tuna.tsinghua.edu.cn/simple requests</span><br></pre></td></tr></table></figure></div></div>
-]]></content>
-      <tags>
-        <tag>uv</tag>
-        <tag>瞎折腾</tag>
       </tags>
   </entry>
   <entry>
@@ -683,123 +798,8 @@ origin 是远程仓库的别名</p>
 <p>是因为内部有一套缓存机制</p>
 ]]></content>
       <tags>
-        <tag>uv</tag>
         <tag>瞎折腾</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>几种线性回归模型及特征筛选对抗多重共线性</title>
-    <url>/2026/07/02/ML/%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B%E5%8F%8A%E7%89%B9%E5%BE%81%E7%AD%9B%E9%80%89%E5%AF%B9%E6%8A%97%E5%A4%9A%E9%87%8D%E5%85%B1%E7%BA%BF%E6%80%A7/</url>
-    <content><![CDATA[<p>本文基于2025学年-2026学年第二学期的两门课《商业数据分析》与《金融大数据统计方法与实证》中的<strong>线性回归模型</strong>内容进行总结。</p>
-<p>主要包括<strong>线性回归</strong>（全模型回归），<strong>正则化惩罚回归</strong>（Ridge，Lasso，ElasticNet），<strong>逐步回归</strong>（AIC、BIC），针对的是<strong>分类</strong>任务</p>
-<h1 id="一线性回归模型">一、线性回归模型</h1>
-<h2 id="一元线性回归">1.1 一元线性回归</h2>
-<p>对于任意一个样本（<span class="math inline">\(x_i,y_i\)</span>），学习一个函数 <span class="math inline">\(f(x)=wx+b\)</span>，使得 <span class="math inline">\(f(x_i) \approx y_i\)</span></p>
-<p>传统线性模型是基于 OLS 计算求解，也就是普通最小二乘法（Ordinary Least Squares）</p>
-<p><span class="math inline">\((w^{*},\ b^{*})=arg\min \limits_{(w,b)}\sum^m_i(y_i-x_i-b)^2\)</span></p>
-<p>通过对 <span class="math inline">\(w\)</span> 和 <span class="math inline">\(b\)</span> 求导令倒数为0，得到闭式解</p>
-<p><span class="math inline">\(w=\frac{\sum^m_iy_i(x_i-\overline x)}{\sum^m_ix^2_i-\frac{1}{m}(\sum^m_{i=1}x_i)^2}\)</span>， <span class="math inline">\(b=\frac{1}{m}\sum^m_{i=1}(y_i-wx_i)\)</span></p>
-<h2 id="多元线性回归">1.2 多元线性回归</h2>
-<p>对于包含 <span class="math inline">\(d\)</span> 个属性的样本 <span class="math inline">\(x_i=(x_{i1}, x_{i2},\dots,x_{id})\)</span>，学习 <span class="math inline">\(f(x_i)=w^Tx_i+b\)</span>，使得<span class="math inline">\(f(x_i)\approx y_i\)</span></p>
-<p>将<span class="math inline">\(w\)</span> 和 <span class="math inline">\(b\)</span> 合并成向量 <span class="math inline">\(\hat{w}=(w;b)\)</span>， 数据集表示为矩阵 <span class="math inline">\(X\)</span>，输出为向量 <span class="math inline">\(y=(y_1,\dots,y_2)\)</span></p>
-<p>同样使用最小二乘法求解，最小化<span class="math inline">\((y-X\hat w)^T(y-X\hat w)\)</span>，当<span class="math inline">\(X^TX\)</span> 满秩时，有闭式解 <span class="math inline">\(\hat w^*=(X^TX)^{-1}X^Ty\)</span></p>
-<p>当非满秩时，采用正则化处理</p>
-<h1 id="二广义线性回归">二、广义线性回归</h1>
-<p>线性回归可以通过<strong>连接函数</strong>（link function）扩展到非线性输出的场景（例如分类），形成广义线性回归</p>
-<p>一般形式：<span class="math inline">\(y=g^{-1}(w^Tx+b)\)</span></p>
-<p>其中<span class="math inline">\(g(·)\)</span>为连接函数（单调可微），作用是将线性模型的输出映射到目标变量的取值空间。</p>
-<h2 id="逻辑回归">2.1 逻辑回归</h2>
-<p>针对一个二分类任务，我们需要将线性回归模型的结果输出到一个离散空间<span class="math inline">\(\{0,1\}\)</span>中，核心问题是选择合适的连接函数</p>
-<p>以<strong>逻辑回归</strong>为例，其连接函数为对数几率，也就是<strong>正例和反例的相对可能性的对数</strong>，也称<strong>对数几率回归</strong>
-<span class="math display">\[
-ln\frac{y}{1-y}=w^Tx+b
-\]</span>
-求解<span class="math inline">\(y\)</span>得到<span class="math inline">\(y=\frac{1}{1+e^{-z}}\)</span>，其中<span class="math inline">\(z=w^T+b\)</span>，也就是说<span class="math inline">\(y=\frac{1}{1+e^{-(w^Tx+b)}}\)</span></p>
-<p>从包含 <span class="math inline">\(z\)</span> 的式子来看就是一个单调可微的<strong>Sigmoid</strong>函数</p>
-<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="https://raw.githubusercontent.com/L-Virus/Pic/main/Blog/20260702130654711.png" data-src="https://raw.githubusercontent.com/L-Virus/Pic/main/Blog/20260702130654711.png" data-fancybox="true"onerror="this.src=&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='2rem' height='2rem' viewBox='0 0 24 24'%3E%3C!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --%3E%3Cpath fill='%23F44336' d='M22 12.698c-.002 1.47-.013 2.718-.096 3.743c-.097 1.19-.296 2.184-.74 3.009a4.2 4.2 0 0 1-.73.983c-.833.833-1.893 1.21-3.237 1.39C15.884 22 14.2 22 12.053 22h-.106c-2.148 0-3.83 0-5.144-.177c-1.343-.18-2.404-.557-3.236-1.39c-.738-.738-1.12-1.656-1.322-2.795c-.2-1.12-.236-2.512-.243-4.241Q1.999 12.737 2 12v-.054c0-2.148 0-3.83.177-5.144c.18-1.343.557-2.404 1.39-3.236s1.893-1.21 3.236-1.39c1.168-.157 2.67-.175 4.499-.177a.697.697 0 1 1 0 1.396c-1.855.002-3.234.018-4.313.163c-1.189.16-1.906.464-2.436.994S3.72 5.8 3.56 6.99C3.397 8.2 3.395 9.788 3.395 12v.784l.932-.814a2.14 2.14 0 0 1 2.922.097l3.99 3.99a1.86 1.86 0 0 0 2.385.207l.278-.195a2.79 2.79 0 0 1 3.471.209l2.633 2.37c.265-.557.423-1.288.507-2.32c.079-.972.09-2.152.091-3.63a.698.698 0 0 1 1.396 0' opacity='.5'/%3E%3Cpath fill='%23F44336' fill-rule='evenodd' d='M17.5 11c-2.121 0-3.182 0-3.841-.659S13 8.621 13 6.5s0-3.182.659-3.841S15.379 2 17.5 2s3.182 0 3.841.659S22 4.379 22 6.5s0 3.182-.659 3.841S19.621 11 17.5 11m-1.47-7.03a.75.75 0 1 0-1.06 1.06l1.47 1.47l-1.47 1.47a.75.75 0 0 0 1.06 1.06l1.47-1.47l1.47 1.47a.75.75 0 1 0 1.06-1.06L18.56 6.5l1.47-1.47a.75.75 0 0 0-1.06-1.06L17.5 5.44z' clip-rule='evenodd'/%3E%3C/svg%3E&quot;"/><div class="lazy-icon" style="background-image:url(https://api.iconify.design/eos-icons:three-dots-loading.svg?color=%231cd0fd);"></div></div></div>
-<p>注意求解出来的为概率，还需借助<strong>阈值</strong>来判断该样本是正还是负例</p>
-<h1 id="三多重共线性">三、多重共线性</h1>
-<p>线性回归模型中其中一个重要假设前提就是，数据没有共线性，但事实上多重共线性是存在的</p>
-<p>如何解决多重共线性？</p>
-<p>传统手工的方法是，计算VIF值，VIF值越大，多重共线性越严重，一般认为大于10时就是严重的，严格是5。也有利用容差值=1/VIF来计算，大于0.1则没有，严格是大于0.2</p>
-<p>当然也有，计算相关系数，和显著性</p>
-<p>最后利用模型来自主筛选包含了一下两种类型的模型，正则化惩罚的线性回归，基于信息准则的逐步回归模型</p>
-<h1 id="四正则化惩罚的线性回归">四、正则化惩罚的线性回归</h1>
-<p>正则化惩罚主要有三种，基于L2惩罚的Ridge回归，基于L1惩罚的Lasso回归，基于L1和L2惩罚的Elastic Net回归</p>
-<h2 id="ridge回归">4.1 Ridge回归</h2>
-<p>为了解决过拟合和多重共线性</p>
-<p>岭回归的优化目标是：
-<span class="math display">\[
-\hat w_{ridge}=arg\min \limits_{w}(\frac{1}{n}\sum^n_{i=1}(y_i-\hat y_i)^2+\lambda \lVert w \rVert_2^2)
-\]</span>
-其中<span class="math inline">\(\lambda\)</span>为超参数，核心就是后面的<strong>L2范数</strong>，这个项的作用就是<strong>惩罚过大的权重</strong></p>
-<p><span class="math inline">\(\lambda\)</span> 是正则化强度超参数，当<span class="math inline">\(\lambda\)</span>为0时，退化为普通的线性回归，当<span class="math inline">\(\lambda\)</span>逐渐增大后，模型为了让整体优化变小，只能不断降低权重<span class="math inline">\(w\)</span>，当<span class="math inline">\(\lambda\)</span>为无穷时，<span class="math inline">\(w\)</span>将无限接近于0，会导致整个模型过于简单，容易过拟合</p>
-<p>核心思想：在拟合训练数据和保持权重较小的trade-off</p>
-<h2 id="lasso">4.2 Lasso</h2>
-<p>Least Absolute Shrinkage and Selection Operator</p>
-<p>通过引入<strong>L1 正则化</strong>，使得某些回归系数趋近于零，甚至直接变为零，从而实现变量选择的功能</p>
-<p>Lasso的优化目标是：
-<span class="math display">\[
-\hat w_{lasso}=arg\min \limits_{w}(\sum^{n}_{i=1}(y_i-\hat y_i)^2+\lambda \lvert w \rvert)
-\]</span>
-其中<span class="math inline">\(\lambda\)</span>为超参数</p>
-<p>核心思想：通过强行压缩<span class="math inline">\(w\)</span>为0，进行变量选择</p>
-<h2 id="elastic-net">4.3 Elastic Net</h2>
-<p>根据<strong>Ridge</strong>的<strong>L2范数</strong>收缩<span class="math inline">\(w\)</span>，和 <strong>Lasso</strong>的<strong>L1范数</strong>压缩<span class="math inline">\(w\)</span>到0</p>
-<p>如果单独使用上述两种模型，可能会出现全部变量都保留失去筛选的能力，筛选了部分变量但是其他都丢弃了。</p>
-<p>因此Elastic Net 的提出是为了既能变量筛选又能保持模型稳定</p>
-<p>Elastic Net的优化目标：
-<span class="math display">\[
-\hat{w}_{elastic}=arg\min\limits_{w}(\frac{1}{n}\sum^n_{i=1}(y_i-\hat y_i)^2+\lambda(\alpha\sum_{j=1}^p\lvert w_j \rvert+(1-\alpha)\sum^p_{j=1}w_j^2))
-\]</span>
-其中<span class="math inline">\(\lambda\)</span>和<span class="math inline">\(\alpha\)</span>都为超参数，<span class="math inline">\(\lambda\)</span>控制正则化强度，<span class="math inline">\(\alpha\)</span>控制两种范数惩罚的比例，<span class="math inline">\(p\)</span>是变量个数</p>
-<p>引入了<strong>L1</strong>和<strong>L2</strong>两种范数</p>
-<h1 id="五逐步回归">五、逐步回归</h1>
-<p>逐步回归是一种变量选择的方法，通过从大量的变量中提取对label有显著影响的变量，缓解一定的多重共线性</p>
-<p>基于信息准则的逐步回归包括，前向、后向、双向，以及AIC与BIC（以这两种为例子）</p>
-<h2 id="方向选择">5.1 方向选择</h2>
-<h4 id="前向选择">（1）前向选择</h4>
-<p>初始：仅包含截距项</p>
-<p>过程：1. 在所有未被选入的变量中，选择一个对因变量有显著影响的变量</p>
-<pre><code>    2. 评估加入变量后的模型性能
-    2. 重复前面两步，直到没有自变量显著提高模型性能</code></pre>
-<h4 id="后向剔除">（2）后向剔除</h4>
-<p>初始：包含所有变量</p>
-<p>过程：1. 评估所有变量，将最不显著的变量剔除</p>
-<ol start="2" type="1">
-<li>重新评估性能</li>
-<li>重复前面两步，直到所有变量均显著</li>
-</ol>
-<h4 id="双向">（3）双向</h4>
-<ol type="1">
-<li>类似向前选择，逐步添加自变量。</li>
-<li>在每一步添加后，评估现有自变量的显著性，剔除不显著的变量。</li>
-<li>重复添加和剔除，直到模型收敛。</li>
-</ol>
-<h2 id="设置准则">5.2 设置准则</h2>
-<p>可以设置显著性水平也可以利用信息准则，AIC 和 BIC 都是越小越好</p>
-<h3 id="aic信息准则">5.2.1 AIC信息准则</h3>
-<p>赤池信息量准则（Akaike information criterion，AIC）
-<span class="math display">\[
-AIC=2k-2ln(L)
-\]</span>
-其中，<span class="math inline">\(k\)</span>是参数的数量，<span class="math inline">\(L\)</span>是似然函数</p>
-<h3 id="bic信息准则">5.2.2 BIC信息准则</h3>
-<p><span class="math display">\[
-BIC=kln(n)-2ln(L)
-\]</span></p>
-<p>其中，<span class="math inline">\(k\)</span>是模型参数个数，<span class="math inline">\(n\)</span>是样本数量</p>
-<p>惩罚力度比AIC强，即考虑到了模型复杂度，也考虑到了拟合结果</p>
-<h1 id="六实验见解">六、实验见解</h1>
-<p>基于目前实验探索的阶段，提出一些见解，如有错解，请联系修改！</p>
-<p>在划分数据集为训练、验证和测试后，利用某个指标对各个模型进行训练，针对每个模型的阈值利用验证集和某个指标进行测试，最后将测试集送入模型进行测试，输出对应概率，利用测试出来的最佳阈值来进行测试模型最终的性能。</p>
-]]></content>
-      <tags>
-        <tag>ML</tag>
-        <tag>线性模型</tag>
-        <tag>线性回归</tag>
-        <tag>逐步回归</tag>
-        <tag>正则化</tag>
+        <tag>uv</tag>
       </tags>
   </entry>
 </search>
